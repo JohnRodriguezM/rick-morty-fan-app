@@ -8,7 +8,7 @@ export const fetchData = async (
     const { results } = await res.json();
 
     setD(results);
-    setD2(results); 
+    setD2(results);
   } catch (err) {
     console.log(err);
   }

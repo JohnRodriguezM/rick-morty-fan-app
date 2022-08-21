@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+//!css
 import "./css/defaultCss/App.css";
 
+//!hooks
 import { useFetch } from "./hooks/useFetch";
 
+//!components
 import { Loader } from "./components/Loader/Loader";
+
 import { GetCharacters } from "./components/Characters/GetCharacters";
 
 const App = () => {
-  /*se realiza una prueba, en un momento se procede a borrar la misma*/
+  //!estados de la app
+  const [dataCharacter, setDataCharacter] = useState<any>([]);
+  const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>([]);
+
+  const deleteCharacter = (id: string | number) => {
+    console.log(id);
+    const dataFilter = dataCharacter.filter((el: any) => el.id !== id);
+    /*console.log("hola");*/
+    console.log(dataFilter);
+    setDataCharacter(dataFilter);
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <GetCharacters/>
-        {/* se deja el condicional del data.lenght por seguridad de carga*/}
-        {/*en el momento en que data.length sea true, simplemente la condicion no se cumple y el loader pasa a false*/}
-        {/*{loading && data.length === 0 ? (
-          <div>
-            <Loader font={80} />
-          </div>
-        ) : (
-          <ul>
-            {data.map((user: any) => (
-              <li key={user.id}>{user.name}</li>
-            ))}
-          </ul>
-        )}*/}
+        <GetCharacters
+          dataCharacter={dataCharacter}
+          setDataCharacter={setDataCharacter}
+          dataBackUpCharacter={dataBackUpCharacter}
+          setDataBackUpCharacter={setDataBackUpCharacter}
+          deleteCharacter={deleteCharacter}
+        />
       </header>
     </div>
   );
