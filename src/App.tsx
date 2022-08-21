@@ -8,9 +8,6 @@ import { GetCharacters } from "./components/Characters/GetCharacters";
 
 const App = () => {
   /*se realiza una prueba, en un momento se procede a borrar la misma*/
-  const [data, loading, error] = useFetch(
-    "https://jsonplaceholder.typicode.com/users"
-  );
 
   return (
     <div className="App">
@@ -18,7 +15,7 @@ const App = () => {
         <GetCharacters/>
         {/* se deja el condicional del data.lenght por seguridad de carga*/}
         {/*en el momento en que data.length sea true, simplemente la condicion no se cumple y el loader pasa a false*/}
-        {loading && data.length === 0 ? (
+        {/*{loading && data.length === 0 ? (
           <div>
             <Loader font={80} />
           </div>
@@ -28,7 +25,7 @@ const App = () => {
               <li key={user.id}>{user.name}</li>
             ))}
           </ul>
-        )}
+        )}*/}
       </header>
     </div>
   );
