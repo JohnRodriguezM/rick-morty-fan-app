@@ -7,14 +7,20 @@ import "./css/defaultCss/App.css";
 import { useFetch } from "./hooks/useFetch";
 
 //!components
-import { Loader } from "./components/Loader/Loader";
+import { Loader } from "./atomos/Loader/Loader";
 
 import { GetCharacters } from "./components/Characters/GetCharacters";
 
+//!react router DOM
+import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
+
 const App = () => {
   //!estados de la app
-  const [dataCharacter, setDataCharacter] = useState<any>([]);
-  const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>([]);
+
+  const db: any[] = [];
+
+  const [dataCharacter, setDataCharacter] = useState<any>(db);
+  const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
 
   const deleteCharacter = (id: string | number) => {
     console.log(id);
@@ -24,18 +30,36 @@ const App = () => {
     setDataCharacter(dataFilter);
   };
 
+  const findCharacter = (searchInput: string) => {
+    const arrayResults = dataBackUpCharacter.filter((el: any) => {
+      let text = el.name.toLowerCase();
+      let searchedValue = searchInput.toLowerCase();
+      /*console.log(searchedValue);*/
+      if (text.includes(searchedValue)) return el;
+    });
+    setDataCharacter(arrayResults);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <GetCharacters
-          dataCharacter={dataCharacter}
-          setDataCharacter={setDataCharacter}
-          dataBackUpCharacter={dataBackUpCharacter}
-          setDataBackUpCharacter={setDataBackUpCharacter}
-          deleteCharacter={deleteCharacter}
-        />
-      </header>
-    </div>
+    <section className="App">
+      <BrRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <GetCharacters
+                dataCharacter={dataCharacter}
+                setDataCharacter={setDataCharacter}
+                dataBackUpCharacter={dataBackUpCharacter}
+                setDataBackUpCharacter={setDataBackUpCharacter}
+                deleteCharacter={deleteCharacter}
+                findCharacter={findCharacter}
+              />
+            }
+          />
+        </Routes>
+      </BrRouter>
+    </section>
   );
 };
 

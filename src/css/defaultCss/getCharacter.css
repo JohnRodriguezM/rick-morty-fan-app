@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.section-character{
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.section-character img{
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+.section-character button{
+ /* width: 80px;
+  background-color: #255874;*/
+}

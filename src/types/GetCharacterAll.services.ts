@@ -7,4 +7,5 @@ export interface GetCharacterIn {
   dataBackUpCharacter: any[];
   setDataBackUpCharacter : Function;
   deleteCharacter: Function;
+  findCharacter:Function;
 }
