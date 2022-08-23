@@ -72,7 +72,7 @@ export const GetCharacters: FC<GetCharacterIn> = ({
             );
           })}
       </>
-      <Link to = "/character" >Ir a characters</Link>
+      <Link to = "/character/" >Ir a characters</Link>
     </div>
   );
 };

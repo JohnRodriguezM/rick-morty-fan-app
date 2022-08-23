@@ -19,6 +19,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
+    "bulma": "^0.9.4",
     "firebase": "^9.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

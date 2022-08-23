@@ -13,6 +13,8 @@ import { GetCharacters } from "./components/Characters/GetCharacters";
 
 //!react router DOM
 import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
+import { Header } from "./atomos/Header/Header";
+import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 
 const App = () => {
   //!estados de la app
@@ -21,6 +23,9 @@ const App = () => {
 
   const [dataCharacter, setDataCharacter] = useState<any>(db);
   const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
+
+  const [idCharacter, setIdCharacter] = useState<string>("");
+  const [dataSpecifCharacter, setDataSpecifCharacter] = useState<any>([]);
 
   const deleteCharacter = (id: string | number) => {
     console.log(id);
@@ -40,10 +45,33 @@ const App = () => {
     setDataCharacter(arrayResults);
   };
 
+  //*specific characters
+  useEffect(() => {
+    const getData = async (url: string) => {
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        setDataSpecifCharacter(json);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData(`https://rickandmortyapi.com/api/character/${idCharacter}`);
+  }, [idCharacter]);
+
   return (
     <section className="App">
       <BrRouter>
+        <Header idCharacter={idCharacter} setIdCharacter={setIdCharacter} dataCharacter = {dataCharacter}/>
         <Routes>
+          <Route
+            path={`/character/:Id`}
+            element={
+              <ViewSpecificCharacter
+                dataSpecifCharacter={dataSpecifCharacter}
+              />
+            }
+          />
           <Route
             path="/"
             element={

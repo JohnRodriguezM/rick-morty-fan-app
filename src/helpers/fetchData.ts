@@ -1,6 +1,6 @@
 export const fetchData = async (
   url: string,
-  setD: Function,
+  setD: Function = () => {},
   setD2: Function = () => {}
 ) => {
   try {
