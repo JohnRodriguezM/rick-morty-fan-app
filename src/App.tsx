@@ -15,6 +15,7 @@ import { GetCharacters } from "./components/Characters/GetCharacters";
 import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./atomos/Header/Header";
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
+import { OptionHeader } from "./OptionHeader";
 
 const App = () => {
   //!estados de la app
@@ -62,6 +63,7 @@ const App = () => {
   return (
     <section className="App">
       <BrRouter>
+      <OptionHeader/>
         <Header idCharacter={idCharacter} setIdCharacter={setIdCharacter} dataCharacter = {dataCharacter}/>
         <Routes>
           <Route

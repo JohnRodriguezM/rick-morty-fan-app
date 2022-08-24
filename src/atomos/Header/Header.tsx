@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 
+//!css file
+import "../../css/defaultCss/Header.css";
+
 //*establecer condiciones de la recibidad de props
 export const Header = (props: any) => {
-  const handleChangeId = (e: any) => {
-    props.setIdCharacter(e.target.value);
+  const [displayDiv, setDisplayDiv] = useState(false);
+
+  const handleDisplay = (e: any) => {
+    setDisplayDiv(!displayDiv);
   };
 
-/*  const pr = useParams();
-  console.log("soy pr ", pr);
-*/
+  const handleClickChangeId = (e: any) => {
+    props.setIdCharacter(e.target.id);
+    console.log(e.target.id);
+  };
+
   return (
     <header style={{ height: "100px" }}>
       <nav>
@@ -21,22 +28,30 @@ export const Header = (props: any) => {
         </section>
         <section>
           <ul>
-            <li>
-
-              <div>
-                {props.dataCharacter.map((el:any) => {
-                  return(
-                    <NavLink to = {`/character/${el.id}`}>
-                      visit ${el.name}
-                    </NavLink>
-                  )
+            <>
+              {/*manejar este div con un toggle para que al hacer click aparezca como un desplegable*/}
+              <p onClick={handleDisplay}>see</p>
+              <div
+                
+                className={`${displayDiv ? 'active' : 'inactive'}`}
+              >
+                Look specific character
+                {props.dataCharacter.map((el: any) => {
+                  return (
+                    <li key={el.id} onClick={handleClickChangeId}>
+                      <Link
+                        to={`/character/${el.id}`}
+                        onClick={handleClickChangeId}
+                        id={el.id}
+                      >
+                        visit {el.name}
+                      </Link>
+                    </li>
+                  );
                 })}
               </div>
 
-
-
-
-{/*
+              {/*
                 <select name="" id="" onChange={handleChangeId}>
              <NavLink to={`/character/${props.idCharacter}`}>
                   <option value="1">1</option>
@@ -61,7 +76,7 @@ export const Header = (props: any) => {
                 <option value=""></option>
                 <option value=""></option>
                 <option value=""></option>*/}
-            </li>
+            </>
             <li></li>
             <li></li>
             <li></li>
