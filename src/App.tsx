@@ -21,8 +21,12 @@ const App = () => {
   //!estados de la app
 
   const db: any[] = [];
+  const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
 
-  const [dataCharacter, setDataCharacter] = useState<any>(db);
+  const [dataCharacter, setDataCharacter] = useState<any>(
+    JSON.parse(recoveryCharacter) || db
+  );
+
   const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
 
   const [idCharacter, setIdCharacter] = useState<string>("");
@@ -63,8 +67,10 @@ const App = () => {
   //!uso del useLocalStorage
 
   const setLocalStorage = (value: any) => {
+    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
     setDataCharacter(value);
-    window.localStorage.setItem("dataAllCharacters", value);
+    /*setDataBackUpCharacter(value)*/
+    window.localStorage.setItem("dataAllCharacters", JSON.stringify(value));
   };
 
   return (

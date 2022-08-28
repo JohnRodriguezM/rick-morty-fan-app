@@ -21,6 +21,7 @@ import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 import { Link } from "react-router-dom";
 
 export const GetCharacters: FC<GetCharacterIn> = ({
+  setLocalStorage,
   dataCharacter,
   setDataCharacter,
   dataBackUpCharacter,
@@ -31,7 +32,7 @@ export const GetCharacters: FC<GetCharacterIn> = ({
   //* manejo de data provisional, manejando de manera visual momentanea
   /*  const [dataUI, setDataUI] = useState<any>(null); */
   useEffect(() => {
-    fetchData(getAllCharacter, setDataCharacter, setDataBackUpCharacter);
+    fetchData(getAllCharacter, setLocalStorage, setDataBackUpCharacter);
   }, []);
 
   return (
