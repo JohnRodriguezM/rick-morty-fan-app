@@ -60,11 +60,27 @@ const App = () => {
     getData(`https://rickandmortyapi.com/api/character/${idCharacter}`);
   }, [idCharacter]);
 
+  //!uso del useLocalStorage
+
+  const setLocalStorage = (value: any) => {
+    setDataCharacter(value);
+    window.localStorage.setItem("dataAllCharacters", value);
+  };
+
   return (
     <section className="App">
       <BrRouter>
-      <OptionHeader/>
-        <Header idCharacter={idCharacter} setIdCharacter={setIdCharacter} dataCharacter = {dataCharacter}/>
+        {/*este va a ser el nuevo main header*/}
+        <OptionHeader
+          dataCharacter={dataCharacter}
+          idCharacter={idCharacter}
+          setIdCharacter={setIdCharacter}
+        />
+        <Header
+          idCharacter={idCharacter}
+          setIdCharacter={setIdCharacter}
+          dataCharacter={dataCharacter}
+        />
         <Routes>
           <Route
             path={`/character/:Id`}
@@ -78,6 +94,7 @@ const App = () => {
             path="/"
             element={
               <GetCharacters
+                setLocalStorage={setLocalStorage}
                 dataCharacter={dataCharacter}
                 setDataCharacter={setDataCharacter}
                 dataBackUpCharacter={dataBackUpCharacter}
