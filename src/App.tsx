@@ -21,6 +21,7 @@ const App = () => {
   //!estados de la app
 
   const db: any[] = [];
+  //! recuperación del elemento a través de local storage
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
 
   const [dataCharacter, setDataCharacter] = useState<any>(
