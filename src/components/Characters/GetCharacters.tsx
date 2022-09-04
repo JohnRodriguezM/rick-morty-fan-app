@@ -1,4 +1,5 @@
-import { useState, useEffect, FC, ReactComponentElement } from "react";
+
+import { useState, useEffect, FC } from "react";
 
 //!css
 import "../../css/defaultCss/getCharacter.css";
