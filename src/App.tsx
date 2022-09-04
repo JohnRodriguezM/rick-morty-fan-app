@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 //!css
 import "./css/defaultCss/App.css";
 
-<<<<<<< HEAD
 //!hooks
 import { useFetch } from "./hooks/useFetch";
 
@@ -28,9 +27,6 @@ const App = () => {
   const [dataCharacter, setDataCharacter] = useState<any>(
     JSON.parse(recoveryCharacter) || db
   );
-=======
-const App = () => {
->>>>>>> d5b86599a0638785155208b5db82f78877f75cb7
 
   const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
 
@@ -79,7 +75,6 @@ const App = () => {
   };
 
   return (
-<<<<<<< HEAD
     <section className="App">
       <BrRouter>
         {/*este va a ser el nuevo main header*/}
@@ -119,10 +114,6 @@ const App = () => {
         </Routes>
       </BrRouter>
     </section>
-=======
-    <div className="App">
-    </div>
->>>>>>> d5b86599a0638785155208b5db82f78877f75cb7
   );
 };
 
