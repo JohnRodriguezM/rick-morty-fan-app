@@ -18,9 +18,17 @@ import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSp
 import { OptionHeader } from "./OptionHeader";
 
 //!funcion que maneja el popup de gogle
-import { signInWithGoogle } from "./firebase/auth";
 
+import { login } from "./firebase/main";
 const App = () => {
+  //!manejo del estado de autenticación con google
+
+  const [google, setGoogle] = useState<any>(null);
+
+  /* const login = () => {
+   alert('hola')
+  }*/
+
   //!estados de la app
 
   const db: any[] = [];
@@ -35,14 +43,6 @@ const App = () => {
 
   const [idCharacter, setIdCharacter] = useState<string>("");
   const [dataSpecifCharacter, setDataSpecifCharacter] = useState<any>([]);
-
-
-
-  //!manejo del estado de autenticación con google
-
-    const [google, setGoogle] = useState(null)
-
-
 
   const deleteCharacter = (id: string | number) => {
     console.log(id);
@@ -88,10 +88,9 @@ const App = () => {
   return (
     <section className="App">
       <BrRouter>
-      <button 
-      
-        onClick = {() => signInWithGoogle(setGoogle)}
-      style = {{marginTop: '45px'}}>iniciar con google</button>
+        <button onClick={login} style={{ marginTop: "45px" }}>
+          iniciar con google
+        </button>
         {/*este va a ser el nuevo main header*/}
         <OptionHeader
           dataCharacter={dataCharacter}

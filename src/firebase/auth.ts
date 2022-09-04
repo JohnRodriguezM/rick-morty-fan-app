@@ -1,25 +1,5 @@
-import { 
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-} from './main'
+import React from 'react'
 
-const provider = new GoogleAuthProvider();
+export const authh = () => {
 
-const auth = getAuth();
-
-export const signInWithGoogle = (actulizador: Function) => {
-  const signIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      actulizador(result.user);
-    } catch (error: any) {
-      console.log(error);
-      console.log(error.code);
-      console.log(error.message);
-    }
-  };
-
-  signIn();
-};
+}
