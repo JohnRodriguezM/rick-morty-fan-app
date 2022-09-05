@@ -17,23 +17,27 @@ import { Header } from "./atomos/Header/Header";
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 import { OptionHeader } from "./OptionHeader";
 
-//!funcion que maneja el popup de gogle
+//*import page de la vista de autenticación
 
-import { login } from "./firebase/main";
+import { AuthView } from "./pages/AuthView";
+
+import { login, getOutApp, auth } from "./firebase/main";
+
+
 const App = () => {
+  //! recuperación del elemento a través de local storage
+  const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
+  const recoveryDataGoogle: any = localStorage.getItem("googleToken");
+
   //!manejo del estado de autenticación con google
 
-  const [google, setGoogle] = useState<any>(null);
-
-  /* const login = () => {
-   alert('hola')
-  }*/
+  const [google, setGoogle] = useState<any>(
+     "" || JSON.parse(recoveryDataGoogle)
+  );
 
   //!estados de la app
 
   const db: any[] = [];
-  //! recuperación del elemento a través de local storage
-  const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
 
   const [dataCharacter, setDataCharacter] = useState<any>(
     JSON.parse(recoveryCharacter) || db
@@ -85,47 +89,62 @@ const App = () => {
     window.localStorage.setItem("dataAllCharacters", JSON.stringify(value));
   };
 
+  const setLocalStorageGoogle = (value: any) => {
+    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
+    setGoogle(value);
+    /*setDataBackUpCharacter(value)*/
+    window.localStorage.setItem("googleToken", JSON.stringify(value));
+  };
+
   return (
     <section className="App">
       <BrRouter>
-        <button onClick={login} style={{ marginTop: "45px" }}>
-          iniciar con google
-        </button>
         {/*este va a ser el nuevo main header*/}
-        <OptionHeader
-          dataCharacter={dataCharacter}
-          idCharacter={idCharacter}
-          setIdCharacter={setIdCharacter}
-        />
-        <Header
-          idCharacter={idCharacter}
-          setIdCharacter={setIdCharacter}
-          dataCharacter={dataCharacter}
-        />
-        <Routes>
-          <Route
-            path={`/character/:Id`}
-            element={
-              <ViewSpecificCharacter
-                dataSpecifCharacter={dataSpecifCharacter}
+        {/* este inicio de sesión se debe acomodar solo dentro de una page aparte pero por el momento se procede a dejar así*/}
+        {!google && (
+          <button
+            onClick={() => login(setLocalStorageGoogle)}
+            style={{ marginTop: "45px" }}
+          >
+            iniciar con google
+          </button>
+        )}
+        {google && (
+          <>
+            <OptionHeader
+              dataCharacter={dataCharacter}
+              idCharacter={idCharacter}
+              setIdCharacter={setIdCharacter}
+            />
+
+            <AuthView google={google} getOutApp = {getOutApp} setGoogle = {setGoogle}/>
+            <Routes>
+              <Route
+                path={`/character/:Id`}
+                element={
+                  <ViewSpecificCharacter
+                    dataSpecifCharacter={dataSpecifCharacter}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <GetCharacters
-                setLocalStorage={setLocalStorage}
-                dataCharacter={dataCharacter}
-                setDataCharacter={setDataCharacter}
-                dataBackUpCharacter={dataBackUpCharacter}
-                setDataBackUpCharacter={setDataBackUpCharacter}
-                deleteCharacter={deleteCharacter}
-                findCharacter={findCharacter}
+
+              <Route
+                path="/"
+                element={
+                  <GetCharacters
+                    setLocalStorage={setLocalStorage}
+                    dataCharacter={dataCharacter}
+                    setDataCharacter={setDataCharacter}
+                    dataBackUpCharacter={dataBackUpCharacter}
+                    setDataBackUpCharacter={setDataBackUpCharacter}
+                    deleteCharacter={deleteCharacter}
+                    findCharacter={findCharacter}
+                  />
+                }
               />
-            }
-          />
-        </Routes>
+            </Routes>
+          </>
+        )}
       </BrRouter>
     </section>
   );

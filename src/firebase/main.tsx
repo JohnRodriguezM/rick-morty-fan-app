@@ -21,10 +21,27 @@ export const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
-const auth = getAuth();
+export const auth = getAuth();
 
-export const login = () => {
-  signInWithPopup(auth,provider).then((result:any) => {
-    console.log(result)
-  })
+export const login = async(actualizador: Function) => {
+  try{
+    const sign = await signInWithPopup(auth,provider);
+    console.log(sign)
+    actualizador(sign)
+  }catch(err){
+    console.log(err)
+  }
+  /*signInWithPopup(auth,provider).then((result:any) => {
+
+  })*/
 };
+
+export const getOutApp = async () => {
+  try{
+    await signOut(auth)
+    /*window.localStorage.setItem("googleToken", JSON.stringify(auth));*/
+    console.log(auth);
+  }catch(err){
+    console.log(err);
+  }
+}
