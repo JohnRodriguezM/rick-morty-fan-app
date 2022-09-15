@@ -14,7 +14,7 @@ export const AuthView: FC<AUTHVIEW> = ({
 }): any => {
   return (
     <div>
-      <h1>hola {google.user.displayName}</h1>
+      <h1>hola {google?.user.displayName}</h1>
       <button
         onClick={() => {
           setGoogle(false);

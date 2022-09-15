@@ -21,7 +21,8 @@ import { OptionHeader } from "./OptionHeader";
 
 import { AuthView } from "./pages/AuthView";
 
-import { login, getOutApp, auth } from "./firebase/main";
+import { login, getOutApp } from "./firebase/main";
+import { AuthEmailPassword } from "./pages/AuthEmailPassword";
 
 
 const App = () => {
@@ -31,8 +32,8 @@ const App = () => {
 
   //!manejo del estado de autenticación con google
 
-  const [google, setGoogle] = useState<any>(
-     "" || JSON.parse(recoveryDataGoogle)
+  const [authState, setAuthState] = useState<any>(
+     ""
   );
 
   //!estados de la app
@@ -65,7 +66,12 @@ const App = () => {
     });
     setDataCharacter(arrayResults);
   };
-
+//*change state initi session
+ /* useEffect(() => {
+    window.addEventListener("DOMContentLoaded", () => {
+      set
+    });
+  })*/
   //*specific characters
   useEffect(() => {
     const getData = async (url: string) => {
@@ -91,7 +97,7 @@ const App = () => {
 
   const setLocalStorageGoogle = (value: any) => {
     //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    setGoogle(value);
+    setAuthState(value);
     /*setDataBackUpCharacter(value)*/
     window.localStorage.setItem("googleToken", JSON.stringify(value));
   };
@@ -101,15 +107,24 @@ const App = () => {
       <BrRouter>
         {/*este va a ser el nuevo main header*/}
         {/* este inicio de sesión se debe acomodar solo dentro de una page aparte pero por el momento se procede a dejar así*/}
-        {!google && (
+        {!authState && (
+          <>
           <button
             onClick={() => login(setLocalStorageGoogle)}
             style={{ marginTop: "45px" }}
           >
             iniciar con google
           </button>
+
+          <div>sign up</div>
+          <div>
+            <AuthEmailPassword/>
+          </div>
+
+
+          </>
         )}
-        {google && (
+        {authState && (
           <>
             <OptionHeader
               dataCharacter={dataCharacter}
@@ -117,7 +132,7 @@ const App = () => {
               setIdCharacter={setIdCharacter}
             />
 
-            <AuthView google={google} getOutApp = {getOutApp} setGoogle = {setGoogle}/>
+            <AuthView google={authState} getOutApp = {getOutApp} setGoogle = {setAuthState}/>
             <Routes>
               <Route
                 path={`/character/:Id`}
