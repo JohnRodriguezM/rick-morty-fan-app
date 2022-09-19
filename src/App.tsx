@@ -13,9 +13,9 @@ import { GetCharacters } from "./components/Characters/GetCharacters";
 
 //!react router DOM
 import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
-import { Header } from "./atomos/Header/Header";
+
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
-import { OptionHeader } from "./OptionHeader";
+import { Header } from "./atomos/Header/Header";
 
 //*import page de la vista de autenticación
 
@@ -23,7 +23,6 @@ import { AuthView } from "./pages/AuthView";
 
 import { login, getOutApp } from "./firebase/main";
 import { AuthEmailPassword } from "./pages/AuthEmailPassword";
-
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -33,7 +32,7 @@ const App = () => {
   //!manejo del estado de autenticación con google
 
   const [authState, setAuthState] = useState<any>(
-     ""
+    "" || JSON.parse(recoveryDataGoogle)
   );
 
   //!estados de la app
@@ -45,9 +44,6 @@ const App = () => {
   );
 
   const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
-
-  const [idCharacter, setIdCharacter] = useState<string>("");
-  const [dataSpecifCharacter, setDataSpecifCharacter] = useState<any>([]);
 
   const deleteCharacter = (id: string | number) => {
     console.log(id);
@@ -66,14 +62,14 @@ const App = () => {
     });
     setDataCharacter(arrayResults);
   };
-//*change state initi session
- /* useEffect(() => {
+  //*change state initi session
+  /* useEffect(() => {
     window.addEventListener("DOMContentLoaded", () => {
       set
     });
   })*/
   //*specific characters
-  useEffect(() => {
+  /*  useEffect(() => {
     const getData = async (url: string) => {
       try {
         const res = await fetch(url);
@@ -84,7 +80,7 @@ const App = () => {
       }
     };
     getData(`https://rickandmortyapi.com/api/character/${idCharacter}`);
-  }, [idCharacter]);
+  }, [idCharacter]);*/
 
   //!uso del useLocalStorage
 
@@ -109,38 +105,32 @@ const App = () => {
         {/* este inicio de sesión se debe acomodar solo dentro de una page aparte pero por el momento se procede a dejar así*/}
         {!authState && (
           <>
-          <button
-            onClick={() => login(setLocalStorageGoogle)}
-            style={{ marginTop: "45px" }}
-          >
-            iniciar con google
-          </button>
+            <button
+              onClick={() => login(setLocalStorageGoogle)}
+              style={{ marginTop: "45px" }}
+            >
+              iniciar con google
+            </button>
 
-          <div>sign up</div>
-          <div>
-            <AuthEmailPassword/>
-          </div>
-
-
+            <div>sign up</div>
+            <div>
+              <AuthEmailPassword />
+            </div>
           </>
         )}
         {authState && (
           <>
-            <OptionHeader
-              dataCharacter={dataCharacter}
-              idCharacter={idCharacter}
-              setIdCharacter={setIdCharacter}
-            />
+            <Header dataCharacter={dataCharacter} />
 
-            <AuthView google={authState} getOutApp = {getOutApp} setGoogle = {setAuthState}/>
+            <AuthView
+              google={authState}
+              getOutApp={getOutApp}
+              setGoogle={setAuthState}
+            />
             <Routes>
               <Route
                 path={`/character/:Id`}
-                element={
-                  <ViewSpecificCharacter
-                    dataSpecifCharacter={dataSpecifCharacter}
-                  />
-                }
+                element={<ViewSpecificCharacter />}
               />
 
               <Route
