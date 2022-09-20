@@ -18,6 +18,7 @@ export const AuthView: FC<AUTHVIEW> = ({
       <button
         onClick={() => {
           setGoogle(false);
+          localStorage.removeItem("googleToken");
           getOutApp();
         }}
       >

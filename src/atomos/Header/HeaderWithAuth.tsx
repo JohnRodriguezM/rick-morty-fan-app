@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 //* css files
 import "../../css/defaultCss/Header.css";
 
-export const Header = (props: any) => {
+export const HeaderWithAuth = (props: any) => {
 
 
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
@@ -29,7 +29,7 @@ export const Header = (props: any) => {
   return (
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center border-b-2 border-gray-100 py-5 md:justify-start md:space-x-10">
+        <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
 
             {

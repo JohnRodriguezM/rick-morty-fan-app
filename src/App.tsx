@@ -15,14 +15,16 @@ import { GetCharacters } from "./components/Characters/GetCharacters";
 import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
 
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
-import { Header } from "./atomos/Header/Header";
+
+import { HeaderWithOutAuth } from "./atomos/Header/HeaderWithOutAuth";
+import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 
 //*import page de la vista de autenticación
 
 import { AuthView } from "./pages/AuthView";
 
 import { login, getOutApp } from "./firebase/main";
-import { AuthEmailPassword } from "./pages/AuthEmailPassword";
+import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -105,6 +107,10 @@ const App = () => {
         {/* este inicio de sesión se debe acomodar solo dentro de una page aparte pero por el momento se procede a dejar así*/}
         {!authState && (
           <>
+            <HeaderWithOutAuth />
+
+
+
             <button
               onClick={() => login(setLocalStorageGoogle)}
               style={{ marginTop: "45px" }}
@@ -114,13 +120,13 @@ const App = () => {
 
             <div>sign up</div>
             <div>
-              <AuthEmailPassword />
+              <SignUpEmailPassword />
             </div>
           </>
         )}
         {authState && (
           <>
-            <Header dataCharacter={dataCharacter} />
+            <HeaderWithAuth dataCharacter={dataCharacter} />
 
             <AuthView
               google={authState}

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .App {
-  background-color: #282c3490;
+  background-color: #282c3440;
   min-height: 100vh;
 /*  display: flex;
   flex-direction: column;
