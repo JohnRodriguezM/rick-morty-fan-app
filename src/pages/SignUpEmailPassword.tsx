@@ -9,57 +9,71 @@ import { createUserFirebaseEmail, auth } from "../firebase/main";
 /*import Box from '@mui/material/Box';*/
 import TextField from "@mui/material/TextField";
 
-export const SignUpEmailPassword = () => {
-  const initialState = {
-    email: "",
-    password: "",
-  };
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
 
+import { InputText } from "../atomos/InputText/InputText";
+
+const requiredFields: { [key: string]: any } = {};
+
+const validationSchema = Yup.object({ ...requiredFields });
+
+const initialState = {
+  email: "",
+  password: "",
+};
+
+export const SignUpEmailPassword = () => {
   const [form, setForm] = useState(initialState);
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
+  const handleSubmit = (values: any) => {
+    setForm(values);
+    createUserFirebaseEmail(auth, values.email, values.password);
+  };
+
+  const validation = (values: any) => {
+    let errors = {
+      email: "",
+      password: "",
+    };
+
+    if (!values.email) {
+      errors.email = "Name is required!";
+    }
+    if ( values.password.length < 6) {
+      errors.password = "Name has to be 1 character at less!";
+    }
+
+    return errors;
   };
 
   return (
-    <div>
-      <br />
-      <br />
-      <h1>sign up AuthEmailPassword</h1> <br />
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createUserFirebaseEmail(auth, form.email, form.password);
-        }}
-      >
-        {/*<input type="email" name="email" onChange={handleChange} value = {form.email} placeholder="example@gmail.com"/> */}
-        <TextField
-          type="email"
-          id="outlined-basic"
-          label="email"
-          variant="outlined"
-          onChange={handleChange}
-          value={form.email}
-          name="email"
-        />
-        <br /> <br />
-        <TextField
-          type="password"
-          id="outlined-basic"
-          label="password"
-          variant="outlined"
-          onChange={handleChange}
-          value={form.password}
-          name="password"
-        />
-        {/*<input type="password" name="password" onChange={handleChange} value = {form.password} placeholder = ".."/>*/}{" "}
-        <br /> <br />
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+    <Formik
+      initialValues={initialState}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+      validate={validation}
+    >
+      {({ errors, values }) => (
+        <Form>
+          <InputText
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="Email"
+            onBlur = {validation}
+          />
+          {errors.email ? <div>{errors.email}</div> : null}
+          <InputText
+            name="password"
+            label="Password"
+            type="password"
+            placeholder="Password"
+          />
+          {errors.password ? <div>{errors.password}</div> : null}
+          <button type="submit">Sign Up</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
