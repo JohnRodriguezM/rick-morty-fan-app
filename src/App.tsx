@@ -23,8 +23,12 @@ import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 
 import { AuthView } from "./pages/AuthView";
 
-import { login, getOutApp } from "./firebase/main";
+import { login, getOutApp, loginGitHub } from "./firebase/main";
 import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
+
+//? se pasara este componente cuando se separe la vista de inicio de sesión de google
+import GoogleIcon from "@mui/icons-material/Google";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -32,10 +36,14 @@ const App = () => {
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
 
   //!manejo del estado de autenticación con google
+  let auth = false;
+  const [authState, setAuthState] = useState<any>(false);
 
-  const [authState, setAuthState] = useState<any>(
+  const [googleAuth, setGoogleAuth] = useState<any>(
     "" || JSON.parse(recoveryDataGoogle)
   );
+
+  const [ghAuth, setGhAutg] = useState<any>("");
 
   //!estados de la app
 
@@ -64,25 +72,6 @@ const App = () => {
     });
     setDataCharacter(arrayResults);
   };
-  //*change state initi session
-  /* useEffect(() => {
-    window.addEventListener("DOMContentLoaded", () => {
-      set
-    });
-  })*/
-  //*specific characters
-  /*  useEffect(() => {
-    const getData = async (url: string) => {
-      try {
-        const res = await fetch(url);
-        const json = await res.json();
-        setDataSpecifCharacter(json);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData(`https://rickandmortyapi.com/api/character/${idCharacter}`);
-  }, [idCharacter]);*/
 
   //!uso del useLocalStorage
 
@@ -95,9 +84,18 @@ const App = () => {
 
   const setLocalStorageGoogle = (value: any) => {
     //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    setAuthState(value);
+    setGoogleAuth(value);
     /*setDataBackUpCharacter(value)*/
     window.localStorage.setItem("googleToken", JSON.stringify(value));
+    setAuthState(true);
+  };
+
+  const setLocalStorageGitHub = (value: any) => {
+    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
+    setGhAutg(value);
+    /*setDataBackUpCharacter(value)*/
+    window.localStorage.setItem("githubToken", JSON.stringify(value));
+    setAuthState(true);
   };
 
   return (
@@ -108,20 +106,40 @@ const App = () => {
         {!authState && (
           <>
             <HeaderWithOutAuth />
+            {/*se debe luego sacar el boton de google a una vista de inicio de sesión aparte*/}
+            
+              <button
+                onClick={() => login(setLocalStorageGoogle)}
+                style={{
+                  marginTop: "45px",
+                  backgroundColor: "#1E293B90",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  color: "white",
+                  border: "none",
+                }}
+              >
+                Login with google <GoogleIcon />
+              </button>
 
+              <button
+                onClick={() => loginGitHub(setLocalStorageGitHub)}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: "black",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  color: "white",
+                  border: "none",
+                }}
+              >
+                Login with Github <GitHubIcon />
+              </button>
 
-
-            <button
-              onClick={() => login(setLocalStorageGoogle)}
-              style={{ marginTop: "45px" }}
-            >
-              iniciar con google
-            </button>
-
-            <div>sign up</div>
-            <div>
-              <SignUpEmailPassword />
-            </div>
+              {/*acá poner componente de auth con correo y email*/}
+              <Routes>
+              <Route path={`/signUp`} element={<SignUpEmailPassword />} />
+            </Routes>
           </>
         )}
         {authState && (
@@ -129,9 +147,10 @@ const App = () => {
             <HeaderWithAuth dataCharacter={dataCharacter} />
 
             <AuthView
-              google={authState}
+              google={googleAuth}
               getOutApp={getOutApp}
               setGoogle={setAuthState}
+              ghAuth={ghAuth}
             />
             <Routes>
               <Route

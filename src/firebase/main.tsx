@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   signOut,
   createUserWithEmailAndPassword,
+  GithubAuthProvider,
 } from "firebase/auth";
 
 export const firebaseConfig = {
@@ -20,7 +21,11 @@ export const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
+
+//? proveedor de google
 const provider = new GoogleAuthProvider();
+//? proveedor de github
+const providerGithub = new GithubAuthProvider();
 export const auth = getAuth();
 
 export const login = async (actualizador: Function) => {
@@ -46,6 +51,24 @@ export const getOutApp = async () => {
   }
 };
 
+//!realizar auth de user con github
+
+export const loginGitHub = async (actualizador: Function) => {
+  try {
+    const result = await signInWithPopup(auth, providerGithub);
+    console.log(result);
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken;
+    actualizador(result);
+  } catch (error: any) {
+    const errorCode = error?.code;
+    const errorMessage = error?.message;
+  }
+  /*signInWithPopup(auth,provider).then((result:any) => {
+
+  })*/
+};
+
 //* crear un nuevo usuario para autenticación con correo y contraseña
 export const createUserFirebaseEmail = async (
   auth: any,
@@ -55,10 +78,11 @@ export const createUserFirebaseEmail = async (
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     console.log("soy la res", res);
-  } catch (err:any) {
+  } catch (err: any) {
     const errorCode = err.code;
     const errorMessage = err.message;
-    alert(errorCode)
+    alert(errorCode);
+    alert(errorMessage);
     console.log(errorCode);
   }
 };

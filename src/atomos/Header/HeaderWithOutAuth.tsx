@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { useView } from "../../hooks/useView";
 
+import { Link } from "react-router-dom";
+
 //*importo button para diseño
 import { Button } from "../Button/ButtonTypeOne/Button";
 
 export const HeaderWithOutAuth: FC = (props: any) => {
-  const [hamburgerView, toggleHamburger] = useView();
+  const [hamburgerView, settoggleHamburger] = useView();
   return (
     <div className="relative bg-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -21,7 +23,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
             {/*button de hamburger open, mobile*/}
             <Button
               className="bg-white p-2 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-              onClick={toggleHamburger}
+              onClick={settoggleHamburger}
               type="button"
             >
               <svg
@@ -44,15 +46,16 @@ export const HeaderWithOutAuth: FC = (props: any) => {
           <nav className="hidden md:flex space-x-10">
             <div className="relative">
               {/*button de crear cuenta en mobile*/}
-              <Button
+              <Link to = "/signUp"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
                 /*
                 no olvidar evento onClick para modal que de sign up
                 onClick={''}*/
                 type="button"
               >
-                Crear cuenta
-              </Button>
+              Create a new account
+                
+              </Link>
             </div>
           </nav>
         </div>
@@ -78,7 +81,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
                 {/*Button (X) para cerrar el menú en mobile*/}
                 <Button
                   className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                  onClick={toggleHamburger}
+                  onClick={settoggleHamburger}
                   type="button"
                 >
                   <svg
@@ -120,12 +123,12 @@ export const HeaderWithOutAuth: FC = (props: any) => {
                   {/*
                     Button de crer cuenta en mobile, no olvidar evento onClick para modal que de sign up
                   */}
-                  <Button
+                  <Link to = "/signUp" onClick={settoggleHamburger}
                     type="button"
                     className="ml-3 text-base font-medium text-gray-600 hover:text-gray-900  focus:outline-none focus:ring-2 focus:ring-offset-2"
                   >
                     Crear cuenta
-                  </Button>
+                  </Link>
                 </section>
               </nav>
             </div>

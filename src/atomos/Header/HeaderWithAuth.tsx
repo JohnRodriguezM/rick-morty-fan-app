@@ -9,9 +9,11 @@ import { Link } from "react-router-dom";
 //* css files
 import "../../css/defaultCss/Header.css";
 
+//*sign up
+
+import { SignUpEmailPassword } from '../../pages/SignUpEmailPassword';
+
 export const HeaderWithAuth = (props: any) => {
-
-
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, toggleHamburger] = useView();
 
@@ -30,19 +32,18 @@ export const HeaderWithAuth = (props: any) => {
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
+         
 
+          <div className="flex justify-start lg:w-0 lg:flex-1">
             {
               //* inicio del header de mobile, se debe realizar una modificación para que sea congruente con el header de desktop
             }
 
-
-
-            <Link to = "/">
+            <Link to="/">
               {/*<img cara de morty, está conectada al home*/}
               <span className="sr-only">Workflow</span>
               <img
-              width=""
+                width=""
                 className="h-8 w-auto sm:h-10"
                 src="https://assets.bigcartel.com/product_images/208865842/MortyPin.jpg?auto=format&fit=max&w=2000"
                 alt="h"
@@ -87,7 +88,7 @@ export const HeaderWithAuth = (props: any) => {
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span onClick={()=>setSeeSolution(true)}>Characters</span>
+                <span onClick={() => setSeeSolution(true)}>Characters</span>
                 <svg
                   className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +119,7 @@ export const HeaderWithAuth = (props: any) => {
                         <Link
                           key={el.id}
                           className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                          to={`/character/${el.id}`}
+                          to={`/home/character/${el.id}`}
                           id={el.id}
                         >
                           visit {el.name}
@@ -372,18 +373,16 @@ export const HeaderWithAuth = (props: any) => {
                     >
                       {props.dataCharacter.map((el: any) => {
                         return (
-
-                            <Link
-                              key={el.id}
-                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                              to={`/character/${el.id}`}
-                              id={el.id}
-                            >
-                              visit {el.name}
-                            </Link>
+                          <Link
+                            key={el.id}
+                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            to={`/homecharacter/${el.id}`}
+                            id={el.id}
+                          >
+                            visit {el.name}
+                          </Link>
                         );
                       })}
-
                     </div>
                   </div>
                 </div>
@@ -468,7 +467,7 @@ export const HeaderWithAuth = (props: any) => {
                   </svg>
                   <span className="ml-3 text-base font-medium text-gray-900">
                     {" "}
-                    About Developer -- linea 390 revisar {" "}
+                    About Developer -- linea 390 revisar{" "}
                   </span>
                 </a>
 
