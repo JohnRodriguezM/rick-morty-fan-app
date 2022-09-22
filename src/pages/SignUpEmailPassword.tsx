@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,FC } from "react";
 
 //*importa la funcion de autenticación con email y password
 
@@ -6,18 +6,14 @@ import { createUserFirebaseEmail, auth } from "../firebase/main";
 
 //*se importan elementos de material ui
 
-/*import Box from '@mui/material/Box';*/
-import TextField from "@mui/material/TextField";
-
 import * as Yup from "yup";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { InputText } from "../atomos/InputText/InputText";
 
-/*const requiredFields: { [key: string]: any } = {};*/
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,7 +27,7 @@ const initialState = {
   password: "",
 };
 
-export const SignUpEmailPassword = (props: any) => {
+export const SignUpEmailPassword: FC = (props: any) => {
   const navigate = useNavigate();
   const [form, setForm] = useState(initialState);
 

@@ -7,8 +7,8 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   GithubAuthProvider,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
-
 
 import { useNavigate } from "react-router-dom";
 
@@ -75,12 +75,31 @@ export const loginGitHub = async (actualizador: Function) => {
 //* crear un nuevo usuario para autenticación con correo y contraseña
 export const createUserFirebaseEmail = async (
   auth: any,
-  email: any,
+  email: string,
   password: any
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     console.log("soy la res", res);
+  } catch (err: any) {
+    const errorCode = err.code;
+    const errorMessage = err.message;
+    alert(errorCode);
+    alert(errorMessage);
+    console.log(errorCode);
+  }
+};
+
+//*permitir acceso a un usario a traves de correo y contraseña
+export const allowAccessToUserEmailPassword = async (
+  auth: any,
+  email: string,
+  password: any
+) => {
+  try {
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = res.user;
+    return userCredential;
   } catch (err: any) {
     const errorCode = err.code;
     const errorMessage = err.message;

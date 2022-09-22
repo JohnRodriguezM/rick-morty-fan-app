@@ -12,7 +12,7 @@ import '../../css/defaultCss/Header.css'
 export const HeaderWithOutAuth: FC = (props: any) => {
   const [hamburgerView, settoggleHamburger] = useView();
   return (
-    <div className="relative bg-slate-800">
+    <div className="relative" style = {{ backgroundColor: "#0f044c" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">

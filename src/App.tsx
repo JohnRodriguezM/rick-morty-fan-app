@@ -34,6 +34,9 @@ import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
 import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
 
+
+
+
 const App = () => {
   //! recuperación del elemento a través de local storage
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
