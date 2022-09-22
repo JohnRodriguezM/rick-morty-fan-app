@@ -303,18 +303,6 @@ export const HeaderWithAuth = (props: any) => {
           </div>*/}
         </div>
       </div>
-
-      {/*  <!--
-    Mobile menu, show/hide based on mobile menu state.
-
-    Entering: "duration-200 ease-out"
-      From: "opacity-0 scale-95"
-      To: "opacity-100 scale-100"
-    Leaving: "duration-100 ease-in"
-      From: "opacity-100 scale-100"
-      To: "opacity-0 scale-95"
-  --> */}
-      {/*className={`${displayDiv ? 'active' : 'inactive'}`}*/}
       <div
         className={`${
           hamburgerView

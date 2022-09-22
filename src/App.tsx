@@ -12,7 +12,12 @@ import { Loader } from "./atomos/Loader/Loader";
 import { GetCharacters } from "./components/Characters/GetCharacters";
 
 //!react router DOM
-import { BrowserRouter as BrRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 
@@ -36,7 +41,7 @@ const App = () => {
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
 
   //!manejo del estado de autenticación con google
-  let auth = false;
+  /*const navigate = useNavigate();*/
   const [authState, setAuthState] = useState<any>(false);
 
   const [googleAuth, setGoogleAuth] = useState<any>(
@@ -100,67 +105,19 @@ const App = () => {
 
   return (
     <section className="App">
-      <BrRouter>
-        {/*este va a ser el nuevo main header*/}
-        {/* este inicio de sesión se debe acomodar solo dentro de una page aparte pero por el momento se procede a dejar así*/}
-        {!authState && (
-          <>
-            <HeaderWithOutAuth />
-            {/*se debe luego sacar el boton de google a una vista de inicio de sesión aparte*/}
-            
-              <button
-                onClick={() => login(setLocalStorageGoogle)}
-                style={{
-                  marginTop: "45px",
-                  backgroundColor: "#1E293B90",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Login with google <GoogleIcon />
-              </button>
-
-              <button
-                onClick={() => loginGitHub(setLocalStorageGitHub)}
-                style={{
-                  marginTop: "20px",
-                  backgroundColor: "black",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Login with Github <GitHubIcon />
-              </button>
-
-              {/*acá poner componente de auth con correo y email*/}
-              <Routes>
-              <Route path={`/signUp`} element={<SignUpEmailPassword />} />
-            </Routes>
-          </>
-        )}
-        {authState && (
-          <>
-            <HeaderWithAuth dataCharacter={dataCharacter} />
-
-            <AuthView
-              google={googleAuth}
-              getOutApp={getOutApp}
-              setGoogle={setAuthState}
-              ghAuth={ghAuth}
+      <Router>
+        <>
+          <Routes>
+            <Route
+              path={`/home/character/:Id`}
+              element={<ViewSpecificCharacter />}
             />
-            <Routes>
-              <Route
-                path={`/character/:Id`}
-                element={<ViewSpecificCharacter />}
-              />
 
-              <Route
-                path="/"
-                element={
+            <Route
+              path="/home"
+              element={
+                <>
+                  {/* <HeaderWithAuth />*/}
                   <GetCharacters
                     setLocalStorage={setLocalStorage}
                     dataCharacter={dataCharacter}
@@ -170,12 +127,55 @@ const App = () => {
                     deleteCharacter={deleteCharacter}
                     findCharacter={findCharacter}
                   />
-                }
-              />
-            </Routes>
-          </>
-        )}
-      </BrRouter>
+                </>
+              }
+            />
+
+            {/*se empieza desde lo no autenticacado*/}
+
+            <Route path={`/signUp`} element={<SignUpEmailPassword />} />
+            <Route path="/" element={<HeaderWithOutAuth />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <button
+                    onClick={() => {
+                      login(setLocalStorageGoogle);
+                    }}
+                    style={{
+                      marginTop: "45px",
+                      backgroundColor: "#1E293B90",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    Login with google <GoogleIcon />
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      loginGitHub(setLocalStorageGitHub);
+                    }}
+                    style={{
+                      marginTop: "20px",
+                      backgroundColor: "black",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    Login with Github <GitHubIcon />
+                  </button>
+                </>
+              }
+            />
+          </Routes>
+        </>
+      </Router>
     </section>
   );
 };
