@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 
+import {useNavigate} from "react-router-dom";
 interface AUTHVIEW {
   google: any;
   setGoogle: Function;
@@ -16,12 +17,13 @@ export const AuthView: FC<AUTHVIEW> = ({
   ghAuth,
   ...props
 }): any => {
+  const navigate = useNavigate();
   return (
     <div>
-      <h1>hola {google?.user.displayName ?? ghAuth.user.displayName}</h1>
+      <h1>hola {google?.user.displayName ?? ghAuth?.user.displayName ?? "holaaa"}</h1>
       <button
         onClick={() => {
-          setGoogle(false);
+          navigate("/");
           localStorage.removeItem("googleToken");
           getOutApp();
         }}

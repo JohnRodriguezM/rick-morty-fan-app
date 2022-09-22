@@ -9,6 +9,9 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 
+
+import { useNavigate } from "react-router-dom";
+
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
   authDomain: "rick-morty-app-c905f.firebaseapp.com",

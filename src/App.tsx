@@ -31,24 +31,26 @@ import { AuthView } from "./pages/AuthView";
 import { login, getOutApp, loginGitHub } from "./firebase/main";
 import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
 
-//? se pasara este componente cuando se separe la vista de inicio de sesión de google
-import GoogleIcon from "@mui/icons-material/Google";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
+import { Home } from "./pages/home/Home";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
+  const recoveryDataGitHub: any = localStorage.getItem("githubToken");
 
   //!manejo del estado de autenticación con google
-  /*const navigate = useNavigate();*/
+
   const [authState, setAuthState] = useState<any>(false);
 
   const [googleAuth, setGoogleAuth] = useState<any>(
     "" || JSON.parse(recoveryDataGoogle)
   );
 
-  const [ghAuth, setGhAutg] = useState<any>("");
+  const [ghAuth, setGhAutg] = useState<any>(
+    "" || JSON.parse(recoveryDataGitHub)
+  );
 
   //!estados de la app
 
@@ -87,22 +89,6 @@ const App = () => {
     window.localStorage.setItem("dataAllCharacters", JSON.stringify(value));
   };
 
-  const setLocalStorageGoogle = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    setGoogleAuth(value);
-    /*setDataBackUpCharacter(value)*/
-    window.localStorage.setItem("googleToken", JSON.stringify(value));
-    setAuthState(true);
-  };
-
-  const setLocalStorageGitHub = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    setGhAutg(value);
-    /*setDataBackUpCharacter(value)*/
-    window.localStorage.setItem("githubToken", JSON.stringify(value));
-    setAuthState(true);
-  };
-
   return (
     <section className="App">
       <Router>
@@ -116,61 +102,36 @@ const App = () => {
             <Route
               path="/home"
               element={
-                <>
-                  {/* <HeaderWithAuth />*/}
-                  <GetCharacters
-                    setLocalStorage={setLocalStorage}
-                    dataCharacter={dataCharacter}
-                    setDataCharacter={setDataCharacter}
-                    dataBackUpCharacter={dataBackUpCharacter}
-                    setDataBackUpCharacter={setDataBackUpCharacter}
-                    deleteCharacter={deleteCharacter}
-                    findCharacter={findCharacter}
-                  />
-                </>
+                <Home
+                  setLocalStorage={setLocalStorage}
+                  dataCharacter={dataCharacter}
+                  setDataCharacter={setDataCharacter}
+                  dataBackUpCharacter={dataBackUpCharacter}
+                  setDataBackUpCharacter={setDataBackUpCharacter}
+                  deleteCharacter={deleteCharacter}
+                  findCharacter={findCharacter}
+                  google={googleAuth}
+                  setGoogle={setGoogleAuth}
+                  getOutApp={getOutApp}
+                  ghAuth={ghAuth}
+                />
               }
             />
 
             {/*se empieza desde lo no autenticacado*/}
 
             <Route path={`/signUp`} element={<SignUpEmailPassword />} />
-            <Route path="/" element={<HeaderWithOutAuth />} />
             <Route
               path="/"
               element={
-                <>
-                  <button
-                    onClick={() => {
-                      login(setLocalStorageGoogle);
-                    }}
-                    style={{
-                      marginTop: "45px",
-                      backgroundColor: "#1E293B90",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      color: "white",
-                      border: "none",
-                    }}
-                  >
-                    Login with google <GoogleIcon />
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      loginGitHub(setLocalStorageGitHub);
-                    }}
-                    style={{
-                      marginTop: "20px",
-                      backgroundColor: "black",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      color: "white",
-                      border: "none",
-                    }}
-                  >
-                    Login with Github <GitHubIcon />
-                  </button>
-                </>
+                <WithOutAuth
+                  setAuthState={setAuthState}
+                  authState={authState}
+                  setGoogleAuth={setGoogleAuth}
+                  googleAuth={googleAuth}
+                  setGhAutg={setGhAutg}
+                  ghAuth={ghAuth}
+                />
               }
             />
           </Routes>

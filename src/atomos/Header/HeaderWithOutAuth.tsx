@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 //*importo button para diseño
 import { Button } from "../Button/ButtonTypeOne/Button";
 
+import '../../css/defaultCss/Header.css'
+
+
 export const HeaderWithOutAuth: FC = (props: any) => {
   const [hamburgerView, settoggleHamburger] = useView();
   return (

@@ -11,8 +11,6 @@ import "../../css/defaultCss/Header.css";
 
 //*sign up
 
-import { SignUpEmailPassword } from '../../pages/SignUpEmailPassword';
-
 export const HeaderWithAuth = (props: any) => {
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, toggleHamburger] = useView();
@@ -139,7 +137,7 @@ export const HeaderWithAuth = (props: any) => {
               Pricing -----{" "}
             </a>
             <div className="relative">
-              {/*<!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->*/}
+
               <button
                 type="button"
                 onClick={setSeeMoreOption}
@@ -148,11 +146,7 @@ export const HeaderWithAuth = (props: any) => {
                 aria-expanded="false"
               >
                 <span>More</span>
-                {/*<!--
-              Heroicon name: solid/chevron-down
-
-             Item active: "text-gray-600", Item inactive: "text-gray-400"
-            --> */}
+ 
                 <svg
                   className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -168,16 +162,6 @@ export const HeaderWithAuth = (props: any) => {
                 </svg>
               </button>
 
-              {/*          <!--
-            'More' flyout menu, show/hide based on flyout menu state.
-
-            Entering: "transition ease-out duration-200"
-              From: "opacity-0 translate-y-1"
-              To: "opacity-100 translate-y-0"
-            Leaving: "transition ease-in duration-150"
-              From: "opacity-100 translate-y-0"
-              To: "opacity-0 translate-y-1"
-  --> */}
               {/*boton see more abre este div*/}
               <div
                 className={`${
@@ -188,36 +172,7 @@ export const HeaderWithAuth = (props: any) => {
               >
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                    {/*<a
-                      href="#"
-                      className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                    >
-                      <!-- Heroicon name: outline/support -->
-                      <svg
-                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
-                        />
-                      </svg>
-                      <div className="ml-4">
-                        <p className="text-base font-medium text-gray-900">
-                          Help Center
-                        </p>
-                        <p className="mt-1 text-sm text-gray-500">
-                          Get all of your questions answered in our forums or
-                          contact support.
-                        </p>
-                      </div>
-                        </a> */}
+                   
                     <a
                       href="#"
                       className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
@@ -268,39 +223,11 @@ export const HeaderWithAuth = (props: any) => {
                         {/**/}
                       </ul>
                     </div>
-                    {/*<div className="mt-5 text-sm">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        {" "}
-                        View all posts <span aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>*/}
                   </div>
                 </div>
               </div>
             </div>
           </nav>
-
-          {/*este es el div de los botones sign in - sign up, muy atento a estos botones mas adelante*/}
-
-          {/*<div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a
-              href="#"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              {" "}
-              Sign in{" "}
-            </a>
-            <a
-              href="#"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              {" "}
-              Sign up{" "}
-            </a>
-          </div>*/}
         </div>
       </div>
       <div
@@ -364,7 +291,7 @@ export const HeaderWithAuth = (props: any) => {
                           <Link
                             key={el.id}
                             className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                            to={`/homecharacter/${el.id}`}
+                            to={`/home/character/${el.id}`}
                             id={el.id}
                           >
                             visit {el.name}
