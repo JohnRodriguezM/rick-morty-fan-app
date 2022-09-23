@@ -39,7 +39,7 @@ export const WithOutAuth = (props: any) => {
       <HeaderWithOutAuth />
       <div
         style={{
-          width: "80%",
+          width: "95%",
           maxWidth: "380px",
           borderRadius: "40px",
           margin: "25px auto",
@@ -76,7 +76,7 @@ export const WithOutAuth = (props: any) => {
             login(setLocalStorageGoogle);
           }}
           style={{
-            width: "77%",
+            width: "88%",
            /* marginTop: "4px",*/
             backgroundColor: "#0f044c",
             padding: "10px",
@@ -93,7 +93,7 @@ export const WithOutAuth = (props: any) => {
             loginGitHub(setLocalStorageGitHub);
           }}
           style={{
-            width: "77%",
+            width: "88%",
             /*marginTop: "4px",*/
             backgroundColor: "#141e61",
             padding: "10px",
