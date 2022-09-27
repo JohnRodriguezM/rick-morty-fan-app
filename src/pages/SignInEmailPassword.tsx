@@ -71,7 +71,7 @@ export const SignInEmailPassword: FC = (props: any): any => {
               variant="contained"
               type="submit"
               /*endIcon={<SendIcon />}*/
-              style={{ marginTop: "10px", backgroundColor: "#787a91" }}
+              style={{ marginTop: "10px", backgroundColor: "#9e86ff" }}
             >
               Sign In
             </Button>

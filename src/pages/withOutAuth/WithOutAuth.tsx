@@ -13,7 +13,8 @@ import Button from "@mui/material/Button";
 
 import { Link } from "react-router-dom";
 
-import {Footer} from "../../components/footer/Footer"
+import { Footer } from "../../components/footer/Footer";
+import { Carousel } from "../../components/carousel/Carousel";
 
 export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
@@ -35,14 +36,16 @@ export const WithOutAuth = (props: any) => {
   };
 
   return (
-    <section>
+    <section style = {{maxHeight:"200vh"}}>
       <HeaderWithOutAuth />
       <div
         style={{
           width: "95%",
-          maxWidth: "380px",
+          maxHeight: "200vh",
+          height: "100%",
+          maxWidth: "400px",
           borderRadius: "40px",
-          margin: "25px auto",
+          margin: "10% auto",
           padding: "20px",
           display: "flex",
           justifyContent: "center",
@@ -53,8 +56,8 @@ export const WithOutAuth = (props: any) => {
           backgroundColor: "#fff",
         }}
       >
-
-     {/*   <button
+        
+        {/*   <button
           style={{
             width: "77%",
             marginTop: "30px",
@@ -77,8 +80,8 @@ export const WithOutAuth = (props: any) => {
           }}
           style={{
             width: "88%",
-           /* marginTop: "4px",*/
-            backgroundColor: "#0f044c",
+            /* marginTop: "4px",*/
+            backgroundColor: "#b535f6",
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -95,7 +98,7 @@ export const WithOutAuth = (props: any) => {
           style={{
             width: "88%",
             /*marginTop: "4px",*/
-            backgroundColor: "#141e61",
+            backgroundColor: "#b535f6",
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -107,7 +110,21 @@ export const WithOutAuth = (props: any) => {
         <br /> <br />
         <SignInEmailPassword />
       </div>
-      <Footer/>
+      <p
+        
+        style = {{
+          height: "98px",
+          width: "0",
+          margin: "0 auto",
+          marginBottom: "15px",
+          border: "1.5px solid",
+          transform: "rotate(180deg)",
+          borderImage: "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
+        }}
+      ></p>
+      <h2>fotitos de todas las realidades</h2>
+      <Carousel />
+      <Footer />
       {/*aqui se va a renderizar el componente de incio de sesión con email y password*/}
     </section>
   );
