@@ -10,7 +10,9 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { useNavigate } from "react-router-dom";
+//*para firebase messaging
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
@@ -23,6 +25,7 @@ export const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 export const analytics = getAnalytics(app);
 
 //? proveedor de google
@@ -108,3 +111,8 @@ export const allowAccessToUserEmailPassword = async (
     console.log(errorCode);
   }
 };
+
+
+//*funciones de cloud messaging para web
+
+
