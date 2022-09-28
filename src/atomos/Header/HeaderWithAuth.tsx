@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,FC } from "react";
+
+
+
 
 //*hooks
 
@@ -11,7 +14,11 @@ import "../../css/defaultCss/Header.css";
 
 //*sign up
 
-export const HeaderWithAuth = (props: any) => {
+interface HeaderWithAuthh {
+  dataCharacter: any[];
+}
+
+export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) => {
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, toggleHamburger] = useView();
 
@@ -112,7 +119,7 @@ export const HeaderWithAuth = (props: any) => {
                         : "inactive"
                     }`}
                   >
-                    {props.dataCharacter.map((el: any) => {
+                    {dataCharacter.map((el: any) => {
                       return (
                         <Link
                           key={el.id}
@@ -287,7 +294,7 @@ export const HeaderWithAuth = (props: any) => {
                           : "inactive"
                       }`}
                     >
-                      {props.dataCharacter.map((el: any) => {
+                      {dataCharacter.map((el: any) => {
                         return (
                           <Link
                             key={el.id}

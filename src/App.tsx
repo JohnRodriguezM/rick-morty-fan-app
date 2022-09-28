@@ -98,7 +98,7 @@ const App = () => {
               path={`/home/character/:Id`}
               element={
                 <>
-                  <HeaderWithAuth {...dataCharacter} />
+                  <HeaderWithAuth {...{ dataCharacter }} />
                   <ViewSpecificCharacter />
                 </>
               }
