@@ -116,7 +116,8 @@ export const HeaderWithAuth = (props: any) => {
                       return (
                         <Link
                           key={el.id}
-                          className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                          className="
+                          text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
                           to={`/home/character/${el.id}`}
                           id={el.id}
                         >
@@ -290,7 +291,7 @@ export const HeaderWithAuth = (props: any) => {
                         return (
                           <Link
                             key={el.id}
-                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            className="text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
                             to={`/home/character/${el.id}`}
                             id={el.id}
                           >

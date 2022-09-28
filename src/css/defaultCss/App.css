@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .App {
-  max-width: 1200px;
+  /*max-width: 1200px;*/
   height: 100%;
-  max-height: 250vh;
+  /*max-height: 250vh;*/
   margin: 0 auto;
   /*#111138    #030328*/
   background-color: #111138 ;

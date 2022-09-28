@@ -6,7 +6,7 @@ input[type="radio"] {
 
 .card {
   position: absolute;
-  width: 60%;
+  width: 70%;
   height: 100%;
   left: 0;
   right: 0;
@@ -38,20 +38,25 @@ input[type="radio"] {
 .img {
   box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
   width: 100%;
-  border-radius: 50px;
+  border-radius: 15px;
   object-fit: cover;
 }
 
-@media (min-width: 768px) {
-  .img{
+@media (min-width: 1000px) {
+  .img {
     margin: 0 auto;
-    width: 70%;
   }
 }
+/*@media (min-width: 1200px) {
+  .img {
+    margin: 0 auto;
+    width: 80%;
+  }
+}*/
 
 #item-1:checked ~ .cards #song-3,
 #item-2:checked ~ .cards #song-1,
-#item-3:checked ~ .cards #song-2{
+#item-3:checked ~ .cards #song-2 {
   transform: translatex(-40%) scale(0.8);
   opacity: 0.4;
   z-index: 0;
@@ -74,6 +79,10 @@ input[type="radio"] {
 }
 
 @media (max-width: 500px) {
+  .card {
+    width: 75%;
+  }
+
   #item-1:checked ~ .cards #song-3,
   #item-2:checked ~ .cards #song-1,
   #item-3:checked ~ .cards #song-2 {

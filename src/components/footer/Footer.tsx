@@ -6,13 +6,17 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
 import GoogleIcon from "@mui/icons-material/Google";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
+
+import './Footer.css';
 
 const useStyles = makeStyles((theme: any) => ({
   rootBox: {
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "center",
-    },
+    justifyContent: "center",
+    textAlign: "center",
   },
   footerNav: {
     color: "#fff",
@@ -43,27 +47,16 @@ export function Footer(props: any) {
   const classes = useStyles();
 
   const content = {
-   /* brand: { image: "nereus-assets/img/nereus-light.png", width: 110 },*/
-    copy: "© 2020 Nereus All rights reserved.",
+    copy: "© 2022 rick-morty all rights reserved.",
     link1: <GoogleIcon />,
-    link2: "Second Link",
-    link3: "Third Link",
-    link4: "Fourth Link",
+    link2: <GitHubIcon />,
+    link3: <InstagramIcon />,
+    link4: <LinkedInIcon />,
     ...props.content,
   };
 
-  /*let brand;*/
-
- /* if (content.brand.image) {
-    brand = (
-      <img src={content.brand.image} alt="" width={content.brand.width} />
-    );
-  } else {
-    brand = content.brand.text || "";
-  }*/
-
   return (
-    <footer style = {{margin: "35% auto"}}>
+    <footer>
       <Container maxWidth="xl">
         <Box
           py={6}
@@ -72,31 +65,59 @@ export function Footer(props: any) {
           alignItems="center"
           className={classes.rootBox}
         >
-         {/* <Link href="#" color="inherit" underline="none">
-            {brand}
-          </Link>*/}
           <Box component="nav" className={classes.footerNav}>
-            <Link href="#" variant="body1" className={classes.footerLink}>
+            <Link
+              href="https://es.wikipedia.org/wiki/Rick_y_Morty"
+              variant="body1"
+              className={classes.footerLink}
+              target="_blank"
+            >
               {content["link1"]}
             </Link>
-            <Link href="#" variant="body1" className={classes.footerLink}>
+            <Link
+              href="https://github.com/JohnRodriguezM"
+              variant="body1"
+              className={classes.footerLink}
+              target="_blank"
+            >
               {content["link2"]}
             </Link>
-            <Link href="#" variant="body1" className={classes.footerLink}>
+            <Link
+              href="https://www.instagram.com/john_rodriguez73/"
+              variant="body1"
+              className={classes.footerLink}
+              target="_blank"
+            >
               {content["link3"]}
             </Link>
-            <Link href="#" variant="body1" className={classes.footerLink}>
+            <Link
+              href="https://www.linkedin.com/in/johnjrm/"
+              variant="body1"
+              className={classes.footerLink}
+              target="_blank"
+            >
               {content["link4"]}
             </Link>
           </Box>
-          <Typography
+          <Box mt={{ xs: 4, md: 0 }} ml="auto">
+            <Typography
+              variant="body1"
+              color="inherit"
+              style={{
+                margin: "15px auto 10px 15px",
+              }}
+            >
+              {content["copy"]}
+            </Typography>
+          </Box>
+          {/*<Typography
            
             component="p"
             variant="caption"
             gutterBottom={false}
           >
             {content["copy"]}
-          </Typography>
+          </Typography>*/}
         </Box>
       </Container>
     </footer>

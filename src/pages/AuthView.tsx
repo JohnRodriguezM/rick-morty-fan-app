@@ -2,16 +2,16 @@ import React, { FC, useState, useEffect } from "react";
 
 import {useNavigate} from "react-router-dom";
 interface AUTHVIEW {
-  google: any;
-  setGoogle: Function;
+  googleAuth: any;
+  setGoogleAuth: Function;
   getOutApp: any;
   /*loginGitHub: any;*/
   ghAuth: any;
 }
 
 export const AuthView: FC<AUTHVIEW> = ({
-  google,
-  setGoogle,
+  googleAuth,
+  setGoogleAuth,
   getOutApp,
   /*loginGitHub,*/
   ghAuth,
@@ -20,7 +20,7 @@ export const AuthView: FC<AUTHVIEW> = ({
   const navigate = useNavigate();
   return (
     <div>
-      <h1>hola {google?.user.displayName ?? ghAuth?.user.displayName ?? "holaaa"}</h1>
+      <h1>hola {googleAuth?.user.displayName ?? ghAuth?.user.displayName ?? "holaaa"}</h1>
       <button
         onClick={() => {
           navigate("/");

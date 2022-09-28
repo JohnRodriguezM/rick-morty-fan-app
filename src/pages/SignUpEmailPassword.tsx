@@ -1,4 +1,4 @@
-import React, { useState,FC } from "react";
+import React, { useState, FC } from "react";
 
 //*importa la funcion de autenticación con email y password
 
@@ -14,12 +14,13 @@ import { useNavigate } from "react-router-dom";
 
 import { InputText } from "../atomos/InputText/InputText";
 
-
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .required("please, email")
-    .email("well that's not an email"),
-  password: Yup.string().required().min(2, "pretty sure this will be hacked"),
+    .required(` ⚠️ please, email`)
+    .email(`well that's not an email`),
+  password: Yup.string()
+    .required()
+    .min(5, ` ⚠️ pretty sure this will be hacked`),
 });
 
 const initialState = {

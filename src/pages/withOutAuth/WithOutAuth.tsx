@@ -38,10 +38,10 @@ export const WithOutAuth = (props: any) => {
   return (
     <section style = {{maxHeight:"200vh"}}>
       <HeaderWithOutAuth />
-      <div
+      <div className = "container-fluid"
         style={{
           width: "95%",
-          height: "100%",
+          height: "450px",
           maxWidth: "400px",
           borderRadius: "40px",
           margin: "50px auto 10px auto",
@@ -61,7 +61,8 @@ export const WithOutAuth = (props: any) => {
           style={{
             width: "88%",
             /* marginTop: "4px",*/
-            backgroundColor: "#b535f6",
+            background: "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+            /*backgroundColor: "#b535f6",*/
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -78,7 +79,8 @@ export const WithOutAuth = (props: any) => {
           style={{
             width: "88%",
             /*marginTop: "4px",*/
-            backgroundColor: "#b535f6",
+            background: "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+            /*backgroundColor: "#b535f6",*/
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -93,16 +95,21 @@ export const WithOutAuth = (props: any) => {
       <p
 
         style = {{
-          height: "98px",
+          height: "150px",
           width: "0",
-          margin: "0 auto",
+          margin: "25px auto",
           marginBottom: "15px",
           border: "1.5px solid",
           transform: "rotate(180deg)",
           borderImage: "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
         }}
       ></p>
-      <h2>fotitos de todas las realidades</h2>
+      <h1 style={
+        {
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+        }
+      }>Photos of some realities</h1>
       <Carousel />
       <Footer />
       {/*aqui se va a renderizar el componente de incio de sesión con email y password*/}
