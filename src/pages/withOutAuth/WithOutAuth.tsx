@@ -41,38 +41,18 @@ export const WithOutAuth = (props: any) => {
       <div
         style={{
           width: "95%",
-          maxHeight: "200vh",
           height: "100%",
           maxWidth: "400px",
           borderRadius: "40px",
-          margin: "10% auto",
+          margin: "50px auto 10px auto",
           padding: "20px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          /*height: "100vh",
-        width: "100vw"*/
           backgroundColor: "#fff",
         }}
       >
-        
-        {/*   <button
-          style={{
-            width: "77%",
-            marginTop: "30px",
-            backgroundColor: "#787a91",
-            padding: "10px",
-            borderRadius: "10px",
-            color: "white",
-            border: "none",
-          }}
-        >
-          <Link to = "/signUp">
-          Sign up
-          </Link>
-          
-        </button>{" "}*/}
         <br />
         <button
           onClick={() => {
@@ -111,7 +91,7 @@ export const WithOutAuth = (props: any) => {
         <SignInEmailPassword />
       </div>
       <p
-        
+
         style = {{
           height: "98px",
           width: "0",

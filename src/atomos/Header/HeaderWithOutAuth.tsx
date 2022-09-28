@@ -14,8 +14,8 @@ export const HeaderWithOutAuth: FC = (props: any) => {
   return (
     <div className="relative" style = {{ backgroundColor: "#0C0428" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
+        <div className="flex justify-between items-center border-gray-100 py-5 md:justify-between md:space-x-10">
+          <div className="flex justify-between lg:w-0 lg:flex-1">
             <img
               className="h-10 w-auto sm:h-10 rounded-[20px]"
               src="https://assets.bigcartel.com/product_images/208865842/MortyPin.jpg?auto=format&fit=max&w=2000"
