@@ -6,8 +6,15 @@ export const InputText = (props: any) => {
   return (
     <>
       {/*<label>{label}</label>*/}
-      <section style = {{width: "100%", color : "#111138"}}>
-        <TextField {...field} {...props} style = {{width: "100%"}}/> <br />
+      <section style = {{width: "100%", color : "#111138"}}
+      
+     
+      >
+        <TextField {...field} {...props} style = {{width: "100%", borderColor : "#fff", color : "#fff"}}/>
+           
+        
+        
+       <br />
         {meta.touched && meta.error && <div>{meta.error}</div>}
       </section>
     </>

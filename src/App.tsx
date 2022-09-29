@@ -94,6 +94,11 @@ const App = () => {
       <Router>
         <>
           <Routes>
+            {/*permite que aparezca el header para todas las rutas*/}
+            <Route
+              path={`* || /*  || */*`}
+              element={<HeaderWithAuth {...dataCharacter} />}
+            />
             <Route
               path={`/home/character/:Id`}
               element={
@@ -103,17 +108,12 @@ const App = () => {
                 </>
               }
             />
-            {/*permite que aparezca el header para todas las rutas*/}
-            <Route path="*" element={<HeaderWithAuth {...dataCharacter} />} />
 
             <Route
-              path="/home"
+              path="/home/all-characters"
               element={
-                <Home>
-                  <HeaderWithAuth dataCharacter={dataCharacter} />
-                  <AuthView
-                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
-                  />
+                <>
+                  <HeaderWithAuth {...{ dataCharacter }} />
                   <GetCharacters
                     {...{
                       dataCharacter,
@@ -124,6 +124,17 @@ const App = () => {
                       deleteCharacter,
                       findCharacter,
                     }}
+                  />
+                </>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <Home>
+                  <HeaderWithAuth dataCharacter={dataCharacter} />
+                  <AuthView
+                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
                   />
                 </Home>
               }

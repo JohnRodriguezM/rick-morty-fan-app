@@ -1,7 +1,4 @@
-import React, { useState, useEffect,FC } from "react";
-
-
-
+import React, { useState, useEffect, FC } from "react";
 
 //*hooks
 
@@ -18,7 +15,10 @@ interface HeaderWithAuthh {
   dataCharacter: any[];
 }
 
-export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) => {
+export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
+  dataCharacter,
+  ...props
+}) => {
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, toggleHamburger] = useView();
 
@@ -32,13 +32,18 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
   const [seeCharacterMobile, setSeeCharacterMobile] = useView();
 
   //! en la linea 440 esta oculto el div de los botones de sign in - sign up, agregar algo obligatorio o si no se desborda el boton de see more
+  const [manajeInit, setManajeInit] = useState(false);
+
+  useEffect(() => {
+    if (window.location.pathname !== "/home") {
+      setManajeInit(true);
+    }
+  }, [manajeInit]);
 
   return (
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
-         
-
           <div className="flex justify-start lg:w-0 lg:flex-1">
             {
               //* inicio del header de mobile, se debe realizar una modificación para que sea congruente con el header de desktop
@@ -109,52 +114,17 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                 </svg>
               </button>
 
-              {/*el botón more,abre este div*/}
-              <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                  <div
-                    className={`${
-                      seeSolutions
-                        ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
-                        : "inactive"
-                    }`}
-                  >
-                    {dataCharacter.map((el: any) => {
-                      return (
-                        <Link
-                          key={el.id}
-                          className="
-                          text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
-                          to={`/home/character/${el.id}`}
-                          id={el.id}
-                        >
-                          visit {el.name}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              {" "}
-              Pricing -----{" "}
-            </a>
-            <div className="relative">
-
               <button
                 type="button"
-                onClick={setSeeMoreOption}
-                id="btn-close-more"
+                id="btn-close-solutions"
+                onClick={setSeeSolution}
+                style={{
+                  marginLeft: "10px",
+                }}
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span>More</span>
- 
+                <span onClick={() => setSeeSolution(true)}>Characters</span>
                 <svg
                   className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,23 +140,91 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                 </svg>
               </button>
 
-              {/*boton see more abre este div*/}
+              <button
+                type="button"
+                onClick={setSeeMoreOption}
+                style={{
+                  marginLeft: "10px",
+                }}
+                id="btn-close-more"
+                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                aria-expanded="false"
+              >
+                <span>More</span>
+
+                <svg
+                  className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+
+              {/*el botón more,abre este div*/}
+              <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                  <div
+                    className={`${
+                      seeSolutions
+                        ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
+                        : "inactive"
+                    }`}
+                  >
+                    {dataCharacter.map((el: any) => {
+                      return (
+                        <Link
+                          key={el.id}
+                          onClick={() => setSeeSolution(false)}
+                          className="
+                          text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
+                          to={`/home/character/${el.id}`}
+                          id={el.id}
+                        >
+                          visit {el.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <Link
+                to="/home"
+                className={`${
+                  manajeInit
+                    ? "text-base font-medium text-gray-500 hover:text-gray-900"
+                    : "inactive"
+                } `}
+              >
+                {manajeInit ? "Go home" : ""}
+              </Link>
+
+              {/*boton see more abre este div de MORE*/}
               <div
                 className={`${
                   seemoreOption
-                    ? "active absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0"
+                    ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
                     : "inactive"
                 }`}
               >
-                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-scroll will-change-auto">
                   <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                   
-                    <a
+                    {/*<a
                       href="#"
                       className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                    >
+                    >*/}
                       {/*<!-- Heroicon name: outline/calendar -->*/}
-                      <svg
+                     {/* <svg
                         className="flex-shrink-0 h-6 w-6 text-indigo-600"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -200,24 +238,24 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                           strokeLinejoin="round"
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
-                      </svg>
-                      <div className="ml-4">
+                      </svg>*/}
+                      <div className="ml-2">
                         <p className="text-base font-medium text-gray-900">
-                          Events
+                          ABOUT DEVELOPMENT
                         </p>
-                        <p className="mt-1 text-sm text-gray-500">
+                       {/* <p className="mt-1 text-sm text-gray-500">
                           See what meet-ups and other events we might be
                           planning near you.
-                        </p>
+                        </p>*/}
                       </div>
-                    </a>
+                    {/*</a>*/}
                   </div>
-                  <div className="px-5 py-5 bg-gray-50 sm:px-8 sm:py-8">
+                 {/* <div className="px-5 py-5 bg-gray-50 sm:px-8 sm:py-8">
                     <div>
                       {/*<h3 className="text-base font-medium text-gray-500">
                         Recent Posts
                       </h3>*/}
-                      <ul role="list" className="mt-4 space-y-4">
+                     {/* <ul role="list" className="mt-4 space-y-4">
                         <li className="text-base truncate">
                           <a
                             href="#"
@@ -228,10 +266,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                             traffic to your site{" "}
                           </a>
                         </li>
-                        {/**/}
+                        {//}
                       </ul>
                     </div>
-                  </div>
+                  </div>*/}
                 </div>
               </div>
             </div>
@@ -298,6 +336,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                         return (
                           <Link
                             key={el.id}
+                            onClick={() => {
+                              setSeeCharacterMobile(false);
+                              toggleHamburger(false);
+                            }}
                             className="text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
                             to={`/home/character/${el.id}`}
                             id={el.id}
@@ -337,7 +379,12 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                       d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
                     />
                   </svg>
-                  <span className="ml-3 text-base font-medium text-gray-900">
+                  <span
+                    className="ml-3 text-base font-medium text-gray-900"
+                    onClick={() => {
+                      setSeeCharacterMobile(false);
+                    }}
+                  >
                     {" "}
                     Characters{" "}
                   </span>
@@ -362,10 +409,13 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                     />
                   </svg>
-                  <span className="ml-3 text-base font-medium text-gray-900">
+                  <Link
+                    className="ml-3 text-base font-medium text-gray-900"
+                    to={`/home/all-characters`}
+                  >
                     {" "}
-                    Sign up for the newsletter{" "}
-                  </span>
+                    See all characters{" "}
+                  </Link>
                 </a>
 
                 <a
@@ -393,53 +443,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({dataCharacter, ...props}) =
                     About Developer -- linea 390 revisar{" "}
                   </span>
                 </a>
-
-                {/*<a
-                  href="#"
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                >
-                  
-                  <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {" "}
-                    Automations{" "}
-                  </span>
-                </a>*/}
               </nav>
             </div>
           </div>
-          <div className="py-6 px-5 space-y-6">
-            {/*<div>
-              <a
-                href="#"
-                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                {" "}
-                Sign up{" "}
-              </a>
-              <p className="mt-6 text-center text-base font-medium text-gray-500">
-                Existing customer?
-                <a href="#" className="text-indigo-600 hover:text-indigo-500">
-                  {" "}
-                  Sign in{" "}
-                </a>
-              </p>
-            </div>*/}
-          </div>
+          <div className="py-6 px-5 space-y-6"></div>
         </div>
       </div>
     </div>
