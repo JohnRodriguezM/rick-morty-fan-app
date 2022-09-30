@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 //!css
 import "./css/defaultCss/App.css";
@@ -6,11 +6,7 @@ import "./css/defaultCss/App.css";
 import { GetCharacters } from "./components/Characters/GetCharacters";
 
 //!react router DOM
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 
@@ -32,8 +28,6 @@ const App = () => {
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
   const recoveryDataGitHub: any = localStorage.getItem("githubToken");
-
-  
 
   //!manejo del estado de autenticación con google
 
@@ -83,6 +77,7 @@ const App = () => {
   };
 
   return (
+    
     <section className="App">
       <Router>
         <>
@@ -127,19 +122,16 @@ const App = () => {
                 <Home>
                   <HeaderWithAuth dataCharacter={dataCharacter} />
                   <AuthView
-                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth}}
+                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
                   />
-                  <ViewEpisodes/>
+                  <ViewEpisodes />
                 </Home>
               }
             />
 
             {/*se empieza desde lo no autenticacado*/}
 
-            <Route
-              path={`/signUp`}
-              element={<SignUpEmailPassword />}
-            />
+            <Route path={`/signUp`} element={<SignUpEmailPassword />} />
 
             <Route
               path="/"

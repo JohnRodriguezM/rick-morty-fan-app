@@ -1,18 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense } from "react";
+
+const clasesStore = {
+  number1:
+    "flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6",
+  number2: "flex flex-1 justify-between sm:hidden",
+  number3:
+    "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+  number4:
+    "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+  number5: "hidden sm:flex sm:flex-1 sm:items-center sm:justify-between",
+  number6: "isolate inline-flex -space-x-px rounded-md shadow-sm",
+  number7:
+    "relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20",
+  number8:
+    "relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20",
+  number9:
+    "relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20",
+};
 
 export const ViewEpisodes = () => {
   const [data, setData] = useState<any>(null);
 
+  const [pagination, setPagination] = useState(1);
+
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/episode")
+    if (pagination === 0 || pagination > 3) return setPagination(1);
+
+    fetch(`https://rickandmortyapi.com/api/episode?page=${pagination}`)
       .then((res) => {
         console.log(res);
         return res.json();
+        
       })
       .then((data) => {
-        console.log(data)
-        setData(data.results)});
-  }, []);
+        console.log(data);
+        setTimeout(() => {
+          setData(data.results);
+        }, 4000);
+      });
+  }, [pagination]);
 
   const style = {
     display: "grid",
@@ -21,16 +47,19 @@ export const ViewEpisodes = () => {
       minmax(200px, 1fr)
     )`,
     gridGap: "1rem",
-  }
-
+    border: "1px solid #ccc",
+  };
 
   return (
-    <div>
+    <Suspense fallback={<h1>Loading posts...</h1>}>
+    <div style={{ maxWidth: " 1200px ", margin: "25px auto" }}>
+      <h2>pagina actual {pagination}</h2>
       {data &&
         data.map((el: any) => {
+          /* console.log(data);*/
           const { id, name, air_date, episode } = el;
           return (
-            <div key={id} style = {style}>
+            <div key={id} style={style}>
               <h1>{name}</h1>
               <p>{air_date}</p>
               <p>{episode}</p>
@@ -38,32 +67,71 @@ export const ViewEpisodes = () => {
           );
         })}
 
+      <div className={clasesStore.number1}>
+        <div className={clasesStore.number2}>
+          <a
+            href="#s"
+            className={clasesStore.number3}
+            onClick={() => setPagination(pagination - 1)}
+          >
+            Previous
+          </a>
+          <a
+            href="#a"
+            className={clasesStore.number4}
+            onClick={() => setPagination(pagination + 1)}
+          >
+            Next
+          </a>
+        </div>
+        <div className={clasesStore.number5}>
+          <div>
+            <nav className={clasesStore.number6} aria-label="Pagination">
+              {/* <a href="#w" className={clasesStore.number7}>
+                <span className="sr-only">----</span>
+              </a>*/}
+              <a
+                href="#x"
+                aria-current="page"
+                className={clasesStore.number8}
+                onClick={() => setPagination(1)}
+              >
+                1
+              </a>
+              <a
+                href="#y"
+                className={clasesStore.number8}
+                onClick={() => setPagination(2)}
+              >
+                2
+              </a>
+              <a
+                href="#z"
+                className={clasesStore.number8}
+                onClick={() => setPagination(3)}
+              >
+                3
+              </a>
 
-<div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-  <div className="flex flex-1 justify-between sm:hidden">
-    <a href="#s" className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
-    <a href="#a" className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
-  </div>
-  <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-    <div>
-      <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-        <a href="#w" className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20">
-          <span className="sr-only">Previous</span>
-        </a>
-        <a href="#x" aria-current="page" className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20">1</a>
-        <a href="#y" className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20">2</a>
-        <a href="#z" className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
-        <a href="#t" className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20">
-          <span className="sr-only">Next</span>
-        </a>
-      </nav>
+              {/* <a
+                href="#c"
+                className={clasesStore.number9}
+                onClick={() => {setPagination(pagination + 1)}}
+              >
+                ---
+                <span
+                  className="sr-only"
+                  onClick={() => setPagination(4)}
+                >
+                  Next
+                </span>
+              </a>*/}
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-
-
-
-    </div>
+    
+    </Suspense>
   );
 };

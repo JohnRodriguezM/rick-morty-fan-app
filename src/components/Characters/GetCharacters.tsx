@@ -1,8 +1,7 @@
-
 import { useState, useEffect, FC } from "react";
 
 //!css
-import "../../css/defaultCss/getCharacter.css";
+import "./getCharacter.css";
 
 //!funciones
 import { fetchData } from "../../helpers/fetchData";
@@ -17,9 +16,20 @@ import { getAllCharacter } from "../../helpers/urls";
 //*atomos
 import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 
-
 //* react-router-DOM
 import { Link } from "react-router-dom";
+
+const style = {
+  display: "grid",
+  gridTemplateColumns: `repeat(
+    auto-fit,
+    minmax(320px, 1fr)
+  )`,
+  /*gridTemplateColumns: "auto auto",*/
+  gridGap: "1rem",
+  /*border: "1px solid #ccc",
+  padding: "15px"*/
+};
 
 export const GetCharacters: FC<GetCharacterIn> = ({
   setLocalStorage,
@@ -37,51 +47,37 @@ export const GetCharacters: FC<GetCharacterIn> = ({
   }, []);
 
   return (
-    <div style={{ padding: "15px" }} className="">
-      <>
+    <div className="" style = {{marginTop: " 45px"}}>
+      
         <input
           type="text"
           name=""
           id=""
+
           placeholder="Find character"
           onChange={(e) => {
             findCharacter(e.target.value);
           }}
         />
-
+        <div style = {style}>
         {dataCharacter.length > 0 &&
           dataCharacter.map((el: any) => {
             const { id, image, name } = el;
             return (
-              <>
-                <article
-                  key={name}
-                  className="section-character hover:shadow-lg"
-                >
-                  <h1 className="text-3xl font-bold underline text-red-600">
-                    {el.name}
-                  </h1>
+              <div>
+                <section key={id} className="section-character hover:shadow-lg">
+                  <h4 className="text-2xl font-bold  text-red-600"> {/*underline*/}
+                    {name}
+                  </h4>
                   <img src={image} alt="" /> <br />
                   <button onClick={() => deleteCharacter(id)}>
                     <DeleteBtn />
-                  </button>{" "}
-                  <br />
-                  <br />
-                </article>{" "}
-                <br />
-                <br />
-              </>
+                  </button>
+                </section>
+              </div>
             );
           })}
-      </>
-      {/*<Link to = "/character/" >Ir a characters</Link>*/}
+      </div>
     </div>
   );
 };
-
-/*  const datos = [
-    { name: "john", id: 1 },
-    { name: "pepe", id: 2 },
-    { name: "pae", id: 3 },
-    {name: 'carlos', id: 4 },
-  ];*/

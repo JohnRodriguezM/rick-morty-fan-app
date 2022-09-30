@@ -105,7 +105,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span onClick={() => setSeeSolution(true)}>All characters</span>
+                <span /*onClick={() => setSeeSolution(true)}*/>All characters</span>
               </Link>
 
               <button
