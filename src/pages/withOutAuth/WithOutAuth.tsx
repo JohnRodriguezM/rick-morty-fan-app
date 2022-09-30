@@ -13,7 +13,8 @@ import Button from "@mui/material/Button";
 
 import { Link } from "react-router-dom";
 
-import {Footer} from "../../components/footer/Footer"
+import { Footer } from "../../components/footer/Footer";
+import { Carousel } from "../../components/carousel/Carousel";
 
 export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
@@ -35,41 +36,24 @@ export const WithOutAuth = (props: any) => {
   };
 
   return (
-    <section>
+    <section style={{ maxHeight: "200vh" }}>
       <HeaderWithOutAuth />
       <div
+        className="container-fluid"
         style={{
           width: "95%",
-          maxWidth: "380px",
+          height: "450px",
+          maxWidth: "400px",
           borderRadius: "40px",
-          margin: "25px auto",
+          margin: "50px auto 10px auto",
           padding: "20px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          /*height: "100vh",
-        width: "100vw"*/
           backgroundColor: "#fff",
         }}
       >
-
-     {/*   <button
-          style={{
-            width: "77%",
-            marginTop: "30px",
-            backgroundColor: "#787a91",
-            padding: "10px",
-            borderRadius: "10px",
-            color: "white",
-            border: "none",
-          }}
-        >
-          <Link to = "/signUp">
-          Sign up
-          </Link>
-          
-        </button>{" "}*/}
         <br />
         <button
           onClick={() => {
@@ -77,8 +61,10 @@ export const WithOutAuth = (props: any) => {
           }}
           style={{
             width: "88%",
-           /* marginTop: "4px",*/
-            backgroundColor: "#0f044c",
+
+            background:
+              "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -94,8 +80,8 @@ export const WithOutAuth = (props: any) => {
           }}
           style={{
             width: "88%",
-            /*marginTop: "4px",*/
-            backgroundColor: "#141e61",
+            background:
+              "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -107,7 +93,28 @@ export const WithOutAuth = (props: any) => {
         <br /> <br />
         <SignInEmailPassword />
       </div>
-      <Footer/>
+      <p
+        style={{
+          height: "150px",
+          width: "0",
+          margin: "25px auto",
+          marginBottom: "15px",
+          border: "1.5px solid",
+          transform: "rotate(180deg)",
+          borderImage:
+            "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
+        }}
+      ></p>
+      <h1
+        style={{
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+        }}
+      >
+        Photos of some realities
+      </h1>
+      <Carousel />
+      <Footer />
       {/*aqui se va a renderizar el componente de incio de sesión con email y password*/}
     </section>
   );

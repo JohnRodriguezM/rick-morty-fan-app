@@ -1,0 +1,18 @@
+footer {
+  margin: 30% auto;
+  padding: 50px;
+}
+
+@media(max-width:500px){
+  footer {
+    margin: 32% auto;
+ /* padding: 50px;*/
+  }
+}
+
+@media(min-width:1100px){
+  footer {
+    margin: 22% auto;
+ /* padding: 50px;*/
+  }
+}

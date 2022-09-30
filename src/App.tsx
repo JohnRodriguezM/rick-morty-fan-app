@@ -3,12 +3,6 @@ import React, { useState, useEffect } from "react";
 //!css
 import "./css/defaultCss/App.css";
 
-//!hooks
-import { useFetch } from "./hooks/useFetch";
-
-//!components
-import { Loader } from "./atomos/Loader/Loader";
-
 import { GetCharacters } from "./components/Characters/GetCharacters";
 
 //!react router DOM
@@ -16,26 +10,22 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
 
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 
-import { HeaderWithOutAuth } from "./atomos/Header/HeaderWithOutAuth";
 import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 
 //*import page de la vista de autenticación
 
 import { AuthView } from "./pages/AuthView";
 
-import { login, getOutApp, loginGitHub } from "./firebase/main";
+import { getOutApp } from "./firebase/main";
 import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
 
 import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
-
-
-
+import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -43,9 +33,9 @@ const App = () => {
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
   const recoveryDataGitHub: any = localStorage.getItem("githubToken");
 
-  //!manejo del estado de autenticación con google
+  
 
-  const [authState, setAuthState] = useState<any>(false);
+  //!manejo del estado de autenticación con google
 
   const [googleAuth, setGoogleAuth] = useState<any>(
     "" || JSON.parse(recoveryDataGoogle)
@@ -97,43 +87,71 @@ const App = () => {
       <Router>
         <>
           <Routes>
+            {/*permite que aparezca el header para todas las rutas*/}
+            <Route
+              path={`* || /*  || */*`}
+              element={<HeaderWithAuth {...dataCharacter} />}
+            />
             <Route
               path={`/home/character/:Id`}
-              element={<ViewSpecificCharacter />}
+              element={
+                <>
+                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <ViewSpecificCharacter />
+                </>
+              }
             />
 
             <Route
+              path="/home/all-characters"
+              element={
+                <>
+                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <GetCharacters
+                    {...{
+                      dataCharacter,
+                      setDataCharacter,
+                      dataBackUpCharacter,
+                      setDataBackUpCharacter,
+                      setLocalStorage,
+                      deleteCharacter,
+                      findCharacter,
+                    }}
+                  />
+                </>
+              }
+            />
+            <Route
               path="/home"
               element={
-                <Home
-                  setLocalStorage={setLocalStorage}
-                  dataCharacter={dataCharacter}
-                  setDataCharacter={setDataCharacter}
-                  dataBackUpCharacter={dataBackUpCharacter}
-                  setDataBackUpCharacter={setDataBackUpCharacter}
-                  deleteCharacter={deleteCharacter}
-                  findCharacter={findCharacter}
-                  google={googleAuth}
-                  setGoogle={setGoogleAuth}
-                  getOutApp={getOutApp}
-                  ghAuth={ghAuth}
-                />
+                <Home>
+                  <HeaderWithAuth dataCharacter={dataCharacter} />
+                  <AuthView
+                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth}}
+                  />
+                  <ViewEpisodes/>
+                </Home>
               }
             />
 
             {/*se empieza desde lo no autenticacado*/}
 
-            <Route path={`/signUp`} element={<SignUpEmailPassword />} />
+            <Route
+              path={`/signUp`}
+              element={<SignUpEmailPassword />}
+            />
+
             <Route
               path="/"
               element={
                 <WithOutAuth
-                  setAuthState={setAuthState}
-                  authState={authState}
-                  setGoogleAuth={setGoogleAuth}
-                  googleAuth={googleAuth}
-                  setGhAutg={setGhAutg}
-                  ghAuth={ghAuth}
+                  {...{
+                    googleAuth,
+                    setGoogleAuth,
+                    getOutApp,
+                    ghAuth,
+                    setGhAutg,
+                  }}
                 />
               }
             />

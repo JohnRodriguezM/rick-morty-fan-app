@@ -10,7 +10,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { useNavigate } from "react-router-dom";
+//*para firebase messaging
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
@@ -23,6 +24,7 @@ export const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 export const analytics = getAnalytics(app);
 
 //? proveedor de google
@@ -80,12 +82,12 @@ export const createUserFirebaseEmail = async (
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    console.log("soy la res", res);
+    return res;
   } catch (err: any) {
     const errorCode = err.code;
     const errorMessage = err.message;
     alert(errorCode);
-    alert(errorMessage);
+    /*alert(errorMessage);*/
     console.log(errorCode);
   }
 };
@@ -108,3 +110,5 @@ export const allowAccessToUserEmailPassword = async (
     console.log(errorCode);
   }
 };
+
+//*funciones de cloud messaging para web

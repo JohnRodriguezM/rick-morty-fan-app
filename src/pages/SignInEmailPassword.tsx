@@ -21,9 +21,9 @@ const initialState = {
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .required("please, email")
-    .email("well that's not an email"),
-  password: Yup.string().required().min(2, "pretty sure this will be hacked"),
+    .required(` ⚠️ please, email`)
+    .email(`well that's not an email`),
+  password: Yup.string().required(` ⚠️ Don't forget, password`),
 });
 
 export const SignInEmailPassword: FC = (props: any): any => {
@@ -64,14 +64,14 @@ export const SignInEmailPassword: FC = (props: any): any => {
             placeholder="Password"
             onBlur={handleBlur}
           />
-          <div style = {{display: "flex", 
-          justifyContent: "center",
-          gap: "15px"}}>
+          <div
+            style={{ display: "flex", justifyContent: "center", gap: "15px" }}
+          >
             <Button
               variant="contained"
               type="submit"
               /*endIcon={<SendIcon />}*/
-              style={{ marginTop: "10px", backgroundColor: "#787a91" }}
+              style={{ marginTop: "10px", backgroundColor: "#b535f6" }}
             >
               Sign In
             </Button>

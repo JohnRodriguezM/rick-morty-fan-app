@@ -12,10 +12,10 @@ import '../../css/defaultCss/Header.css'
 export const HeaderWithOutAuth: FC = (props: any) => {
   const [hamburgerView, settoggleHamburger] = useView();
   return (
-    <div className="relative" style = {{ backgroundColor: "#0f044c" }}>
+    <div className="relative" style = {{ backgroundColor: "#0C0428" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
+        <div className="flex justify-between items-center border-gray-100 py-5 md:justify-between md:space-x-10">
+          <div className="flex justify-between lg:w-0 lg:flex-1">
             <img
               className="h-10 w-auto sm:h-10 rounded-[20px]"
               src="https://assets.bigcartel.com/product_images/208865842/MortyPin.jpg?auto=format&fit=max&w=2000"
@@ -25,7 +25,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
           <div className="-mr-2 -my-2 md:hidden">
             {/*button de hamburger open, mobile*/}
             <Button
-              className="bg-white p-2 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="bg-white p-2 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               onClick={settoggleHamburger}
               type="button"
             >
@@ -50,7 +50,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
             <div className="relative">
               {/*button de crear cuenta en mobile*/}
               <Link to = "/signUp"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base font-medium text-white hover:text-gray-300"
                 /*
                 no olvidar evento onClick para modal que de sign up
                 onClick={''}*/
@@ -70,7 +70,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
             : "inactive absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
         }`}
       >
-        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-white">
           <div className="pt-5 pb-6 px-5">
             <div className="flex items-center justify-between">
               <div>
@@ -83,7 +83,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
               <div className="-mr-2">
                 {/*Button (X) para cerrar el menú en mobile*/}
                 <Button
-                  className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   onClick={settoggleHamburger}
                   type="button"
                 >
@@ -128,7 +128,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
                   */}
                   <Link to = "/signUp" onClick={settoggleHamburger}
                     type="button"
-                    className="ml-3 text-base font-medium text-gray-600 hover:text-gray-900  focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    className="ml-3 text-base font-medium text-gray-600 hover:text-gray-500  focus:outline-none focus:ring-2 focus:ring-offset-2"
                   >
                     Crear cuenta
                   </Link>
