@@ -82,12 +82,12 @@ export const createUserFirebaseEmail = async (
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    alert(`usuario creado exitosamente , method:  ${res.operationType}`);
+    return res;
   } catch (err: any) {
     const errorCode = err.code;
     const errorMessage = err.message;
     alert(errorCode);
-    alert(errorMessage);
+    /*alert(errorMessage);*/
     console.log(errorCode);
   }
 };

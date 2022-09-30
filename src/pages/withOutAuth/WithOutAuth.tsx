@@ -36,9 +36,10 @@ export const WithOutAuth = (props: any) => {
   };
 
   return (
-    <section style = {{maxHeight:"200vh"}}>
+    <section style={{ maxHeight: "200vh" }}>
       <HeaderWithOutAuth />
-      <div className = "container-fluid"
+      <div
+        className="container-fluid"
         style={{
           width: "95%",
           height: "450px",
@@ -60,9 +61,10 @@ export const WithOutAuth = (props: any) => {
           }}
           style={{
             width: "88%",
-            /* marginTop: "4px",*/
-            background: "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-            /*backgroundColor: "#b535f6",*/
+
+            background:
+              "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -78,9 +80,8 @@ export const WithOutAuth = (props: any) => {
           }}
           style={{
             width: "88%",
-            /*marginTop: "4px",*/
-            background: "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-            /*backgroundColor: "#b535f6",*/
+            background:
+              "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
             padding: "10px",
             borderRadius: "10px",
             color: "white",
@@ -93,23 +94,25 @@ export const WithOutAuth = (props: any) => {
         <SignInEmailPassword />
       </div>
       <p
-
-        style = {{
+        style={{
           height: "150px",
           width: "0",
           margin: "25px auto",
           marginBottom: "15px",
           border: "1.5px solid",
           transform: "rotate(180deg)",
-          borderImage: "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
+          borderImage:
+            "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
         }}
       ></p>
-      <h1 style={
-        {
+      <h1
+        style={{
           fontSize: "1.2rem",
           fontWeight: "bold",
-        }
-      }>Photos of some realities</h1>
+        }}
+      >
+        Photos of some realities
+      </h1>
       <Carousel />
       <Footer />
       {/*aqui se va a renderizar el componente de incio de sesión con email y password*/}
