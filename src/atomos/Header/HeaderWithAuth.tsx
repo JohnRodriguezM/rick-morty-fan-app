@@ -176,7 +176,20 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               >
                 {manajeInit ? "Go home" : ""}
               </Link>
-
+              <button
+                type="button"
+                style={{
+                  marginLeft: "25px",
+                }}
+                onClick={() => {
+                  navigate("/contributions");
+                }}
+                id="btn-close-more"
+                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                aria-expanded="false"
+              >
+                <span>Contributions</span>
+              </button>
               <button
                 type="button"
                 style={{
@@ -273,16 +286,16 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                     </div>
                   </div>
                 </div>
-                <p
+                {/*<p
                   onClick={() => {
                     setSeeCharacterMobile(true);
                   }}
                 >
-                  Ver characters
-                </p>
+                  
+                </p>*/}
 
                 <span
-                  className="ml-3 text-base font-medium text-gray-900"
+                  className="ml-3 text-base font-medium text-gray-900 mt-6"
                   onClick={() => {
                     setSeeCharacterMobile(false);
                   }}
@@ -307,6 +320,14 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   Go home{" "}
                 </Link>
                 {/*<!-- Heroicon name: outline/view-grid -->*/}
+                <Link
+                  className="ml-3 text-base font-medium text-gray-900"
+                  to="/contributions"
+                >
+                  {" "}
+                  Contribution{" "}
+                </Link>
+
                 <span
                   className="ml-3 text-base font-medium text-gray-900"
                   onClick={() => {

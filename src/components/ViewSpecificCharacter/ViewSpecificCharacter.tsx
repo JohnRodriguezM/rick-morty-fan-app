@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../../helpers/fetchData";
 
-
+import {CardCharacter} from "../CardCharacter/CardCharacter";
 
 export const ViewSpecificCharacter = (props: any) => {
  /* const { dataSpecifCharacter } = props;*/
@@ -27,6 +27,16 @@ export const ViewSpecificCharacter = (props: any) => {
   }, [Id]);
   return (
     <div>
+      <CardCharacter/>
+
+
+
+
+
+
+
+
+
       <ul>
         <li>{infoCharacter.name}</li>
         <li>{infoCharacter.status}</li>
