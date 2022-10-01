@@ -45,7 +45,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   }, [manajeInit]);
 
   return (
-    <div className="relative bg-white">
+    <div className="relative bg-white  z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-gray-100 py-5 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -105,7 +105,9 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span /*onClick={() => setSeeSolution(true)}*/>All characters</span>
+                <span /*onClick={() => setSeeSolution(true)}*/>
+                  Main characters
+                </span>
               </Link>
 
               <button

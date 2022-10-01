@@ -40,7 +40,7 @@ export const SignUpEmailPassword = (props: any) => {
 
   const handleSubmit = async (values: any): Promise<any> => {
     /*console.log("jajaja");*/
-    props.setForm(values);
+    setForm(values);
     await createUserFirebaseEmail(auth, values.email, values.password).then(
       (res) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions

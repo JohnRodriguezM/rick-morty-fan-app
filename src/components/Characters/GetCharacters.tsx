@@ -47,26 +47,26 @@ export const GetCharacters: FC<GetCharacterIn> = ({
   }, []);
 
   return (
-    <div className="" style = {{marginTop: " 45px"}}>
-      
-        <input
-          type="text"
-          name=""
-          id=""
-
-          placeholder="Find character"
-          onChange={(e) => {
-            findCharacter(e.target.value);
-          }}
-        />
-        <div style = {style}>
+    <div className="" style={{ marginTop: " 45px" }}>
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Find character"
+        onChange={(e) => {
+          findCharacter(e.target.value);
+        }}
+      />
+      <div style={style}>
         {dataCharacter.length > 0 &&
           dataCharacter.map((el: any) => {
             const { id, image, name } = el;
             return (
               <div>
                 <section key={id} className="section-character hover:shadow-lg">
-                  <h4 className="text-2xl font-bold  text-red-600"> {/*underline*/}
+                  <h4 className="text-2xl font-bold  text-red-600">
+                    {" "}
+                    {/*underline*/}
                     {name}
                   </h4>
                   <img src={image} alt="" /> <br />

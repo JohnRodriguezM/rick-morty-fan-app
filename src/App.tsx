@@ -22,6 +22,7 @@ import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
 import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
+import { Episode } from "./pages/Episode/Episode";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -77,7 +78,6 @@ const App = () => {
   };
 
   return (
-    
     <section className="App">
       <Router>
         <>
@@ -116,6 +116,17 @@ const App = () => {
                 </>
               }
             />
+            {/**/}
+            <Route
+              path={`/home/episode/:Id`}
+              element={
+                <>
+                  <HeaderWithAuth dataCharacter={dataCharacter} />
+                  <Episode />
+                </>
+              }
+            />
+            {/**/}
             <Route
               path="/home"
               element={

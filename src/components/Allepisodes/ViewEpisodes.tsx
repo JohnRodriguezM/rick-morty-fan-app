@@ -1,4 +1,6 @@
-import React, { useState, useEffect,Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+
+import { Link } from "react-router-dom";
 
 const clasesStore = {
   number1:
@@ -30,13 +32,11 @@ export const ViewEpisodes = () => {
       .then((res) => {
         console.log(res);
         return res.json();
-        
       })
       .then((data) => {
         console.log(data);
-        setTimeout(() => {
-          setData(data.results);
-        }, 4000);
+
+        setData(data.results);
       });
   }, [pagination]);
 
@@ -51,33 +51,19 @@ export const ViewEpisodes = () => {
   };
 
   return (
-    <Suspense fallback={<h1>Loading posts...</h1>}>
     <div style={{ maxWidth: " 1200px ", margin: "25px auto" }}>
       <h2>pagina actual {pagination}</h2>
-      {data &&
-        data.map((el: any) => {
-          /* console.log(data);*/
-          const { id, name, air_date, episode } = el;
-          return (
-            <div key={id} style={style}>
-              <h1>{name}</h1>
-              <p>{air_date}</p>
-              <p>{episode}</p>
-            </div>
-          );
-        })}
-
       <div className={clasesStore.number1}>
         <div className={clasesStore.number2}>
           <a
-            href="#s"
+            href={`#${pagination}`}
             className={clasesStore.number3}
             onClick={() => setPagination(pagination - 1)}
           >
             Previous
           </a>
           <a
-            href="#a"
+            href={`#${pagination}`}
             className={clasesStore.number4}
             onClick={() => setPagination(pagination + 1)}
           >
@@ -87,11 +73,8 @@ export const ViewEpisodes = () => {
         <div className={clasesStore.number5}>
           <div>
             <nav className={clasesStore.number6} aria-label="Pagination">
-              {/* <a href="#w" className={clasesStore.number7}>
-                <span className="sr-only">----</span>
-              </a>*/}
               <a
-                href="#x"
+                href={`#${pagination}`}
                 aria-current="page"
                 className={clasesStore.number8}
                 onClick={() => setPagination(1)}
@@ -99,39 +82,38 @@ export const ViewEpisodes = () => {
                 1
               </a>
               <a
-                href="#y"
+                href={`#${pagination}`}
                 className={clasesStore.number8}
                 onClick={() => setPagination(2)}
               >
                 2
               </a>
               <a
-                href="#z"
+                href={`#${pagination}`}
                 className={clasesStore.number8}
                 onClick={() => setPagination(3)}
               >
                 3
               </a>
-
-              {/* <a
-                href="#c"
-                className={clasesStore.number9}
-                onClick={() => {setPagination(pagination + 1)}}
-              >
-                ---
-                <span
-                  className="sr-only"
-                  onClick={() => setPagination(4)}
-                >
-                  Next
-                </span>
-              </a>*/}
             </nav>
           </div>
         </div>
       </div>
+
+      {data &&
+        data.map((el: any) => {
+          /* console.log(data);*/
+          const { id, name, air_date, episode } = el;
+          return (
+            <div key={id} style={style}>
+              <h1>{name}</h1>
+              <p>{air_date}</p>
+              <p>{episode}</p>
+              <Link to = {`episode/${id}`}>see specific episode</Link>
+              {/*cuando me lleve a esta ruta la idea es que me muestre los personajes del episodio especifico también*/}
+            </div>
+          );
+        })}
     </div>
-    
-    </Suspense>
   );
 };
