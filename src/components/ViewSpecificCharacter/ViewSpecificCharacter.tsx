@@ -53,9 +53,9 @@ export const ViewSpecificCharacter = (props: any) => {
           }}
         ></li>
         <li>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Tm7dFM_v57A" title="YouTube video player" /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/></iframe>
+        <iframe width="470" height="215" src="https://www.youtube.com/embed/Tm7dFM_v57A" title="YouTube video player" /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/></iframe>
         </li>
-          <video src="https://youtu.be/Tm7dFM_v57A" controls></video>
+          {/*<video src="https://youtu.be/Tm7dFM_v57A" controls></video>*/}
       </ul>
     </div>
   );
