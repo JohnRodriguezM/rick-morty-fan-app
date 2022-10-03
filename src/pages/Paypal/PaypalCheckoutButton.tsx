@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { faHourglassEmpty } from "@fortawesome/free-solid-svg-icons";
 
 export const PaypalCheckoutButton = (props: any): any => {
   //*definir luego el prodiucto por parte de las props

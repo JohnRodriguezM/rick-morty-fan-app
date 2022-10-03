@@ -129,7 +129,15 @@ const App = () => {
             />
             {/**/}
 
-            <Route path = "/contributions" element = {<PaypalCheckoutButton/>}/>
+            <Route
+              path="/contributions"
+              element={
+                <>
+                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <PaypalCheckoutButton />
+                </>
+              }
+            />
 
             <Route
               path="/home"
@@ -139,7 +147,7 @@ const App = () => {
                   <AuthView
                     {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
                   />
-                  
+
                   <ViewEpisodes />
                 </Home>
               }
