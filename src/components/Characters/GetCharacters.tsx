@@ -52,6 +52,7 @@ export const GetCharacters: FC<GetCharacterIn> = ({
         type="text"
         name=""
         id=""
+        style = {{color:"red"}}
         placeholder="Find character"
         onChange={(e) => {
           findCharacter(e.target.value);

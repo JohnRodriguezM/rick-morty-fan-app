@@ -110,14 +110,6 @@ export function Footer(props: any) {
               {content["copy"]}
             </Typography>
           </Box>
-          {/*<Typography
-           
-            component="p"
-            variant="caption"
-            gutterBottom={false}
-          >
-            {content["copy"]}
-          </Typography>*/}
         </Box>
       </Container>
     </footer>

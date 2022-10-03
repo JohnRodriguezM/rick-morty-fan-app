@@ -23,6 +23,7 @@ import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 import { Episode } from "./pages/Episode/Episode";
+import { PaypalCheckoutButton } from "./pages/Paypal/PaypalCheckoutButton";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
@@ -127,6 +128,9 @@ const App = () => {
               }
             />
             {/**/}
+
+            <Route path = "/contributions" element = {<PaypalCheckoutButton/>}/>
+
             <Route
               path="/home"
               element={
@@ -135,6 +139,7 @@ const App = () => {
                   <AuthView
                     {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
                   />
+                  
                   <ViewEpisodes />
                 </Home>
               }

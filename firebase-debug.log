@@ -1,0 +1,22 @@
+[debug] [2022-10-03T03:18:00.987Z] ----------------------------------------------------------------------
+[debug] [2022-10-03T03:18:00.992Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\johnj\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-10-03T03:18:00.993Z] CLI Version:   11.8.0
+[debug] [2022-10-03T03:18:00.993Z] Platform:      win32
+[debug] [2022-10-03T03:18:00.994Z] Node Version:  v16.17.0
+[debug] [2022-10-03T03:18:00.997Z] Time:          Sun Oct 02 2022 22:18:00 GMT-0500 (hora estándar de Colombia)
+[debug] [2022-10-03T03:18:00.997Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-10-03T03:18:01.006Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-10-03T03:18:01.112Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-10-03T03:18:01.112Z] > authorizing via signed-in user (johnjairorodriguez384@gmail.com)
+[debug] [2022-10-03T03:18:01.112Z] [iam] checking project rick-morty-app-c905f for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-10-03T03:18:01.113Z] > refreshing access token with scopes: []
+[debug] [2022-10-03T03:18:01.114Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-10-03T03:18:01.114Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-10-03T03:18:01.956Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-10-03T03:18:01.956Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2022-10-03T03:18:01.995Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-10-03T03:18:01.996Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-10-03T03:18:02.012Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/rick-morty-app-c905f:testIamPermissions [none]
+[debug] [2022-10-03T03:18:02.012Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/rick-morty-app-c905f:testIamPermissions x-goog-quota-user=projects/rick-morty-app-c905f
+[debug] [2022-10-03T03:18:02.013Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/rick-morty-app-c905f:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
