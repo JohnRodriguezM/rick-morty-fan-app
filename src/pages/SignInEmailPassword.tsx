@@ -47,8 +47,12 @@ export const SignInEmailPassword: FC = (props: any): any => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
+      
       {({ errors, values, handleBlur, touched }) => (
+        
         <Form noValidate>
+         <p style = {{color: '#000'}}> --------------  o   --------------</p>
+
           <InputText
             name="email"
             label="Email"
