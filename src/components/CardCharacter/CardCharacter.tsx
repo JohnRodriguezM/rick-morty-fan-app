@@ -128,16 +128,14 @@ export const CardCharacter = ({
               {cap.map((el: any) => {
                 return (
                   <section
-                    className="grid grid-cols-2 gap-4 text-xs  "
+                    className="grid grid-cols-2 gap-4 text-xs p-2 border-2 border-gray-300 rounded-md shadow-md hover:shadow-lg
+                    m-2
+                    place-items-center
+                    "
                     style={{
-                      /*display: "grid",*/
-                      /* fontSize: "12px",*/
-                      border: "1px solid #ccc",
-                      /*gridTemplateColumns: `30% 68%`,*/
-                      placeItems: "center",
-                      /*gridGap: ".4rem",*/
-                      padding: ".5rem",
-                      /*margin: "25px auto"*/
+                     /* border: "1px solid #ccc",
+                      placeItems: "center",*/
+
                     }}
                   >
                     <button
