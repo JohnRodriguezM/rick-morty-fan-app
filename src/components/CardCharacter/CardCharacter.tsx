@@ -15,21 +15,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 /*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
 
+import {ModalShare} from "../ShareView/ShareView";
 
-
-//? iconos del share
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-
-import {
-
-
-  FacebookShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-
-} from "react-share";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -77,51 +64,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const ModalShare = (props: any) => {
-  return (
-    <div style = {{
-      backgroundColor: "rgb(210, 152, 239)",
-      position: "absolute",
-      top: "-55px",
-      left: "-35px",
-      width: "320px",
-      height: "100%",
-      /*background: "rgba(0,0,0,0.5)",*/
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000,
 
-    }}>
-
-        <div className="">
-        
-          <FacebookShareButton
-            url={props.url}
-            quote="Facebook"
-            className="m-2"
-          >
-            <FacebookIcon
-              color="primary"
-            />
-          </FacebookShareButton>
-          <TwitterShareButton
-            url={props.url}
-            title="Twitter"
-            className="m-2"
-            hashtags={["reactjs", "react"]}
-          >
-            <TwitterIcon
-              color="primary"
-            />
-          </TwitterShareButton>
-        </div>
-
-    </div>
-  );
-};
-
-export const CardCharacter = ({ name, image, species, status, cap,url }: any) => {
+export const CardCharacter = ({
+  name,
+  image,
+  species,
+  status,
+  cap,
+  url,
+}: any) => {
   const [share, setShare] = useState(false);
 
   const handleShare = () => {
@@ -135,7 +86,7 @@ export const CardCharacter = ({ name, image, species, status, cap,url }: any) =>
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} style={{ margin: "25px auto" }}>
+    <Card sx={{ maxWidth: 370 }} style={{ margin: "10vh auto" }}>
       <CardContent>
         <CardMedia
           component="img"
@@ -153,10 +104,8 @@ export const CardCharacter = ({ name, image, species, status, cap,url }: any) =>
           <FavoriteIcon className="active:text-red-800 hover:text-red active:scale-150" />
         </IconButton>
         <IconButton aria-label="share" onClick={handleShare}>
-          <ShareIcon  />
-          {share && <ModalShare 
-            url = {url}
-          />}
+          <ShareIcon />
+          {share && <ModalShare url={url} />}
         </IconButton>
         <ExpandMore
           animation={animationValue.animation}

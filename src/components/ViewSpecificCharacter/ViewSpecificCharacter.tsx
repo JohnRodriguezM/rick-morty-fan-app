@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import CardContent from "@mui/material/CardContent";
+import Card from "@mui/material/Card";
+
 import { useParams } from "react-router-dom";
 import { fetchData } from "../../helpers/fetchData";
 
@@ -41,25 +44,24 @@ export const ViewSpecificCharacter = (props: any) => {
     getData(`https://rickandmortyapi.com/api/character/${Id}`);
   }, [Id]);
   return (
-    <div>
-      <CardCharacter
-        {...infoCharacter}
-        cap={cap}
-      />
+    <div
+      className="grid md:grid-cols-2 gap-1 md:gap-5 
+      flex-start
+      place-items-center md:justify-center"
+    >
+      <section>
+        <CardCharacter {...infoCharacter} cap={cap} />
+      </section>
 
-      <ul>
-        <li>
-          <iframe
-            style={{ margin: "0 auto" }}
-            width="470"
-            height="215"
-            src="https://www.youtube.com/embed/Tm7dFM_v57A"
-            title="YouTube video player"
-            /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/
-          ></iframe>
-        </li>
-        {/*<video src="https://youtu.be/Tm7dFM_v57A" controls></video>*/}
-      </ul>
+      <Card sx={{ maxWidth: 500 }} style={{ margin: "10vh auto" }}>
+        <iframe
+          className="w-full h-full md:h-96"
+          src="https://www.youtube.com/embed/Tm7dFM_v57A"
+          title="YouTube video player"
+          /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/
+        ></iframe>
+      </Card>
+      {/*<video src="https://youtu.be/Tm7dFM_v57A" controls></video>*/}
     </div>
   );
 };

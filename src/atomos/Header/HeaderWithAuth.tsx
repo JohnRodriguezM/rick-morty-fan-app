@@ -53,7 +53,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               //* inicio del header de mobile, se debe realizar una modificación para que sea congruente con el header de desktop
             }
 
-            <Link to="/">
+            <Link to="/home">
               {/*<img cara de morty, está conectada al home*/}
               <span className="sr-only">Workflow</span>
               <img
@@ -140,6 +140,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div
+                   style = {{
+                    overflow: 'scroll',
+                    maxHeight: "400px",
+                  }}
                     className={`${
                       seeSolutions
                         ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
@@ -151,6 +155,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                         <Link
                           key={el.id}
                           onClick={() => setSeeSolution(false)}
+                         
                           className="
                           text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
                           to={`/home/character/${el.id}`}
@@ -219,7 +224,9 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
         }`}
       >
         <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-          <div className="pt-5 pb-6 px-5">
+          <div className="pt-5 pb-6 px-5"
+          onClick={() => setSeeCharacterMobile(true)}
+          >
             <div className="flex items-center justify-between">
               <div>
                 <img
@@ -261,6 +268,11 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div
+                     style = {{
+                      overflow: 'scroll',
+                      maxHeight: "550px",
+                    }}
+                    
                       className={`${
                         seeCharacterMobile
                           ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
