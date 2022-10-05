@@ -43,7 +43,17 @@ export const GetCharacters: FC<GetCharacterIn> = ({
   //* manejo de data provisional, manejando de manera visual momentanea
   /*  const [dataUI, setDataUI] = useState<any>(null); */
   useEffect(() => {
-    fetchData(getAllCharacter, setLocalStorage, setDataBackUpCharacter);
+    const getData = async (url: string) => {
+      try {
+        const res = await fetch(url);
+        const json: any = await res.json();
+        setLocalStorage(json.results);
+        setDataBackUpCharacter(json.results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData(getAllCharacter);
   }, []);
 
   return (
@@ -52,7 +62,7 @@ export const GetCharacters: FC<GetCharacterIn> = ({
         type="text"
         name=""
         id=""
-        style = {{color:"red"}}
+        style={{ color: "red" }}
         placeholder="Find character"
         onChange={(e) => {
           findCharacter(e.target.value);

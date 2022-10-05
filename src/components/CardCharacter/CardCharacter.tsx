@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 /*import CardHeader from "@mui/material/CardHeader";*/
@@ -15,14 +15,61 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 /*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
 
+
+
+//? iconos del share
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+
+import {
+
+
+  FacebookShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+
+} from "react-share";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { keyframes } from "@emotion/react";
+/*
+type AnimationProps = {
+  animation: any;
+};*/
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
+  animation: any;
 }
+
+const animationValue = {
+  animation: keyframes`
+  0% {
+    color: red;
+    font-size: 1.5rem;
+  }
+  100% {
+    color: none;
+    /*transform: scale(1);*/
+  }
+`,
+  button: keyframes`
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    
+    transform: scale(1);
+  }
+`,
+};
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
-})(({ theme, expand }) => ({
+})(({ theme, expand, animation }) => ({
+  animation: `${animation} 1.1s infinite`,
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
@@ -30,7 +77,57 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export const CardCharacter = (props:any) => {
+const ModalShare = (props: any) => {
+  return (
+    <div style = {{
+      backgroundColor: "rgb(210, 152, 239)",
+      position: "absolute",
+      top: "-55px",
+      left: "-35px",
+      width: "320px",
+      height: "100%",
+      /*background: "rgba(0,0,0,0.5)",*/
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+
+    }}>
+
+        <div className="">
+        
+          <FacebookShareButton
+            url={props.url}
+            quote="Facebook"
+            className="m-2"
+          >
+            <FacebookIcon
+              color="primary"
+            />
+          </FacebookShareButton>
+          <TwitterShareButton
+            url={props.url}
+            title="Twitter"
+            className="m-2"
+            hashtags={["reactjs", "react"]}
+          >
+            <TwitterIcon
+              color="primary"
+            />
+          </TwitterShareButton>
+        </div>
+
+    </div>
+  );
+};
+
+export const CardCharacter = ({ name, image, species, status, cap,url }: any) => {
+  const [share, setShare] = useState(false);
+
+  const handleShare = () => {
+    setShare(!share);
+  };
+
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -38,27 +135,31 @@ export const CardCharacter = (props:any) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} style = {{margin: '25px auto'}}>
+    <Card sx={{ maxWidth: 345 }} style={{ margin: "25px auto" }}>
       <CardContent>
         <CardMedia
           component="img"
           height="194"
-          image={props.image}
+          image={image}
           alt="Paella dish"
         />
 
-        <Typography variant="body2" color="text.secondary">
-          {props.name}
+        <Typography variant="subtitle1" color="text.primary">
+          Name: {name}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon className = "active:text-red-800 hover:text-red active:scale-150"/>
+          <FavoriteIcon className="active:text-red-800 hover:text-red active:scale-150" />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="share" onClick={handleShare}>
+          <ShareIcon  />
+          {share && <ModalShare 
+            url = {url}
+          />}
         </IconButton>
         <ExpandMore
+          animation={animationValue.animation}
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
@@ -69,19 +170,38 @@ export const CardCharacter = (props:any) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Status: </Typography>
-          <Typography paragraph>
-            {props.status}
-          </Typography>
-          <Typography paragraph>
-           {props.species}
-          </Typography>
-          <Typography paragraph>
-            at don&apos;t open.)
-          </Typography>
+          <Typography paragraph>Status: {status} </Typography>
+          {/*<Typography paragraph></Typography>*/}
+          <Typography paragraph>Specie : {species}</Typography>
           <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
+            <div>
+              {cap.map((el: any) => {
+                return (
+                  <section
+                    className="grid grid-cols-2 gap-4 text-xs  "
+                    style={{
+                      /*display: "grid",*/
+                      /* fontSize: "12px",*/
+                      border: "1px solid #ccc",
+                      /*gridTemplateColumns: `30% 68%`,*/
+                      placeItems: "center",
+                      /*gridGap: ".4rem",*/
+                      padding: ".5rem",
+                      /*margin: "25px auto"*/
+                    }}
+                  >
+                    <button
+                      className="bg-[#111138] 
+                    text-white p-1 rounded-md
+                    hover:scale-110 active:scale-110 "
+                    >
+                      <Link to={`/home/episode/${el.id}`}>{el.episode}</Link>
+                    </button>
+                    <p>{el.name}</p>
+                  </section>
+                );
+              })}
+            </div>
           </Typography>
         </CardContent>
       </Collapse>

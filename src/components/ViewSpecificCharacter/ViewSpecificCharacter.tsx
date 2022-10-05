@@ -12,7 +12,7 @@ export const ViewSpecificCharacter = (props: any) => {
   /* console.log(params);*/
 
   const [infoCharacter, setInfoCharacter] = useState<any>([]);
-  /*const [cap, setCap] = useState<any>([]);*/
+  const [cap, setCap] = useState<any>([]);
   useEffect(() => {
     const getData = async (url: string) => {
       try {
@@ -21,10 +21,7 @@ export const ViewSpecificCharacter = (props: any) => {
         console.log(json);
         setInfoCharacter(json);
 
-        
-       /*
-       pendiente la implementación del epidsode
-       json.episode.map((el: any, index: number) => {
+        json.episode.map((el: any, index: number) => {
           fetch(el)
             .then((res) => res.json())
             .then((data) => {
@@ -36,9 +33,7 @@ export const ViewSpecificCharacter = (props: any) => {
                 return [...unicos, data];
               });
             });
-        });*/
-
-
+        });
       } catch (err) {
         console.log(err);
       }
@@ -48,16 +43,14 @@ export const ViewSpecificCharacter = (props: any) => {
   return (
     <div>
       <CardCharacter
-        image={infoCharacter.image}
-        name={infoCharacter.name}
-        status={infoCharacter.status}
-        species={infoCharacter.species}
+        {...infoCharacter}
+        cap={cap}
       />
 
-      <ul >
+      <ul>
         <li>
           <iframe
-            style = {{margin: '0 auto'}}
+            style={{ margin: "0 auto" }}
             width="470"
             height="215"
             src="https://www.youtube.com/embed/Tm7dFM_v57A"
