@@ -86,13 +86,14 @@ export const CardCharacter = ({
   };
 
   return (
-    <Card sx={{ maxWidth: 370 }} style={{ margin: "10vh auto" }}>
+    <Card sx={{ maxWidth: 360 }} style={{ margin: "10vh auto" }}>
       <CardContent>
         <CardMedia
           component="img"
-          height="194"
+          height="800000"
           image={image}
-          alt="Paella dish"
+          alt={name}
+          title={name}
         />
 
         <Typography variant="subtitle1" color="text.primary">

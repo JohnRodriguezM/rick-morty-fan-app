@@ -22,7 +22,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   ...props
 }) => {
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
-  const [hamburgerView, toggleHamburger] = useView();
+  const [hamburgerView, setHamburgerView] = useView();
 
   //* abre la section que en este momento se llama see more  - btn-close-more
   const [seemoreOption, setSeeMoreOption] = useView();
@@ -34,15 +34,17 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   const [seeCharacterMobile, setSeeCharacterMobile] = useView();
 
   //! en la linea 440 esta oculto el div de los botones de sign in - sign up, agregar algo obligatorio o si no se desborda el boton de see more
-  const [manajeInit, setManajeInit] = useState(false);
+  const [manageInit, setManageInit] = useState(false);
 
   const navigate = useNavigate();
 
+
+  //? para que aparezca el go home en el header 
   useEffect(() => {
     if (window.location.pathname !== "/home") {
-      setManajeInit(true);
+      setManageInit(true);
     }
-  }, [manajeInit]);
+  }, [manageInit]);
 
   return (
     <div className="relative bg-white  z-50">
@@ -68,7 +70,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
             {/*boton de hamburguesa, expand menú mobile --- */}
             <button
               type="button"
-              onClick={toggleHamburger}
+              onClick={setHamburgerView}
               className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-expanded="false"
             >
@@ -120,7 +122,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span onClick={() => setSeeSolution(true)}>Characters</span>
+                <span onClick={setSeeSolution}>Characters</span>
                 <svg
                   className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -174,12 +176,12 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <Link
                 to="/home"
                 className={`${
-                  manajeInit
+                  manageInit
                     ? "text-base font-medium text-gray-500 hover:text-gray-900"
                     : "inactive"
                 } `}
               >
-                {manajeInit ? "Go home" : ""}
+                {manageInit ? "Go home" : ""}
               </Link>
               <button
                 type="button"
@@ -237,7 +239,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               </div>
               <div className="-mr-2">
                 <button
-                  onClick={toggleHamburger}
+                  onClick={setHamburgerView}
                   type="button"
                   id="btn-close"
                   className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -285,7 +287,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                             key={el.id}
                             onClick={() => {
                               setSeeCharacterMobile(false);
-                              toggleHamburger(false);
+                              setHamburgerView(false);
                             }}
                             className="text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
                             to={`/home/character/${el.id}`}
@@ -319,9 +321,13 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 <Link
                   className="ml-3 text-base font-medium text-gray-900"
                   to={`/home/all-characters`}
+                  onClick={() => {
+                    setSeeSolution(false);
+
+                  }}
                 >
                   {" "}
-                  See all characters{" "}
+                   Main characters{" "}
                 </Link>
 
                 <Link

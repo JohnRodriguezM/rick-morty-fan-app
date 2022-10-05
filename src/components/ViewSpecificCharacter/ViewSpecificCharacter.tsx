@@ -45,22 +45,23 @@ export const ViewSpecificCharacter = (props: any) => {
   }, [Id]);
   return (
     <div
-      className="grid md:grid-cols-2 gap-1 md:gap-5 
-      flex-start
-      place-items-center md:justify-center"
+      className="md:grid md:grid-cols-2 gap-1 md:gap-5 
+    md:place-items-center md:place-content-center"
     >
       <section>
         <CardCharacter {...infoCharacter} cap={cap} />
       </section>
-
-      <Card sx={{ maxWidth: 500 }} style={{ margin: "10vh auto" }}>
+      <div style = {{margin: '0 auto'}}>
         <iframe
-          className="w-full h-full md:h-96"
+          /*width="560"
+          height="315"*/
+          style = {{margin: '0 auto'}}
+          className=" w-96 h-96  md:w-full md:h-96"
           src="https://www.youtube.com/embed/Tm7dFM_v57A"
           title="YouTube video player"
           /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/
         ></iframe>
-      </Card>
+      </div>
       {/*<video src="https://youtu.be/Tm7dFM_v57A" controls></video>*/}
     </div>
   );
