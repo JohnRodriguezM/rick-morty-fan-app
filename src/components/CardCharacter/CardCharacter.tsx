@@ -52,6 +52,8 @@ const animationValue = {
 };
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
+
+
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand, animation }) => ({
@@ -76,6 +78,7 @@ export const CardCharacter = ({
   liked,
   setLiked,
 }: any) => {
+  const navigate = useNavigate();
   const [share, setShare] = useState(false);
 
   const handleShare = () => {
@@ -88,18 +91,8 @@ export const CardCharacter = ({
     setExpanded(!expanded);
   };
 
-  const deleteLiked = (id: string | number) => {
-    const dataFilter = liked.filter((el: any) => el.id !== id);
-    alert("hola");
-    setLiked(dataFilter);
-    window.localStorage.setItem("likedCharacters", JSON.stringify(dataFilter));
-  };
-
   return (
-    <Card
-      sx={{ maxWidth: tammanio }}
-      style={{ margin: "10vh auto" }}
-    >
+    <Card sx={{ maxWidth: tammanio }} style={{ margin: "10vh auto" }}>
       <CardContent>
         <CardMedia
           component="img"
@@ -117,19 +110,15 @@ export const CardCharacter = ({
         <Typography paragraph>Specie : {species}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {cap ? (
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon
-              className="active:text-red-800 hover:text-red active:scale-150"
-              onClick={() => handleLikeCharacter(id)}
-            />
-          </IconButton>
-        ) : (
-          <IconButton aria-label="add to favorites"
-          onClick={() => deleteLiked(id)}
-          >X</IconButton>
-        )}
-
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon
+            className="active:text-red-800 hover:text-red active:scale-150"
+            onClick={() => {
+              handleLikeCharacter(id);
+              navigate("/liked-characters");
+            }}
+          />
+        </IconButton>
         <IconButton aria-label="share" onClick={handleShare}>
           <ShareIcon />
           {share && <ModalShare url={url} />}

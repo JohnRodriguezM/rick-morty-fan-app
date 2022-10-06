@@ -23,15 +23,13 @@ export const ViewSpecificCharacter = ({
   const [cap, setCap] = useState<any>([]);
 
   const handleLikeCharacter = (id: string | number) => {
-    const dataFilter = liked.filter((el: any) => {
-      alert("ya agragaste el personaje");
-      return el.id !== id;
-    });
+    const dataFilter = liked.filter((el: any) => el.id !== id);
     setLiked([...dataFilter, infoCharacter]);
 
-    window.localStorage.setItem("likedCharacters", JSON.stringify([...dataFilter, infoCharacter]));
-
-
+    window.localStorage.setItem(
+      "likedCharacters",
+      JSON.stringify([...dataFilter, infoCharacter])
+    );
   };
 
   useEffect(() => {
@@ -72,8 +70,8 @@ export const ViewSpecificCharacter = ({
           cap={cap}
           handleLikeCharacter={handleLikeCharacter}
           tammanio={345}
-          liked = {liked}
-          setLiked = {setLiked}
+          liked={liked}
+          setLiked={setLiked}
         />
       </section>
       <div style={{ margin: "0 auto" }}>
