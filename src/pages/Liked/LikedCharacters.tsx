@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "@mui/material/Card";
 /*import CardHeader from "@mui/material/CardHeader";*/
@@ -11,6 +11,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
   const navigate = useNavigate();
+
+
+
   const deleteLiked = (id: string | number) => {
     const dataFilter = liked.filter((el: any) => el.id !== id);
 
@@ -31,46 +34,52 @@ export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
     const data = JSON.parse(window.localStorage.getItem("likedCharacters")!);
     console.log(data);
     setLiked(data);
-  }, [liked, setLiked]);
+  }, []);
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gridGap: "1rem",
-        padding: "1rem",
+        margin: "5vh auto",
+        display: "flex",
+        maxWidth: "900px",
+        justifyContent: "space-around",
+        flexWrap: "wrap",
+        gap: " 15px"
       }}
     >
       {liked.length > 0 ? (
         liked.map((el: any) => {
           return (
-            <Card sx={{ maxWidth: 190 }} style={{ margin: "10vh auto" }}>
-              <CardContent>
-                <CardMedia
-                  component="img"
-                  height="800000"
-                  image={el.image}
-                  alt={el.name}
-                  title={el.name}
-                />
-
-                <Typography variant="subtitle1" color="text.primary">
-                  Name: {el.name}
-                </Typography>
-                <Typography paragraph>Status: {el.status} </Typography>
-                {/*<Typography paragraph></Typography>*/}
-                <Typography paragraph>Specie : {el.species}</Typography>
-                <Typography paragraph onClick={() => deleteLiked(el.id)}>
-                  X
-                </Typography>
-              </CardContent>
-            </Card>
+            <>
+              <Card sx={{ maxWidth: 190 }} style={{ margin: "2vh auto" }}>
+                <CardContent>
+                  <CardMedia
+                    component="img"
+                    height="800000"
+                    image={el.image}
+                    alt={el.name}
+                    title={el.name}
+                  />
+                  <Link to={`/home/character/${el.id}`}>
+                    Back to the character
+                  </Link>
+                  <Typography variant="subtitle1" color="text.primary">
+                    Name: {el.name}
+                  </Typography>
+                  <Typography paragraph>Status: {el.status} </Typography>
+                  {/*<Typography paragraph></Typography>*/}
+                  <Typography paragraph>Specie : {el.species}</Typography>
+                  <Typography paragraph onClick={() => deleteLiked(el.id)}>
+                    X
+                  </Typography>
+                </CardContent>
+              </Card>
+            </>
           );
         })
       ) : (
         <div>
           <h1>No hay personajes marcados como favorites</h1>
-          <Link to="/home/character/1">Ver un personaje</Link>
+          <Link to="/home/character/1">Ver el personaje #1</Link>
         </div>
       )}
 

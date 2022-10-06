@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import CardContent from "@mui/material/CardContent";
-import Card from "@mui/material/Card";
+
 
 import { useParams } from "react-router-dom";
-import { fetchData } from "../../helpers/fetchData";
+
 
 import { CardCharacter } from "../CardCharacter/CardCharacter";
 
@@ -69,17 +68,17 @@ export const ViewSpecificCharacter = ({
           {...infoCharacter}
           cap={cap}
           handleLikeCharacter={handleLikeCharacter}
-          tammanio={345}
+          tammanio={325}
           liked={liked}
           setLiked={setLiked}
         />
       </section>
-      <div style={{ margin: "0 auto" }}>
+      <div >
         <iframe
           /*width="560"
           height="315"*/
           style={{ margin: "0 auto" }}
-          className=" w-96 h-96  md:w-full md:h-96"
+          className=" w-96 h-96  md:w-96 md:h-96"
           src="https://www.youtube.com/embed/Tm7dFM_v57A"
           title="YouTube video player"
           /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/
