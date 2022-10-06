@@ -24,12 +24,14 @@ import { Home } from "./pages/home/Home";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 import { Episode } from "./pages/Episode/Episode";
 import { PaypalCheckoutButton } from "./pages/Paypal/PaypalCheckoutButton";
+import { LikedCharacters } from "./pages/Liked/LikedCharacters";
 
 const App = () => {
   //! recuperación del elemento a través de local storage
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
   const recoveryDataGitHub: any = localStorage.getItem("githubToken");
+
 
   //!manejo del estado de autenticación con google
 
@@ -44,6 +46,9 @@ const App = () => {
   //!estados de la app
 
   const db: any[] = [];
+
+  //! array para almacenar los personajes favoritos
+  const [liked, setLiked] = useState<any>([]);
 
   const [dataCharacter, setDataCharacter] = useState<any>(
     JSON.parse(recoveryCharacter) || db
@@ -93,7 +98,9 @@ const App = () => {
               element={
                 <>
                   <HeaderWithAuth {...{ dataCharacter }} />
-                  <ViewSpecificCharacter />
+                  <ViewSpecificCharacter
+                    {...{ dataCharacter, deleteCharacter, liked, setLiked }}
+                  />
                 </>
               }
             />
@@ -135,6 +142,16 @@ const App = () => {
                 <>
                   <HeaderWithAuth {...{ dataCharacter }} />
                   <PaypalCheckoutButton />
+                </>
+              }
+            />
+
+            <Route
+              path="/liked-characters"
+              element={
+                <>
+                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <LikedCharacters liked={liked} setLiked={setLiked} />
                 </>
               }
             />

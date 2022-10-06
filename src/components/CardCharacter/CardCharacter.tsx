@@ -15,8 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 /*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
 
-import {ModalShare} from "../ShareView/ShareView";
-
+import { ModalShare } from "../ShareView/ShareView";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -64,14 +63,18 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-
 export const CardCharacter = ({
   name,
   image,
   species,
   status,
+  id,
   cap,
   url,
+  tammanio,
+  handleLikeCharacter,
+  liked,
+  setLiked,
 }: any) => {
   const [share, setShare] = useState(false);
 
@@ -85,8 +88,18 @@ export const CardCharacter = ({
     setExpanded(!expanded);
   };
 
+  const deleteLiked = (id: string | number) => {
+    const dataFilter = liked.filter((el: any) => el.id !== id);
+    alert("hola");
+    setLiked(dataFilter);
+    window.localStorage.setItem("likedCharacters", JSON.stringify(dataFilter));
+  };
+
   return (
-    <Card sx={{ maxWidth: 360 }} style={{ margin: "10vh auto" }}>
+    <Card
+      sx={{ maxWidth: tammanio }}
+      style={{ margin: "10vh auto" }}
+    >
       <CardContent>
         <CardMedia
           component="img"
@@ -99,11 +112,24 @@ export const CardCharacter = ({
         <Typography variant="subtitle1" color="text.primary">
           Name: {name}
         </Typography>
+        <Typography paragraph>Status: {status} </Typography>
+        {/*<Typography paragraph></Typography>*/}
+        <Typography paragraph>Specie : {species}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon className="active:text-red-800 hover:text-red active:scale-150" />
-        </IconButton>
+        {cap ? (
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon
+              className="active:text-red-800 hover:text-red active:scale-150"
+              onClick={() => handleLikeCharacter(id)}
+            />
+          </IconButton>
+        ) : (
+          <IconButton aria-label="add to favorites"
+          onClick={() => deleteLiked(id)}
+          >X</IconButton>
+        )}
+
         <IconButton aria-label="share" onClick={handleShare}>
           <ShareIcon />
           {share && <ModalShare url={url} />}
@@ -120,35 +146,34 @@ export const CardCharacter = ({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Status: {status} </Typography>
-          {/*<Typography paragraph></Typography>*/}
-          <Typography paragraph>Specie : {species}</Typography>
           <Typography>
             <div>
-              {cap.map((el: any) => {
-                return (
-                  <section
-                    className="grid grid-cols-2 gap-4 text-xs p-2 border-2 border-gray-300 rounded-md shadow-md hover:shadow-lg
+              {cap &&
+                cap.map((el: any) => {
+                  return (
+                    <section
+                      className="grid grid-cols-2 gap-4 text-xs p-2 border-2 border-gray-300 rounded-md shadow-md hover:shadow-lg
                     m-2
                     place-items-center
                     "
-                    style={{
-                     /* border: "1px solid #ccc",
+                      style={
+                        {
+                          /* border: "1px solid #ccc",
                       placeItems: "center",*/
-
-                    }}
-                  >
-                    <button
-                      className="bg-[#111138] 
+                        }
+                      }
+                    >
+                      <button
+                        className="bg-[#111138] 
                     text-white p-1 rounded-md
                     hover:scale-110 active:scale-110 "
-                    >
-                      <Link to={`/home/episode/${el.id}`}>{el.episode}</Link>
-                    </button>
-                    <p>{el.name}</p>
-                  </section>
-                );
-              })}
+                      >
+                        <Link to={`/home/episode/${el.id}`}>{el.episode}</Link>
+                      </button>
+                      <p>{el.name}</p>
+                    </section>
+                  );
+                })}
             </div>
           </Typography>
         </CardContent>
