@@ -23,7 +23,7 @@ import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 import { Episode } from "./pages/Episode/Episode";
-import { PaypalCheckoutButton } from "./pages/Paypal/PaypalCheckoutButton";
+import { Contributions } from "./pages/Contributions/Contributions";
 import { LikedCharacters } from "./pages/Liked/LikedCharacters";
 
 const App = () => {
@@ -31,7 +31,6 @@ const App = () => {
   const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
   const recoveryDataGoogle: any = localStorage.getItem("googleToken");
   const recoveryDataGitHub: any = localStorage.getItem("githubToken");
-
 
   //!manejo del estado de autenticación con google
 
@@ -141,7 +140,7 @@ const App = () => {
               element={
                 <>
                   <HeaderWithAuth {...{ dataCharacter }} />
-                  <PaypalCheckoutButton />
+                  <Contributions />
                 </>
               }
             />

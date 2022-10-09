@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 
 import Button from "@mui/material/Button";
 
-export const PaypalCheckoutButton = (props: any): any => {
+export const Contributions = (props: any): any => {
   //*definir luego el prodiucto por parte de las props
   /*const { product } = props;*/
   const [error, setError] = useState<any>();
@@ -129,7 +129,7 @@ export const PaypalCheckoutButton = (props: any): any => {
         <br />
         <br />
 
-        <input
+        {/*<input
           style={{ color: "red" }}
           type="number"
           name=""
@@ -138,9 +138,9 @@ export const PaypalCheckoutButton = (props: any): any => {
           max="9"
           onChange={handleChangePaid}
           value={paid}
-        />
+        />*/}
 
-        <p>El aporte que estás dando es de {paid || 0.001} USD</p>
+       {/* <p>El aporte que estás dando es de {paid || 0.001} USD</p>
 
         {paid && (
           <PayPalScriptProvider options={{ "client-id": id }}>
@@ -185,7 +185,7 @@ export const PaypalCheckoutButton = (props: any): any => {
               }}
             />
           </PayPalScriptProvider>
-        )}
+        )}*/}
       </div>
 
       <br />
