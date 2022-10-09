@@ -13,7 +13,6 @@ import {
 
 //*para firebase messaging
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import { act } from "react-dom/test-utils";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
@@ -34,8 +33,6 @@ const provider = new GoogleAuthProvider();
 //? proveedor de github
 const providerGithub = new GithubAuthProvider();
 export const auth = getAuth();
-let currentUserr = auth.currentUser;
-console.log("soy el current", currentUserr);
 
 export const login = async (actualizador: Function) => {
   try {
@@ -43,6 +40,8 @@ export const login = async (actualizador: Function) => {
 
     /*console.log(sign);*/
     actualizador(sign);
+    /*let currentUserr = auth.currentUser;
+    console.log("soy el current", currentUserr);*/
   } catch (err) {
     alert("error en la autenticación");
     console.log(err);
@@ -53,7 +52,7 @@ export const getOutApp = async () => {
   try {
     await signOut(auth);
     /*window.localStorage.setItem("googleToken", JSON.stringify(auth));*/
-    console.log(auth);
+    /*console.log(auth);*/
   } catch (err) {
     console.log(err);
   }

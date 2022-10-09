@@ -1,5 +1,8 @@
 import React, { FC, useState, useEffect } from "react";
 
+import {getAuth} from 'firebase/auth'
+
+
 import { useNavigate } from "react-router-dom";
 interface AUTHVIEW {
   googleAuth: any;
@@ -17,12 +20,15 @@ export const AuthView: FC<AUTHVIEW> = ({
   ghAuth,
   ...props
 }): any => {
+  const auth = getAuth()
+  console.log('soy authhh', auth.currentUser)
+
+
   return (
     <div>
      <h1>
-        {`Hola ${googleAuth?.user.displayName}` ??
-          `Hola ${ghAuth?.user.displayName}` ??
-          "Bienvendio"}
+        {`Hola ${ auth.currentUser?.displayName}`}
+          
       </h1>
     </div>
   );
