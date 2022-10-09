@@ -20,14 +20,14 @@ export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
 
   const setLocalStorageGoogle = (value: any) => {
-    console.log(value)
+    /*console.log(value)*/
     props.setGoogleAuth(value);
     navigate("/home");
    /* window.localStorage.setItem("googleToken", JSON.stringify(value));*/
   };
 
   const setLocalStorageGitHub = (value: any) => {
-    props.setGhAutg(value);
+    /*props.setGhAutg(value);*/
     console.log(value)
     navigate("/home");
     /*window.localStorage.setItem("githubToken", JSON.stringify(value));*/

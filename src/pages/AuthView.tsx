@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 
-import {getAuth} from 'firebase/auth'
-
+import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
 interface AUTHVIEW {
@@ -20,16 +19,15 @@ export const AuthView: FC<AUTHVIEW> = ({
   ghAuth,
   ...props
 }): any => {
-  const auth = getAuth()
-  console.log('soy authhh', auth.currentUser)
+  const navigate = useNavigate();
 
+  const auth = getAuth();
+  console.log("soy authhh", auth.currentUser);
+  /*if (!auth.currentUser?.displayName) return navigate("/");*/
 
   return (
     <div>
-     <h1>
-        {`Hola ${ auth.currentUser?.displayName}`}
-          
-      </h1>
+      <h1>{`Hola ${auth.currentUser?.displayName}`}</h1>
     </div>
   );
 };
