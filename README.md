@@ -5,3 +5,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 https://rick-morty-app-c905f.firebaseapp.com/
+
+
+//uso del form data para formulario 
+
+poner el name del input
+
+//puede ser sincrona o asincrona
+function handleSubmit( e){
+  e.preventDefault()
+  const data = new FormData(e.target);
+
+
+  //obtener los valores formularrio
+
+  ej: addres: data.get('addres')
+
+}
