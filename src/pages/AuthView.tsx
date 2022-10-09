@@ -19,7 +19,7 @@ export const AuthView: FC<AUTHVIEW> = ({
 }): any => {
   return (
     <div>
-      <h1>
+     <h1>
         {`Hola ${googleAuth?.user.displayName}` ??
           `Hola ${ghAuth?.user.displayName}` ??
           "Bienvendio"}

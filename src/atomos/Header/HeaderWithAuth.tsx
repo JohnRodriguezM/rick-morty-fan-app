@@ -69,7 +69,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
             {/*boton de hamburguesa, expand menú mobile --- */}
             <button
               type="button"
-              onClick={setHamburgerView}
+              onClick={() => {
+                /*setSeeMoreOption(false)*/
+                setHamburgerView()
+              }}
               className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-expanded="false"
             >
@@ -105,7 +108,6 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 id="btn-close-solutions"
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
-
               >
                 main characters
               </Link>
@@ -120,7 +122,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span onClick={setSeeSolution}>Characters</span>
+                <span /*onClick={setSeeSolution}*/>Characters</span>
                 <svg
                   className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -187,12 +189,18 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 }}
                 onClick={() => {
                   navigate("/contributions");
+                  /*setSeeMoreOption(false);*/
+                  /*setHamburgerView(false)*/
                 }}
                 id="btn-close-more"
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
               >
-                <span>Contributions</span>
+                <span
+                /*onClick={setSeeMoreOption}*/
+                >
+                  Contributions
+                </span>
               </button>
               <button
                 type="button"
@@ -204,6 +212,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   getOutApp();
                   navigate("/");
                   localStorage.removeItem("googleToken");
+                  localStorage.removeItem("ghAuth");
                 }}
                 id="btn-close-more"
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -319,8 +328,9 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   className="ml-3 text-base font-medium text-gray-900"
                   to={`/home/all-characters`}
                   onClick={() => {
-                    setHamburgerView()
-                    setSeeMoreOption(false)                  }}
+                    setHamburgerView();
+                    setSeeMoreOption(false);
+                  }}
                 >
                   {" "}
                   Main characters{" "}
@@ -335,6 +345,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 </Link>
                 {/*<!-- Heroicon name: outline/view-grid -->*/}
                 <Link
+                  onClick={() => {
+                    setHamburgerView();
+                    /*setSeeMoreOption(false);*/
+                  }}
                   className="ml-3 text-base font-medium text-gray-900"
                   to="/contributions"
                 >
@@ -349,6 +363,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                     getOutApp();
                     navigate("/");
                     localStorage.removeItem("googleToken");
+                    localStorage.removeItem("ghAuth");
                   }}
                 >
                   {" "}

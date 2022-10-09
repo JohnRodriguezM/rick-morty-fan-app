@@ -3,11 +3,8 @@ import { useState, useEffect, FC } from "react";
 //!css
 import "./getCharacter.css";
 
-//!funciones
-import { fetchData } from "../../helpers/fetchData";
-
 //!interfaces
-import { GetCharacterIn } from "../../types/GetCharacterAll.services";
+import { GetMainCharacter } from "../../types/GetCharacterAll.services";
 
 //!utils
 
@@ -16,39 +13,32 @@ import { getAllCharacter } from "../../helpers/urls";
 //*atomos
 import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 
-//* react-router-DOM
-import { Link } from "react-router-dom";
-
 const style = {
   display: "grid",
   gridTemplateColumns: `repeat(
     auto-fit,
     minmax(320px, 1fr)
   )`,
-  /*gridTemplateColumns: "auto auto",*/
   gridGap: "1rem",
-  /*border: "1px solid #ccc",
-  padding: "15px"*/
 };
 
-export const GetCharacters: FC<GetCharacterIn> = ({
-  setLocalStorage,
+export const GetCharacters: FC<GetMainCharacter> = ({
   dataCharacter,
   setDataCharacter,
-  dataBackUpCharacter,
+
   setDataBackUpCharacter,
   deleteCharacter,
   findCharacter,
 }) => {
-  //* manejo de data provisional, manejando de manera visual momentanea
-  /*  const [dataUI, setDataUI] = useState<any>(null); */
+  //? useEffect para recuperar los mainCharacter with localStorage
+
   useEffect(() => {
     const getData = async (url: string) => {
       try {
         const res = await fetch(url);
-        const json: any = await res.json();
-        setLocalStorage(json.results);
-        setDataBackUpCharacter(json.results);
+        const {results}: any = await res.json();
+        setDataCharacter(results);
+        setDataBackUpCharacter(results);
       } catch (err) {
         console.log(err);
       }
@@ -75,11 +65,7 @@ export const GetCharacters: FC<GetCharacterIn> = ({
             return (
               <div>
                 <section key={id} className="section-character hover:shadow-lg">
-                  <h4 className="text-2xl font-bold  text-red-600">
-                    {" "}
-                    {/*underline*/}
-                    {name}
-                  </h4>
+                  <h4 className="text-2xl font-bold  text-red-600">{name}</h4>
                   <img src={image} alt="" /> <br />
                   <button onClick={() => deleteCharacter(id)}>
                     <DeleteBtn />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Card from "@mui/material/Card";
 /*import CardHeader from "@mui/material/CardHeader";*/
@@ -7,10 +7,12 @@ import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+
+
+//*se importa el tipado para el componente
 export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
-  const navigate = useNavigate();
 
 
 
@@ -66,7 +68,6 @@ export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
                     Name: {el.name}
                   </Typography>
                   <Typography paragraph>Status: {el.status} </Typography>
-                  {/*<Typography paragraph></Typography>*/}
                   <Typography paragraph>Specie : {el.species}</Typography>
                   <Typography paragraph onClick={() => deleteLiked(el.id)}>
                     X

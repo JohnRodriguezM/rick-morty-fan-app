@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./css/defaultCss/index.css";
 import App from "./App";
 
+import {} from "react-router-dom";
+
 import setupLocatorUI from "@locator/runtime";
 
 if (process.env.NODE_ENV === "development") {

@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-/*import CardHeader from "@mui/material/CardHeader";*/
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-/*import Avatar from "@mui/material/Avatar";*/
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-/*import { red } from "@mui/material/colors";*/
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-/*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
 
 import { ModalShare } from "../ShareView/ShareView";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 
 import { keyframes } from "@emotion/react";
-/*
-type AnimationProps = {
-  animation: any;
-};*/
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
   animation: any;
@@ -63,6 +55,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
+
 export const CardCharacter = ({
   name,
   image,
@@ -73,9 +66,11 @@ export const CardCharacter = ({
   url,
   tammanio,
   handleLikeCharacter,
-  liked,
-  setLiked,
 }: any) => {
+  
+
+
+
   const navigate = useNavigate();
   const [share, setShare] = useState(false);
 
@@ -108,7 +103,6 @@ export const CardCharacter = ({
             Name: {name}
           </Typography>
           <Typography paragraph>Status: {status} </Typography>
-          {/*<Typography paragraph></Typography>*/}
           <Typography paragraph>Specie : {species}</Typography>
         </CardContent>
         <CardActions disableSpacing>

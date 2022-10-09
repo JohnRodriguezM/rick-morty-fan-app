@@ -1,0 +1,4 @@
+window.env = {
+  "SECRET_KEY": "sk_test_51LqqMoICDSNbUgXRl4ljMhsxo8xUaN8cep5xGBz5MK8tFcduo2ueInGMpmq04fZyyZLSL1YKe6nJTkFaCSmZ7D33001mfv0Orz",
+  "PUBLIC_KEY": "pk_test_51LqqMoICDSNbUgXRnEf1cCVTyGcgThNS2Ht88okYlyBntgqEb0uOhmPgmN2i9Et5EOlBRlsDBNpGurHyaeFYIqTD00WU3OcxXc"
+};

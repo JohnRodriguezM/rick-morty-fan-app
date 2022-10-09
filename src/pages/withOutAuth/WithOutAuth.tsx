@@ -20,19 +20,17 @@ export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
 
   const setLocalStorageGoogle = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
+    console.log(value)
     props.setGoogleAuth(value);
-    /*setDataBackUpCharacter(value)*/
     navigate("/home");
-    window.localStorage.setItem("googleToken", JSON.stringify(value));
+   /* window.localStorage.setItem("googleToken", JSON.stringify(value));*/
   };
 
   const setLocalStorageGitHub = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
     props.setGhAutg(value);
-    /*setDataBackUpCharacter(value)*/
+    console.log(value)
     navigate("/home");
-    window.localStorage.setItem("githubToken", JSON.stringify(value));
+    /*window.localStorage.setItem("githubToken", JSON.stringify(value));*/
   };
 
   return (

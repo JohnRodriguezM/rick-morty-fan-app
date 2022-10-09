@@ -8,10 +8,12 @@ import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 //*para firebase messaging
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { act } from "react-dom/test-utils";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
@@ -32,18 +34,19 @@ const provider = new GoogleAuthProvider();
 //? proveedor de github
 const providerGithub = new GithubAuthProvider();
 export const auth = getAuth();
+let currentUserr = auth.currentUser;
+console.log("soy el current", currentUserr);
 
 export const login = async (actualizador: Function) => {
   try {
     const sign = await signInWithPopup(auth, provider);
-    console.log(sign);
+
+    /*console.log(sign);*/
     actualizador(sign);
   } catch (err) {
+    alert("error en la autenticación");
     console.log(err);
   }
-  /*signInWithPopup(auth,provider).then((result:any) => {
-
-  })*/
 };
 
 export const getOutApp = async () => {
@@ -61,11 +64,12 @@ export const getOutApp = async () => {
 export const loginGitHub = async (actualizador: Function) => {
   try {
     const result = await signInWithPopup(auth, providerGithub);
-    console.log(result);
+    /*console.log(result);*/
     const credential = GithubAuthProvider.credentialFromResult(result);
     const token = credential?.accessToken;
     actualizador(result);
   } catch (error: any) {
+    alert("error en la autenticación");
     const errorCode = error?.code;
     const errorMessage = error?.message;
   }
