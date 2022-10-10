@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState,memo } from "react";
 
 import { getAuth } from "firebase/auth";
 
@@ -7,7 +7,7 @@ interface AUTHVIEW {
   getOutApp: any;
 }
 
-export const AuthView: FC<AUTHVIEW> = ({
+const AuthView: FC<AUTHVIEW> = ({
   getOutApp,
 
   ...props
@@ -29,14 +29,16 @@ export const AuthView: FC<AUTHVIEW> = ({
     }
   });
   return (
-    <div style={{ margin: "0 auto" }}>
-      <h1>{persistence?.displayName || ""}</h1>
+    <div style={{ margin: "15px auto" }} className = "grid grid-cols-2 w-64 m-10 place-items-center">
+      <h1>Bienvenido {persistence?.displayName || ""}</h1>
       <img
-        src={`${persistence?.photoURL}`}
+        src={`${persistence?.photoURL || auth.currentUser?.photoURL}`}
         alt=""
-        className="w-10"
+        className="w-12 rounded-full"
         style={{ margin: "0 auto" }}
       />
     </div>
   );
 };
+
+export default memo(AuthView)

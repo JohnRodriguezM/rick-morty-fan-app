@@ -49,7 +49,7 @@ export const ViewSpecificCharacter = ({ liked, setLiked }: any) => {
   }, [Id]);
   return (
     <section
-      className="md:grid md:grid-cols-2 gap-1 md:gap-5 
+      className="md:grid md:grid-cols-2 gap-1 md:gap-5
     md:place-items-center md:place-content-center m-7"
     >
       <section>

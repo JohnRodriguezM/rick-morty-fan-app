@@ -29,9 +29,9 @@ export const WithOutAuth = (props: any) => {
       <div
         className="container-fluid"
         style={{
-          width: "95%",
-          height: "450px",
-          maxWidth: "400px",
+          width: "89%",
+          height: "430px",
+          maxWidth: "350px",
           borderRadius: "40px",
           margin: "50px auto 10px auto",
           padding: "20px",

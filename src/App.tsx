@@ -14,7 +14,7 @@ import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 
 //*import page de la vista de autenticación
 
-import { AuthView } from "./pages/AuthView";
+import AuthView from "./pages/AuthView";
 
 import { getOutApp } from "./firebase/main";
 import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
@@ -33,30 +33,6 @@ import { Character } from "./types/GetCharacterAll.services";
 import { Link, useNavigate } from "react-router-dom";
 
 const App = () => {
-  /*useEffect(()=> {
-    if(window.path === "/*"){
-
-    }
-  })
-*/
-
-  //! recuperación del elemento a través de local storage
-  /*const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");*/
-  /*const recoveryDataGoogle: any = localStorage.getItem("googleToken");*/
-  /*const recoveryDataGitHub: any = localStorage.getItem("githubToken");*/
-
-  /*const [googleAuth, setGoogleAuth] = useState<any>(
-    "" || JSON.parse(recoveryDataGoogle)
-  );
-
-  const [ghAuth, setGhAutg] = useState<any>(
-    "" || JSON.parse(recoveryDataGitHub)
-  );*/
-
-  //!manejo del estado de autenticación con google
-
-  //!estados de la app and initial values
-
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
@@ -108,7 +84,6 @@ const App = () => {
                       setDataCharacter,
                       dataBackUpCharacter,
                       setDataBackUpCharacter,
-                      /*setLocalStorage,*/
                       deleteCharacter,
                       findCharacter,
                     }}

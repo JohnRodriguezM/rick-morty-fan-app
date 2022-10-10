@@ -33,7 +33,7 @@ export const ViewEpisodes = () => {
         console.log(res);
         return res.json();
       })
-      .then(({results}) => {
+      .then(({ results }) => {
         console.log(results);
 
         setData(results);
@@ -51,76 +51,90 @@ export const ViewEpisodes = () => {
   };
 
   return (
-    <div style={{ maxWidth: " 1300px ", margin: "35px 10% 35px 10%" }}>
-      <h2>pagina actual {pagination}</h2>
-      <div className={clasesStore.number1}>
-        <div className={clasesStore.number2}>
-          <a
-            href={`#${pagination}`}
-            className={clasesStore.number3}
-            onClick={() => setPagination(pagination - 1)}
-          >
-            Previous
-          </a>
-          <a
-            href={`#${pagination}`}
-            className={clasesStore.number4}
-            onClick={() => setPagination(pagination + 1)}
-          >
-            Next
-          </a>
-        </div>
-        <div className={clasesStore.number5}>
-          <div>
-            <nav className={clasesStore.number6} aria-label="Pagination">
-              <a
-                href={`#${pagination}`}
-                aria-current="page"
-                className={clasesStore.number8}
-                onClick={() => setPagination(1)}
-              >
-                1
-              </a>
-              <a
-                href={`#${pagination}`}
-                className={clasesStore.number8}
-                onClick={() => setPagination(2)}
-              >
-                2
-              </a>
-              <a
-                href={`#${pagination}`}
-                className={clasesStore.number8}
-                onClick={() => setPagination(3)}
-              >
-                3
-              </a>
-            </nav>
+    <>
+      {/*<h2 className="text-sm m-7">Actual page: {pagination}</h2>*/}
+      <div
+        style={{
+          maxWidth: " 1300px ",
+          margin: "35px 10% 35px 10%",
+          color: "#000",
+          backgroundColor: " white",
+          borderRadius: "25px",
+        }}
+      >
+        <div
+          className={clasesStore.number1}
+          style={{ backgroundColor: " white", borderRadius: "25px" }}
+        >
+          <div className={clasesStore.number2}>
+            <a
+              href={`#${pagination}`}
+              className={clasesStore.number3}
+              onClick={() => setPagination(pagination - 1)}
+            >
+              Previous
+            </a>
+            <p style={{ marginTop: "5px" }}>
+              Actual page: <b>{pagination}</b>
+            </p>
+            <a
+              href={`#${pagination}`}
+              className={clasesStore.number4}
+              onClick={() => setPagination(pagination + 1)}
+            >
+              Next
+            </a>
+          </div>
+          <div className={clasesStore.number5}>
+            <div>
+              <nav className={clasesStore.number6} aria-label="Pagination">
+                <a
+                  href={`#${pagination}`}
+                  aria-current="page"
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(1)}
+                >
+                  1
+                </a>
+                <a
+                  href={`#${pagination}`}
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(2)}
+                >
+                  2
+                </a>
+                <a
+                  href={`#${pagination}`}
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(3)}
+                >
+                  3
+                </a>
+                <p style={{ marginLeft: "15px", marginTop: "5px" }}>
+                  Actual page: <b>{pagination}</b>
+                </p>
+              </nav>
+            </div>
           </div>
         </div>
+        {data &&
+          data.map((el: any) => {
+            const { id, name, air_date, episode } = el;
+            return (
+              <div key={id} style={style} className="p-2">
+                <Link
+                  className="bg-indigo-900 rounded-md hover:scale-105 sm:shadow-md p-1"
+                  to={`episode/${id}`}
+                >
+                  {name}
+                </Link>
+                <p>{air_date}</p>
+                <p>{episode}</p>
+              </div>
+            );
+          })}
       </div>
-
-      {data &&
-        data.map((el: any) => {
-
-          const { id, name, air_date, episode } = el;
-          return (
-            <div key={id} style={style} className = "p-2">
-              <Link
-              className="bg-indigo-900 rounded-2xl hover:scale-105 sm:shadow-md"
-                to = {`episode/${id}`}
-              >Ep: {name}</Link>
-              <p>{air_date}</p>
-              <p>{episode}</p>
-              {/*<Link
-              className = "bg-indigo-900 w-40"
-              to = {`episode/${id}`}>see specific episode</Link>*/}
-              {/*cuando me lleve a esta ruta la idea es que me muestre los personajes del episodio especifico también*/}
-              
-            </div>
-          );
-        })}
-        <br /><br />
-    </div>
+        <br />
+    </>
   );
 };
