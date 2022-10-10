@@ -33,10 +33,10 @@ export const ViewEpisodes = () => {
         console.log(res);
         return res.json();
       })
-      .then((data) => {
-        console.log(data);
+      .then(({results}) => {
+        console.log(results);
 
-        setData(data.results);
+        setData(results);
       });
   }, [pagination]);
 
@@ -51,7 +51,7 @@ export const ViewEpisodes = () => {
   };
 
   return (
-    <div style={{ maxWidth: " 1200px ", margin: "25px auto" }}>
+    <div style={{ maxWidth: " 1300px ", margin: "35px 10% 35px 10%" }}>
       <h2>pagina actual {pagination}</h2>
       <div className={clasesStore.number1}>
         <div className={clasesStore.number2}>
@@ -102,18 +102,25 @@ export const ViewEpisodes = () => {
 
       {data &&
         data.map((el: any) => {
-          /* console.log(data);*/
+
           const { id, name, air_date, episode } = el;
           return (
-            <div key={id} style={style}>
-              <h1>{name}</h1>
+            <div key={id} style={style} className = "p-2">
+              <Link
+              className="bg-indigo-900 rounded-2xl hover:scale-105 sm:shadow-md"
+                to = {`episode/${id}`}
+              >Ep: {name}</Link>
               <p>{air_date}</p>
               <p>{episode}</p>
-              <Link to = {`episode/${id}`}>see specific episode</Link>
+              {/*<Link
+              className = "bg-indigo-900 w-40"
+              to = {`episode/${id}`}>see specific episode</Link>*/}
               {/*cuando me lleve a esta ruta la idea es que me muestre los personajes del episodio especifico también*/}
+              
             </div>
           );
         })}
+        <br /><br />
     </div>
   );
 };

@@ -13,6 +13,10 @@ import "../../css/defaultCss/Header.css";
 
 import { getOutApp } from "../../firebase/main";
 
+
+//*url getAllCharacter
+import {getAllCharacter} from '../../helpers/urls'
+
 interface HeaderWithAuthh {
   dataCharacter: any[];
 }
@@ -21,6 +25,24 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   dataCharacter,
   ...props
 }) => {
+
+  const [character, setCharacter] = useState([])
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch(getAllCharacter);
+        const {results}: any = await res.json();
+        setCharacter(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData();
+  }, []);
+
+
+
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, setHamburgerView] = useView();
 
@@ -152,7 +174,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                         : "inactive"
                     }`}
                   >
-                    {dataCharacter.map((el: any) => {
+                    {character.map((el: any) => {
                       return (
                         <Link
                           key={el.id}
@@ -287,7 +309,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                           : "inactive"
                       }`}
                     >
-                      {dataCharacter.map((el: any) => {
+                      {character.map((el: any) => {
                         return (
                           <Link
                             key={el.id}

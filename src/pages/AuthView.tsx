@@ -1,33 +1,42 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { getAuth } from "firebase/auth";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 interface AUTHVIEW {
-  googleAuth: any;
-  setGoogleAuth: Function;
   getOutApp: any;
-  /*loginGitHub: any;*/
-  ghAuth: any;
 }
 
 export const AuthView: FC<AUTHVIEW> = ({
-  googleAuth,
-  setGoogleAuth,
   getOutApp,
-  /*loginGitHub,*/
-  ghAuth,
+
   ...props
 }): any => {
+  const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
-
   const auth = getAuth();
-  console.log("soy authhh", auth.currentUser);
-  /*if (!auth.currentUser?.displayName) return navigate("/");*/
 
+  const [persistence, setPersistence] = useState<any>("");
+
+  useEffect(() => {
+    setPersistence(auth.currentUser);
+  }, [auth.currentUser]);
+
+  useEffect(() => {
+    if (!auth.currentUser) {
+      navigate("/");
+    }
+  });
   return (
-    <div>
-      <h1>{`Hola ${auth.currentUser?.displayName}`}</h1>
+    <div style={{ margin: "0 auto" }}>
+      <h1>{persistence?.displayName || ""}</h1>
+      <img
+        src={`${persistence?.photoURL}`}
+        alt=""
+        className="w-10"
+        style={{ margin: "0 auto" }}
+      />
     </div>
   );
 };

@@ -9,10 +9,6 @@ import { login, loginGitHub } from "../../firebase/main";
 import { useNavigate } from "react-router-dom";
 import { SignInEmailPassword } from "../SignInEmailPassword";
 
-import Button from "@mui/material/Button";
-
-import { Link } from "react-router-dom";
-
 import { Footer } from "../../components/footer/Footer";
 import { Carousel } from "../../components/carousel/Carousel";
 
@@ -20,17 +16,11 @@ export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
 
   const setLocalStorageGoogle = (value: any) => {
-    /*console.log(value)*/
-    props.setGoogleAuth(value);
     navigate("/home");
-   /* window.localStorage.setItem("googleToken", JSON.stringify(value));*/
   };
 
   const setLocalStorageGitHub = (value: any) => {
-    /*props.setGhAutg(value);*/
-    console.log(value)
     navigate("/home");
-    /*window.localStorage.setItem("githubToken", JSON.stringify(value));*/
   };
 
   return (

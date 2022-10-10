@@ -45,13 +45,13 @@ const App = () => {
   /*const recoveryDataGoogle: any = localStorage.getItem("googleToken");*/
   /*const recoveryDataGitHub: any = localStorage.getItem("githubToken");*/
 
-  const [googleAuth, setGoogleAuth] = useState<any>(
-    "" /*|| JSON.parse(recoveryDataGoogle)*/
+  /*const [googleAuth, setGoogleAuth] = useState<any>(
+    "" || JSON.parse(recoveryDataGoogle)
   );
 
   const [ghAuth, setGhAutg] = useState<any>(
-    "" /*|| JSON.parse(recoveryDataGitHub)*/
-  );
+    "" || JSON.parse(recoveryDataGitHub)
+  );*/
 
   //!manejo del estado de autenticación con google
 
@@ -87,8 +87,6 @@ const App = () => {
       <Router>
         <>
           <Routes>
-
-
             <Route
               path={`/home/character/:Id`}
               element={
@@ -155,9 +153,7 @@ const App = () => {
               element={
                 <Home>
                   <HeaderWithAuth dataCharacter={dataCharacter} />
-                  <AuthView
-                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
-                  />
+                  <AuthView {...{ getOutApp }} />
 
                   <ViewEpisodes />
                 </Home>
@@ -173,11 +169,7 @@ const App = () => {
               element={
                 <WithOutAuth
                   {...{
-                    googleAuth,
-                    setGoogleAuth,
                     getOutApp,
-                    ghAuth,
-                    setGhAutg,
                   }}
                 />
               }
