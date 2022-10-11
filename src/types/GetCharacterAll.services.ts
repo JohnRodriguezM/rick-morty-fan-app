@@ -44,6 +44,7 @@ export interface Character {
   url: string;
 }
 
+//? tipado para el episode que se recibe en el componente de episode
 export interface EpisodeInterface{
   air_date: string;
   characters: string[];
@@ -52,4 +53,31 @@ export interface EpisodeInterface{
   id: number | string;
   name: string;
   url: string;
+}
+
+//tipado para el objeto auth en su propiedad current user en el componente de login
+export interface AuthUserInterface{
+  accessToken: string;
+  auth: any;
+  displayName: string;
+  email: any;
+  emailVerified: boolean;
+  isAnonymous: boolean;
+  metadata: any;
+  phoneNumber: any;
+  photoURL: any;
+  proactiveRefresh: any;
+  providerData: any;
+  providerId: string;
+  reloadListener: any;
+  reloadUserInfo: any;
+  stsTokenManager: any;
+  tenantId: any;
+  uid: string;
+}
+
+//? tipodo auth
+export interface SignValidation {
+  email: string;
+  password: string | number;
 }

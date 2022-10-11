@@ -1,18 +1,13 @@
 html {
-  /*background-color: white;*/
   margin: 0;
   padding: 8px;
-
   height: 100%;
-  
   box-sizing: border-box;
 }
 
 body {
   height: 100%;
-  background-color:  #111138 ;
-  /*padding: 0 2%;
-  margin: 0 2%;*/
+  background-color: #111138;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -27,21 +22,20 @@ code {
     monospace;
 }
 
-
-input{
-  color: #000
+input {
+  color: #000;
 }
 
 body::-webkit-scrollbar {
-  width: 10px;               /* width of the entire scrollbar */
+  width: 10px; /* width of the entire scrollbar */
 }
 
 body::-webkit-scrollbar-track {
-  background: #111138;        /* color of the tracking area */
+  background: #111138; /* color of the tracking area */
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: white;    /* color of the scroll thumb */
-  border-radius: 10px;       /* roundness of the scroll thumb */
- /* border: 3px solid orange;*/  /* creates padding around scroll thumb */
+  background-color: white; /* color of the scroll thumb */
+  border-radius: 10px; /* roundness of the scroll thumb */
+  /* border: 3px solid orange;*/ /* creates padding around scroll thumb */
 }

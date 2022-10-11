@@ -7,7 +7,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import { login, loginGitHub } from "../../firebase/main";
 
 import { useNavigate } from "react-router-dom";
-import { SignInEmailPassword } from "../SignInEmailPassword";
+import { SignInEmailPassword } from "./SignInEmailPassword/SignInEmailPassword";
 
 import { Footer } from "../../components/footer/Footer";
 import { Carousel } from "../../components/carousel/Carousel";
@@ -27,20 +27,10 @@ export const WithOutAuth = (props: any) => {
     <section style={{ maxHeight: "200vh" }}>
       <HeaderWithOutAuth />
       <div
-        className="container-fluid"
-        style={{
-          width: "89%",
-          height: "430px",
-          maxWidth: "350px",
-          borderRadius: "40px",
-          margin: "50px auto 10px auto",
-          padding: "20px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          backgroundColor: "#fff",
-        }}
+        className=" flex flex-col items-center justify-center bg-white
+        w-11/12 max-w-sm mx-auto my-10 p-2 rounded-3xl shadow-lg
+        "
+        style={{ height: "420px" }}
       >
         <br />
         <button
@@ -78,7 +68,7 @@ export const WithOutAuth = (props: any) => {
         >
           Login with Github <GitHubIcon />
         </button>{" "}
-        <br /> <br />
+        <br />
         <SignInEmailPassword />
       </div>
       <p

@@ -2,19 +2,22 @@ import React, { useState, FC } from "react";
 
 //*importa la funcion de autenticación con email y password
 
-import { createUserFirebaseEmail, auth } from "../firebase/main";
+import { createUserFirebaseEmail, auth } from "../../../firebase/main";
 
-//*se importan elementos de material ui
-
+//*se importan elementos para los formularios
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+//*se importan elemntos de react-router-dom
+import { Link, useNavigate } from "react-router-dom";
 
-import { InputText } from "../atomos/InputText/InputText";
+//*se importa componente de imput con useField para que funcione con formik
+import { InputText } from "../../../atomos/InputText/InputText";
 
+//*se importa button de material ui
 import Button from "@mui/material/Button";
+
+import { SignValidation } from "../../../types/GetCharacterAll.services";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,13 +28,10 @@ const validationSchema = Yup.object().shape({
     .min(5, ` ⚠️ pretty sure this will be hacked`),
 });
 
-{
-  /*organizar el formulario de tailwind con el FORMIK ---------------------- */
-}
-
 export const SignUpEmailPassword = (props: any) => {
   const navigate = useNavigate();
-  const initialState = {
+
+  const initialState: SignValidation = {
     email: "",
     password: "",
   };
@@ -39,35 +39,35 @@ export const SignUpEmailPassword = (props: any) => {
   const [form, setForm] = useState(initialState);
 
   const handleSubmit = async (values: any): Promise<any> => {
-    /*console.log("jajaja");*/
     setForm(values);
     await createUserFirebaseEmail(auth, values.email, values.password).then(
       (res) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        res?.user.email &&
-          (alert(`bienvendio ${res?.user.email}`), navigate("/"));
+        if (res?.user.email) {
+          alert(`bienvendio ${res?.user.email}`);
+          navigate("/");
+        }
       }
     );
   };
 
   return (
     <>
-      <div
-        className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md
+      <section
+        className="flex w-72 max-w-xl items-center justify-center mx-auto py-12 px-4
+        sm:w-96 sm:px-6 mt-8 lg:px-8 sm:mt-8 sm:mx-auto  
           rounded-3xl bg-white shadow-xl border-2 border-gray-300 border-opacity-60"
       >
-        <div className="w-full max-w-md space-y-8">
-          <div>
+        <section className="w-96 max-w-md space-y-8">
+          <section>
             <img
-              className="mx-auto  w-auto"
-              src={require("../assets/download.gif")}
-              style={{ borderRadius: "50%", width: "150px", height: "140px" }}
+              className="mx-auto  w-40 rounded-full"
+              src={require("../../../assets/download.gif")}
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-violet-800">
               Sign up
             </h2>
-          </div>
+          </section>
 
           <Formik
             initialValues={initialState}
@@ -91,7 +91,7 @@ export const SignUpEmailPassword = (props: any) => {
                   onBlur={handleBlur}
                 />
                 <br />
-                <div>
+                <section>
                   <button
                     style={{
                       background:
@@ -118,25 +118,25 @@ export const SignUpEmailPassword = (props: any) => {
                     </span>
                     Sign up
                   </button>
-                </div>
+                </section>
               </Form>
             )}
           </Formik>
-        </div>
-      </div>
+        </section>
+      </section>
       <br />
       <Link to="/">
         <Button
           style={{
             background:
               "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-            color: "white",
+            color: "#fff",
           }}
           variant="text"
         >
           Volver
         </Button>
-      </Link>{" "}
+      </Link>
       <br />
     </>
   );

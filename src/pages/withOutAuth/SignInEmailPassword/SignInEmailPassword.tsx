@@ -4,17 +4,18 @@ import { useState, useEffect, FC } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 
-import { allowAccessToUserEmailPassword, auth } from "../firebase/main";
+import { allowAccessToUserEmailPassword, auth } from "../../../firebase/main";
 
 import { useNavigate } from "react-router-dom";
-import { InputText } from "../atomos/InputText/InputText";
+import { InputText } from "../../../atomos/InputText/InputText";
 
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
 
-import { Link } from "react-router-dom";
 
-const initialState = {
+import {SignValidation} from '../../../types/GetCharacterAll.services'
+
+
+const initialState: SignValidation = {
   email: "",
   password: "",
 };

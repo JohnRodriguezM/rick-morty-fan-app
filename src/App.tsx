@@ -17,7 +17,7 @@ import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 import AuthView from "./pages/AuthView";
 
 import { getOutApp } from "./firebase/main";
-import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
+import { SignUpEmailPassword } from "./pages/withOutAuth/SignUpEmailPassword/SignUpEmailPassword";
 
 import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
