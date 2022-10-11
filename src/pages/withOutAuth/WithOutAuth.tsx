@@ -28,7 +28,8 @@ export const WithOutAuth = (props: any) => {
       <HeaderWithOutAuth />
       <div
         className=" flex flex-col items-center justify-center bg-white
-        w-11/12 max-w-sm mx-auto my-10 p-2 rounded-3xl shadow-lg
+        w-11/12 max-w-sm mx-auto my-10 p-2
+         rounded-3xl shadow-lg
         "
         style={{ height: "420px" }}
       >

@@ -8,7 +8,8 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-//!import interfaces para tipar
+import { Link } from "react-router-dom";
+
 import {
   Character,
   EpisodeInterface,
@@ -87,14 +88,16 @@ export const Episode = () => {
       >
         {/*mapeo de los characters que se trane luego del fetch interno que se realiza por el string de cada episodio*/}
         {characters.map((el: any, index: number) => (
-          <Card
-            sx={{ maxWidth: 200 }}
-            key={el.id}
-            className="flex flex-col justify-center my-6 ml-auto mr-auto items-center"
-          >
-            <CardMedia component="img" image={el.image} alt={el.name} />
-            <Typography>{el.name}</Typography>
-          </Card>
+          <Link to={`/home/character/${el.id}`}>
+            <Card
+              sx={{ maxWidth: 200 }}
+              key={el.id}
+              className="flex flex-col justify-center my-6 ml-auto mr-auto items-center"
+            >
+              <CardMedia component="img" image={el.image} alt={el.name} />
+              <Typography>{el.name}</Typography>
+            </Card>
+          </Link>
         ))}
       </ul>
       <br />
