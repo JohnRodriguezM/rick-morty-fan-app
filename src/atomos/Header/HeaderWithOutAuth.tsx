@@ -49,7 +49,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
           <nav className="hidden md:flex space-x-10">
             <div className="relative">
               {/*button de crear cuenta en mobile*/}
-              <Link to = "/signUp"
+              <Link to = "/signup"
                 className="text-base font-medium text-white hover:text-gray-300"
                 /*
                 no olvidar evento onClick para modal que de sign up
@@ -126,7 +126,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
                   {/*
                     Button de crer cuenta en mobile, no olvidar evento onClick para modal que de sign up
                   */}
-                  <Link to = "/signUp" onClick={settoggleHamburger}
+                  <Link to = "/signup" onClick={settoggleHamburger}
                     type="button"
                     className="ml-3 text-base font-medium text-gray-600 hover:text-gray-500  focus:outline-none focus:ring-2 focus:ring-offset-2"
                   >

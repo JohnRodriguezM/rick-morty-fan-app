@@ -1,36 +1,61 @@
 import React, { useEffect, useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
+
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+
+//!import interfaces para tipar
+import {
+  Character,
+  EpisodeInterface,
+} from "../../types/GetCharacterAll.services";
 
 export const Episode = () => {
+  //? se obtiene id como parámetro para guiar la ruta
   const { Id } = useParams();
-  const [datos, setData] = useState<any>([]);
-  const [characters, setCharacters] = useState<any>([]);
+
+  //? initial value state characters
+  const dbCharacters: Character[] = [];
+  //? initial value state datos
+  const dbEpisode: EpisodeInterface = {
+    air_date: "",
+    characters: [],
+    created: "",
+    episode: "",
+    id: "",
+    name: "",
+    url: "",
+  };
+
+  const [episodeData, setEpisodeData] = useState(dbEpisode);
+  const [characters, setCharacters] = useState(dbCharacters);
+
+  //? función que elimina elementos repetidos en la petición de los personajes del epidosodio
+  const filterRepeatEpisode = async (array: string[]) => {
+    return array.map((el: string) => {
+      axios.get(el).then(({ data }: any) => {
+        setCharacters((characters: Character[]) => {
+          const unicos = characters.filter((el: any) => el.id !== data.id);
+          return [...unicos, data];
+        });
+      });
+    });
+  };
 
   useEffect(() => {
     const getData = async (url: string) => {
-      setCharacters([]);
-      setData([]);
       try {
-        const res = await fetch(url);
-        const json = await res.json();
-        console.log(json);
-        setData(json);
-
-        json.characters.map((el: any, index: number) => {
-          fetch(el)
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              setCharacters((characters: any) => {
-                const unicos = characters.filter(
-                  (el: any) => el.id !== data.id
-                );
-                return [...unicos, data];
-              });
-            });
+        axios.get(url).then(({ data }: any) => {
+          //! datos del episode como tal
+          setEpisodeData(data);
+          //!datos de los characters del episodio de la petición anterior
+          filterRepeatEpisode(data.characters);
         });
-      } catch (err) {
+      } catch (err: unknown) {
         console.log(err);
       }
     };
@@ -38,31 +63,41 @@ export const Episode = () => {
   }, [Id]);
 
   return (
-    <div>
-      <div key={datos.id}>
-        <h1>{datos.name}</h1>
-        <h2>{datos.air_date}</h2>
-        <h3>{datos.episode}</h3>
-      </div>
+    <section className="max-w-screen-lg my-6 ml-auto mr-auto">
+      {/*información del capítulo como tal*/}
+      <section className="my-6">
+        <Typography>
+          Episode: <b>{episodeData.name}</b>
+        </Typography>
+        <Typography>
+          Air date: <b>{episodeData.air_date}</b>
+        </Typography>
+        <Typography>
+          Season: <b>{episodeData.episode}</b>
+        </Typography>
+      </section>
       <ul
+        className="grid gap-4 list-none"
         style={{
-          display: "grid",
           gridTemplateColumns: `repeat(
             auto-fit,
-            minmax(150px, 1fr)
+            minmax(200px, 1fr)
           )`,
-          gridGap: "1rem",
-          listStyle: "none",
         }}
       >
+        {/*mapeo de los characters que se trane luego del fetch interno que se realiza por el string de cada episodio*/}
         {characters.map((el: any, index: number) => (
-          <li key={index} style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: '0 auto'}}>
-            <p>{index}</p>
-            <img src={el.image} alt={el.name} width="100" height="100" />
-            <h4>{el.name}</h4>
-          </li>
+          <Card
+            sx={{ maxWidth: 200 }}
+            key={el.id}
+            className="flex flex-col justify-center my-6 ml-auto mr-auto items-center"
+          >
+            <CardMedia component="img" image={el.image} alt={el.name} />
+            <Typography>{el.name}</Typography>
+          </Card>
         ))}
       </ul>
-    </div>
+      <br />
+    </section>
   );
 };

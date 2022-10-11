@@ -7,9 +7,9 @@ const clasesStore = {
     "flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6",
   number2: "flex flex-1 justify-between sm:hidden",
   number3:
-    "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+    "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50",
   number4:
-    "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+    "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50",
   number5: "hidden sm:flex sm:flex-1 sm:items-center sm:justify-between",
   number6: "isolate inline-flex -space-x-px rounded-md shadow-sm",
   number7:
@@ -55,8 +55,9 @@ export const ViewEpisodes = () => {
       {/*<h2 className="text-sm m-7">Actual page: {pagination}</h2>*/}
       <div
         style={{
-          maxWidth: " 1300px ",
-          margin: "35px 10% 35px 10%",
+          width: '97%',
+          maxWidth: " 1150px ",
+          margin: "45px auto",
           color: "#000",
           backgroundColor: " white",
           borderRadius: "25px",
@@ -123,13 +124,13 @@ export const ViewEpisodes = () => {
             return (
               <div key={id} style={style} className="p-2">
                 <Link
-                  className="bg-indigo-900 rounded-md hover:scale-105 sm:shadow-md p-1"
+                  className="bg-indigo-900 rounded-md hover:scale-105 sm:shadow-md p-1 text-white"
                   to={`episode/${id}`}
                 >
                   {name}
                 </Link>
-                <p>{air_date}</p>
-                <p>{episode}</p>
+                <p>Air date: {air_date}</p>
+                <p>Season: {episode}</p>
               </div>
             );
           })}

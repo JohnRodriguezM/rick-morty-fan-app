@@ -18,6 +18,10 @@ export const Contributions = (props: any): any => {
   }, []);*/
 
   const [paid, setPaid] = useState("");
+
+  const [myAccount, setMyAccount] = useState('0x5A813e8C551377d1487a0EaA2544642f6f56120e')
+
+
   const handleChangePaid = (e: any) => {
     setPaid(e.target.value);
   };
@@ -85,6 +89,7 @@ export const Contributions = (props: any): any => {
                   name="address"
                   id="address"
                   placeholder="address"
+                  value = {myAccount}
                 />
               </div>{" "}
               <br />

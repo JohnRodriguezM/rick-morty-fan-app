@@ -23,6 +23,9 @@ import { getAllCharacter } from "../../helpers/urls";
 //*atomos
 import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 
+//* axios
+import axios from "axios";
+
 //*se importa el tipado para el componente
 export const GetCharacters: FC<GetMainCharacter> = ({
   dataCharacter,
@@ -35,10 +38,10 @@ export const GetCharacters: FC<GetMainCharacter> = ({
   useEffect(() => {
     const getData = async (url: string) => {
       try {
-        const res = await fetch(url);
-        const { results }: any = await res.json();
-        setDataCharacter(results);
-        setDataBackUpCharacter(results);
+        axios.get(url).then(({ data: { results } }) => {
+          setDataCharacter(results);
+          setDataBackUpCharacter(results);
+        });
       } catch (err) {
         console.log(err);
       }
@@ -47,36 +50,20 @@ export const GetCharacters: FC<GetMainCharacter> = ({
   }, []);
 
   return (
-    <>
+    <section className="my-6">
       <TextField
         id="outlined-basic"
         color="info"
-        style={{
-          color: "red",
-          margin: "35px auto 15px auto",
-          backgroundColor: "white",
-        }}
+        className="ml-auto mr-auto bg-white"
         placeholder="Find character"
-        onChange={(e) => {
-          findCharacter(e.target.value);
-        }}
+        onChange={(e) => findCharacter(e.target.value)}
       />
-      <div
-        className="hover:shadow-lg"
-        style={{
-          margin: "5vh auto",
-          display: "flex",
-          maxWidth: "1200px",
-          justifyContent: "space-around",
-          flexWrap: "wrap",
-          gap: " 15px",
-        }}
-      >
+      <div className="flex my-6 ml-auto mr-auto max-w-screen-lg justify-around flex-wrap gap-5">
         {dataCharacter.length > 0 ? (
           dataCharacter.map((el: any) => {
             return (
               <>
-                <Card sx={{ maxWidth: 220 }} style={{ margin: "2vh auto" }}>
+                <Card sx={{ maxWidth: 220 }} className="my-5 ml-auto mr-auto">
                   <CardContent>
                     <CardMedia
                       component="img"
@@ -84,22 +71,23 @@ export const GetCharacters: FC<GetMainCharacter> = ({
                       image={el.image}
                       alt={el.name}
                       title={el.name}
+                      style = {{margin: '15px auto'}}
                     />
                     <Typography
                       variant="subtitle1"
                       color="text.primary"
-                      style={{ marginTop: "15px" }}
+                      
                     >
                       {el.name}
                     </Typography>
                     <Typography>Status: {el.status} </Typography>
                     <Typography>Specie : {el.species}</Typography>
                     <Typography
-                      className="hover:shadow-lg"
-                      style={{ marginTop: "15px" }}
+                      className="hover:shadow-sm hover:text-red-900 hover:cursor-pointer active:text-red-900"
+                      style = {{margin: '20px auto auto auto'}}
                       onClick={() => deleteCharacter(el.id)}
                     >
-                      <DeleteBtn />
+                      <DeleteBtn className="hover:shadow-sm" />
                     </Typography>
                   </CardContent>
                 </Card>
@@ -107,21 +95,14 @@ export const GetCharacters: FC<GetMainCharacter> = ({
             );
           })
         ) : (
-          <div>
-            <h1>No hay personajes en el momento :)</h1>
-            <button
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              refresh
-            </button>
+          <div className="my-6 ml-auto mr-auto">
+            <h1 className="text-indigo-400">No hay personajes :)</h1>
           </div>
         )}
 
         <br />
         <br />
       </div>
-    </>
+    </section>
   );
 };

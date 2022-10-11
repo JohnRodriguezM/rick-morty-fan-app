@@ -30,25 +30,27 @@ import { LikedCharacters } from "./pages/Liked/LikedCharacters";
 import { Character } from "./types/GetCharacterAll.services";
 
 //!react router dom
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
-  //! array para almacenar los personajes favoritos
+  //!  Apara almacenar los personajes favoritos
   const [liked, setLiked] = useState(likedCharactersInitialValue);
 
   //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
   const [dataCharacter, setDataCharacter] = useState(mainDb);
 
-  const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(mainDb);
+  const [dataBackUpCharacter, setDataBackUpCharacter] = useState(mainDb);
 
+  //! función para borrar personajes de los main Characters
   const deleteCharacter = (id: string | number) => {
     const dataFilter = dataCharacter.filter((el: any) => el.id !== id);
     setDataCharacter(dataFilter);
   };
 
+  //!función para buscar el personaje de los main Characters
   const findCharacter = (searchInput: string) => {
     const arrayResults = dataBackUpCharacter.filter((el: Character) => {
       let text = el.name.toLowerCase();
@@ -72,7 +74,6 @@ const App = () => {
                 </>
               }
             />
-
             <Route
               path="/home/all-characters"
               element={
@@ -137,7 +138,7 @@ const App = () => {
 
             {/*se empieza desde lo no autenticacado*/}
 
-            <Route path={`/signUp`} element={<SignUpEmailPassword />} />
+            <Route path={`/signup`} element={<SignUpEmailPassword />} />
 
             <Route
               path="/"
