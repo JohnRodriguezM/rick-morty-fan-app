@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-
-
 import { useParams } from "react-router-dom";
-
 
 import { CardCharacter } from "../CardCharacter/CardCharacter";
 
-export const ViewSpecificCharacter = ({
-  deleteCharacter,
-  dataCharacter,
-  liked,
-  setLiked,
-}: any) => {
-  /* const { dataSpecifCharacter } = props;*/
-
+export const ViewSpecificCharacter = ({ liked, setLiked }: any) => {
   const { Id } = useParams();
-  /* console.log(params);*/
 
   const [infoCharacter, setInfoCharacter] = useState<any>([]);
   const [cap, setCap] = useState<any>([]);
@@ -31,6 +20,7 @@ export const ViewSpecificCharacter = ({
     );
   };
 
+  //!se hace una petición aparte con un nuevo estado para el personaje indiviual, de esta manera no se genera confusión con la petición general de los personajes en getCharacters
   useEffect(() => {
     const getData = async (url: string) => {
       try {
@@ -43,7 +33,6 @@ export const ViewSpecificCharacter = ({
           fetch(el)
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
               setCap((characters: any) => {
                 const unicos = characters.filter(
                   (el: any) => el.id !== data.id
@@ -59,9 +48,9 @@ export const ViewSpecificCharacter = ({
     getData(`https://rickandmortyapi.com/api/character/${Id}`);
   }, [Id]);
   return (
-    <div
-      className="md:grid md:grid-cols-2 gap-1 md:gap-5 
-    md:place-items-center md:place-content-center"
+    <section
+      className="md:grid md:grid-cols-2 gap-1 md:gap-5
+    md:place-items-center md:place-content-center m-7"
     >
       <section>
         <CardCharacter
@@ -73,18 +62,15 @@ export const ViewSpecificCharacter = ({
           setLiked={setLiked}
         />
       </section>
-      <div >
+      <section style={{ margin: "0 15px" }}>
         <iframe
-          /*width="560"
-          height="315"*/
           style={{ margin: "0 auto" }}
-          className=" w-96 h-96  md:w-96 md:h-96"
+          className=" w-64 h-96  md:w-96 md:h-96"
           src="https://www.youtube.com/embed/Tm7dFM_v57A"
           title="YouTube video player"
-          /*frameborder="0"*/ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" /*allowfullscreen*/
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
-      </div>
-      {/*<video src="https://youtu.be/Tm7dFM_v57A" controls></video>*/}
-    </div>
+      </section>
+    </section>
   );
 };

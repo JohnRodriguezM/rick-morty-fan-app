@@ -7,9 +7,9 @@ const clasesStore = {
     "flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6",
   number2: "flex flex-1 justify-between sm:hidden",
   number3:
-    "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+    "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50",
   number4:
-    "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
+    "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50",
   number5: "hidden sm:flex sm:flex-1 sm:items-center sm:justify-between",
   number6: "isolate inline-flex -space-x-px rounded-md shadow-sm",
   number7:
@@ -33,10 +33,10 @@ export const ViewEpisodes = () => {
         console.log(res);
         return res.json();
       })
-      .then((data) => {
-        console.log(data);
+      .then(({ results }) => {
+        console.log(results);
 
-        setData(data.results);
+        setData(results);
       });
   }, [pagination]);
 
@@ -51,69 +51,91 @@ export const ViewEpisodes = () => {
   };
 
   return (
-    <div style={{ maxWidth: " 1200px ", margin: "25px auto" }}>
-      <h2>pagina actual {pagination}</h2>
-      <div className={clasesStore.number1}>
-        <div className={clasesStore.number2}>
-          <a
-            href={`#${pagination}`}
-            className={clasesStore.number3}
-            onClick={() => setPagination(pagination - 1)}
-          >
-            Previous
-          </a>
-          <a
-            href={`#${pagination}`}
-            className={clasesStore.number4}
-            onClick={() => setPagination(pagination + 1)}
-          >
-            Next
-          </a>
-        </div>
-        <div className={clasesStore.number5}>
-          <div>
-            <nav className={clasesStore.number6} aria-label="Pagination">
-              <a
-                href={`#${pagination}`}
-                aria-current="page"
-                className={clasesStore.number8}
-                onClick={() => setPagination(1)}
-              >
-                1
-              </a>
-              <a
-                href={`#${pagination}`}
-                className={clasesStore.number8}
-                onClick={() => setPagination(2)}
-              >
-                2
-              </a>
-              <a
-                href={`#${pagination}`}
-                className={clasesStore.number8}
-                onClick={() => setPagination(3)}
-              >
-                3
-              </a>
-            </nav>
+    <>
+      {/*<h2 className="text-sm m-7">Actual page: {pagination}</h2>*/}
+      <div
+        style={{
+          width: '97%',
+          maxWidth: " 1150px ",
+          margin: "45px auto",
+          color: "#000",
+          backgroundColor: " white",
+          borderRadius: "25px",
+        }}
+      >
+        <div
+          className={clasesStore.number1}
+          style={{ backgroundColor: " white", borderRadius: "25px" }}
+        >
+          <div className={clasesStore.number2}>
+            <a
+              href={`#${pagination}`}
+              className={clasesStore.number3}
+              onClick={() => setPagination(pagination - 1)}
+            >
+              Previous
+            </a>
+            <p style={{ marginTop: "5px" }}>
+              Actual page: <b>{pagination}</b>
+            </p>
+            <a
+              href={`#${pagination}`}
+              className={clasesStore.number4}
+              onClick={() => setPagination(pagination + 1)}
+            >
+              Next
+            </a>
+          </div>
+          <div className={clasesStore.number5}>
+            <div>
+              <nav className={clasesStore.number6} aria-label="Pagination">
+                <a
+                  href={`#${pagination}`}
+                  aria-current="page"
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(1)}
+                >
+                  1
+                </a>
+                <a
+                  href={`#${pagination}`}
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(2)}
+                >
+                  2
+                </a>
+                <a
+                  href={`#${pagination}`}
+                  className={clasesStore.number8}
+                  onClick={() => setPagination(3)}
+                >
+                  3
+                </a>
+                <p style={{ marginLeft: "15px", marginTop: "5px" }}>
+                  Actual page: <b>{pagination}</b>
+                </p>
+              </nav>
+            </div>
           </div>
         </div>
+        {data &&
+          data.map((el: any) => {
+            const { id, name, air_date, episode } = el;
+            return (
+              <div key={id} style={style} className="p-2">
+                <Link
+                  className="bg-indigo-900 rounded-md hover:scale-105 sm:shadow-md p-1 text-white"
+                  to={`episode/${id}`}
+                >
+                  {name}
+                </Link>
+                <p>Air date: {air_date}</p>
+                <p>Season: {episode}</p>
+              </div>
+            );
+          })}
       </div>
-
-      {data &&
-        data.map((el: any) => {
-          /* console.log(data);*/
-          const { id, name, air_date, episode } = el;
-          return (
-            <div key={id} style={style}>
-              <h1>{name}</h1>
-              <p>{air_date}</p>
-              <p>{episode}</p>
-              <Link to = {`episode/${id}`}>see specific episode</Link>
-              {/*cuando me lleve a esta ruta la idea es que me muestre los personajes del episodio especifico también*/}
-            </div>
-          );
-        })}
-    </div>
+        <br />
+    </>
   );
 };

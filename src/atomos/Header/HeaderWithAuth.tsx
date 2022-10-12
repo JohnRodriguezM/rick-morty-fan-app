@@ -7,20 +7,49 @@ import { useView } from "../../hooks/useView";
 import { Link, useNavigate } from "react-router-dom";
 
 //* css files
-import "../../css/defaultCss/Header.css";
+import "./Header.css";
 
 //*sign up
 
 import { getOutApp } from "../../firebase/main";
 
+//*url getAllCharacter
+import { getAllCharacter } from "../../helpers/urls";
+
+import { Character } from "../../types/GetCharacterAll.services";
+
+import { SvgComponent } from "../Svg/SvgComponent";
+
+//*axios getAllCharacter
+import axios from "axios";
+
+//*imagen
+import { imageHeaderWithOutAuth } from "./HeaderWithOutAuth";
+
 interface HeaderWithAuthh {
-  dataCharacter: any[];
+  dataCharacter: Character[];
 }
 
 export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   dataCharacter,
   ...props
 }) => {
+  const [character, setCharacter] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const {
+          data: { results },
+        } = await axios.get(getAllCharacter);
+        setCharacter(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData();
+  }, []);
+
   //* con este state manejo el close y el open del menú de hamburguesa con dos elementos desplegables diferentes -- btn close y boton de linea 39
   const [hamburgerView, setHamburgerView] = useView();
 
@@ -37,6 +66,11 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   const [manageInit, setManageInit] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleGetOut = () => {
+    getOutApp();
+    navigate("/");
+  };
 
   //? para que aparezca el go home en el header
   useEffect(() => {
@@ -60,7 +94,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <img
                 width=""
                 className="h-8 w-auto sm:h-10"
-                src="https://assets.bigcartel.com/product_images/208865842/MortyPin.jpg?auto=format&fit=max&w=2000"
+                src={imageHeaderWithOutAuth}
                 alt="h"
               />
             </Link>
@@ -69,28 +103,14 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
             {/*boton de hamburguesa, expand menú mobile --- */}
             <button
               type="button"
-              onClick={setHamburgerView}
+              onClick={() => {setHamburgerView()}}
               className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-expanded="false"
             >
               {/* expand menú mobile --- */}
               <span className="sr-only">Open menu</span>
               {/* <!-- Heroicon name: outline/menu --> */}
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <SvgComponent d="M4 6h16M4 12h16M4 18h16" />
             </button>
           </div>
           <nav className="hidden md:flex space-x-10">
@@ -99,58 +119,38 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <Link
                 to="/home/all-characters"
                 type="button"
-                style={{
-                  marginRight: "10px",
-                }}
                 id="btn-close-solutions"
-                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="ml-3text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium text-gray-500 mr-2 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 aria-expanded="false"
-
               >
-                main characters
+                Main characters
               </Link>
-
               <button
                 type="button"
                 id="btn-close-solutions"
                 onClick={setSeeSolution}
-                style={{
-                  marginLeft: "10px",
-                }}
-                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+                  ml-3 cursor-pointer
+                "
                 aria-expanded="false"
               >
-                <span onClick={setSeeSolution}>Characters</span>
-                <svg
-                  className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <span className="cursor-pointer">Characters</span>
+                <SvgComponent
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  className="ml-2 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                />
               </button>
-
               {/*el botón more,abre este div*/}
               <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div
-                    style={{
-                      overflow: "scroll",
-                      maxHeight: "400px",
-                    }}
                     className={`${
                       seeSolutions
-                        ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
+                        ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 overflow-scroll max-h-96                        "
                         : "inactive"
                     }`}
                   >
-                    {dataCharacter.map((el: any) => {
+                    {character.map((el: any) => {
                       return (
                         <Link
                           key={el.id}
@@ -160,7 +160,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                           to={`/home/character/${el.id}`}
                           id={el.id}
                         >
-                          visit {el.name}
+                          see {el.name}
                         </Link>
                       );
                     })}
@@ -168,7 +168,6 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 </div>
               </div>
             </div>
-
             <div className="relative">
               <Link
                 to="/home"
@@ -182,31 +181,23 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               </Link>
               <button
                 type="button"
-                style={{
-                  marginLeft: "25px",
-                }}
                 onClick={() => {
                   navigate("/contributions");
                 }}
                 id="btn-close-more"
-                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6 cursor-pointer"
                 aria-expanded="false"
               >
                 <span>Contributions</span>
               </button>
               <button
                 type="button"
-                style={{
-                  marginLeft: "25px",
-                }}
                 onClick={() => {
                   setSeeMoreOption();
-                  getOutApp();
-                  navigate("/");
-                  localStorage.removeItem("googleToken");
+                  handleGetOut();
                 }}
                 id="btn-close-more"
-                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6"
                 aria-expanded="false"
               >
                 <span>Cerrar Sesión</span>
@@ -231,7 +222,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <div>
                 <img
                   className="h-8 w-auto"
-                  src="https://w7.pngwing.com/pngs/913/852/png-transparent-rick-sanchez-morty-smith-rick-and-morty-season-3-pocket-mortys-drawing-rick-and-morty-icons-hand-human-head.png"
+                  src={imageHeaderWithOutAuth}
                   alt="Workflow"
                 />
               </div>
@@ -244,21 +235,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 >
                   <span className="sr-only">Close menu</span>
                   {/*<!-- Heroicon name: outline/x -->*/}
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <SvgComponent d="M6 18L18 6M6 6l12 12" />
                 </button>
               </div>
             </div>
@@ -278,7 +255,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                           : "inactive"
                       }`}
                     >
-                      {dataCharacter.map((el: any) => {
+                      {character.map((el: any) => {
                         return (
                           <Link
                             key={el.id}
@@ -290,28 +267,19 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                             to={`/home/character/${el.id}`}
                             id={el.id}
                           >
-                            visit {el.name}
+                            see {el.name}
                           </Link>
                         );
                       })}
                     </div>
                   </div>
                 </div>
-                {/*<p
-                  onClick={() => {
-                    setSeeCharacterMobile(true);
-                  }}
-                >
-                  
-                </p>*/}
-
                 <span
-                  className="ml-3 text-base font-medium text-gray-900 mt-6"
+                  className="ml-3 text-base font-medium text-gray-900 mt-6 cursor-pointer"
                   onClick={() => {
                     setSeeCharacterMobile(false);
                   }}
                 >
-                  {" "}
                   Characters{" "}
                 </span>
 
@@ -319,10 +287,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   className="ml-3 text-base font-medium text-gray-900"
                   to={`/home/all-characters`}
                   onClick={() => {
-                    setHamburgerView()
-                    setSeeMoreOption(false)                  }}
+                    setHamburgerView();
+                    setSeeMoreOption(false);
+                  }}
                 >
-                  {" "}
                   Main characters{" "}
                 </Link>
 
@@ -330,11 +298,10 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   className="ml-3 text-base font-medium text-gray-900"
                   to="/home"
                 >
-                  {" "}
                   Go home{" "}
                 </Link>
-                {/*<!-- Heroicon name: outline/view-grid -->*/}
                 <Link
+                  onClick={setHamburgerView}
                   className="ml-3 text-base font-medium text-gray-900"
                   to="/contributions"
                 >
@@ -346,9 +313,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                   className="ml-3 text-base font-medium text-gray-900"
                   onClick={() => {
                     setSeeMoreOption();
-                    getOutApp();
-                    navigate("/");
-                    localStorage.removeItem("googleToken");
+                    handleGetOut();
                   }}
                 >
                   {" "}
@@ -357,7 +322,6 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               </nav>
             </div>
           </div>
-          <div className="py-6 px-5 space-y-6"></div>
         </div>
       </div>
     </div>

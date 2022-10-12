@@ -7,11 +7,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import { login, loginGitHub } from "../../firebase/main";
 
 import { useNavigate } from "react-router-dom";
-import { SignInEmailPassword } from "../SignInEmailPassword";
-
-import Button from "@mui/material/Button";
-
-import { Link } from "react-router-dom";
+import { SignInEmailPassword } from "./SignInEmailPassword/SignInEmailPassword";
 
 import { Footer } from "../../components/footer/Footer";
 import { Carousel } from "../../components/carousel/Carousel";
@@ -20,39 +16,22 @@ export const WithOutAuth = (props: any) => {
   const navigate = useNavigate();
 
   const setLocalStorageGoogle = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    props.setGoogleAuth(value);
-    /*setDataBackUpCharacter(value)*/
     navigate("/home");
-    window.localStorage.setItem("googleToken", JSON.stringify(value));
   };
 
   const setLocalStorageGitHub = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    props.setGhAutg(value);
-    /*setDataBackUpCharacter(value)*/
     navigate("/home");
-    window.localStorage.setItem("githubToken", JSON.stringify(value));
   };
 
   return (
-    <section style={{ maxHeight: "200vh" }}>
+    <section>
       <HeaderWithOutAuth />
-      <div
-        className="container-fluid"
-        style={{
-          width: "95%",
-          height: "450px",
-          maxWidth: "400px",
-          borderRadius: "40px",
-          margin: "50px auto 10px auto",
-          padding: "20px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          backgroundColor: "#fff",
-        }}
+      <section
+        className=" flex flex-col items-center justify-center bg-white
+        w-11/12 max-w-sm mx-auto my-10 p-2
+         rounded-3xl shadow-lg
+        "
+        style={{ height: "420px" }}
       >
         <br />
         <button
@@ -90,9 +69,9 @@ export const WithOutAuth = (props: any) => {
         >
           Login with Github <GitHubIcon />
         </button>{" "}
-        <br /> <br />
+        <br />
         <SignInEmailPassword />
-      </div>
+      </section>
       <p
         style={{
           height: "150px",

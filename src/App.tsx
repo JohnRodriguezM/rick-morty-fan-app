@@ -14,73 +14,50 @@ import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
 
 //*import page de la vista de autenticación
 
-import { AuthView } from "./pages/AuthView";
+import AuthView from "./pages/AuthView";
 
 import { getOutApp } from "./firebase/main";
-import { SignUpEmailPassword } from "./pages/SignUpEmailPassword";
+import { SignUpEmailPassword } from "./pages/withOutAuth/SignUpEmailPassword/SignUpEmailPassword";
 
 import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
 import { Home } from "./pages/home/Home";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 import { Episode } from "./pages/Episode/Episode";
-import { PaypalCheckoutButton } from "./pages/Paypal/PaypalCheckoutButton";
+import { Contributions } from "./pages/Contributions/Contributions";
 import { LikedCharacters } from "./pages/Liked/LikedCharacters";
 
+//? importe de los tipados
+import { Character } from "./types/GetCharacterAll.services";
+
+//!react router dom
+import { Link } from "react-router-dom";
+
 const App = () => {
-  //! recuperación del elemento a través de local storage
-  const recoveryCharacter: any = localStorage.getItem("dataAllCharacters");
-  const recoveryDataGoogle: any = localStorage.getItem("googleToken");
-  const recoveryDataGitHub: any = localStorage.getItem("githubToken");
+  const mainDb: Character[] = [];
+  const likedCharactersInitialValue: Character[] = [];
 
+  //!  Apara almacenar los personajes favoritos
+  const [liked, setLiked] = useState(likedCharactersInitialValue);
 
-  //!manejo del estado de autenticación con google
+  //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
+  const [dataCharacter, setDataCharacter] = useState(mainDb);
 
-  const [googleAuth, setGoogleAuth] = useState<any>(
-    "" || JSON.parse(recoveryDataGoogle)
-  );
+  const [dataBackUpCharacter, setDataBackUpCharacter] = useState(mainDb);
 
-  const [ghAuth, setGhAutg] = useState<any>(
-    "" || JSON.parse(recoveryDataGitHub)
-  );
-
-  //!estados de la app
-
-  const db: any[] = [];
-
-  //! array para almacenar los personajes favoritos
-  const [liked, setLiked] = useState<any>([]);
-
-  const [dataCharacter, setDataCharacter] = useState<any>(
-    JSON.parse(recoveryCharacter) || db
-  );
-
-  const [dataBackUpCharacter, setDataBackUpCharacter] = useState<any>(db);
-
+  //! función para borrar personajes de los main Characters
   const deleteCharacter = (id: string | number) => {
-    console.log(id);
     const dataFilter = dataCharacter.filter((el: any) => el.id !== id);
-    /*console.log("hola");*/
-    console.log(dataFilter);
     setDataCharacter(dataFilter);
   };
 
+  //!función para buscar el personaje de los main Characters
   const findCharacter = (searchInput: string) => {
-    const arrayResults = dataBackUpCharacter.filter((el: any) => {
+    const arrayResults = dataBackUpCharacter.filter((el: Character) => {
       let text = el.name.toLowerCase();
       let searchedValue = searchInput.toLowerCase();
-      /*console.log(searchedValue);*/
       if (text.includes(searchedValue)) return el;
     });
     setDataCharacter(arrayResults);
-  };
-
-  //!uso del useLocalStorage
-
-  const setLocalStorage = (value: any) => {
-    //* actualizo los dos estados identicos que tengo para poder guardarlos y usarlos ambos desde local storage
-    setDataCharacter(value);
-    /*setDataBackUpCharacter(value)*/
-    window.localStorage.setItem("dataAllCharacters", JSON.stringify(value));
   };
 
   return (
@@ -88,23 +65,15 @@ const App = () => {
       <Router>
         <>
           <Routes>
-            {/*permite que aparezca el header para todas las rutas*/}
-            <Route
-              path={`* || /*  || */*`}
-              element={<HeaderWithAuth {...dataCharacter} />}
-            />
             <Route
               path={`/home/character/:Id`}
               element={
                 <>
                   <HeaderWithAuth {...{ dataCharacter }} />
-                  <ViewSpecificCharacter
-                    {...{ dataCharacter, deleteCharacter, liked, setLiked }}
-                  />
+                  <ViewSpecificCharacter {...{ liked, setLiked }} />
                 </>
               }
             />
-
             <Route
               path="/home/all-characters"
               element={
@@ -116,7 +85,6 @@ const App = () => {
                       setDataCharacter,
                       dataBackUpCharacter,
                       setDataBackUpCharacter,
-                      setLocalStorage,
                       deleteCharacter,
                       findCharacter,
                     }}
@@ -129,7 +97,7 @@ const App = () => {
               path={`/home/episode/:Id`}
               element={
                 <>
-                  <HeaderWithAuth dataCharacter={dataCharacter} />
+                  <HeaderWithAuth {...{ dataCharacter }} />
                   <Episode />
                 </>
               }
@@ -141,7 +109,7 @@ const App = () => {
               element={
                 <>
                   <HeaderWithAuth {...{ dataCharacter }} />
-                  <PaypalCheckoutButton />
+                  <Contributions />
                 </>
               }
             />
@@ -161,9 +129,7 @@ const App = () => {
               element={
                 <Home>
                   <HeaderWithAuth dataCharacter={dataCharacter} />
-                  <AuthView
-                    {...{ googleAuth, setGoogleAuth, getOutApp, ghAuth }}
-                  />
+                  <AuthView {...{ getOutApp }} />
 
                   <ViewEpisodes />
                 </Home>
@@ -172,20 +138,26 @@ const App = () => {
 
             {/*se empieza desde lo no autenticacado*/}
 
-            <Route path={`/signUp`} element={<SignUpEmailPassword />} />
+            <Route path={`/signup`} element={<SignUpEmailPassword />} />
 
             <Route
               path="/"
               element={
                 <WithOutAuth
                   {...{
-                    googleAuth,
-                    setGoogleAuth,
                     getOutApp,
-                    ghAuth,
-                    setGhAutg,
                   }}
                 />
+              }
+            />
+
+            <Route
+              path={`*`}
+              element={
+                <>
+                  <h1>Página no encontrada</h1>
+                  <Link to="/home">Redireccionando...</Link>
+                </>
               }
             />
           </Routes>

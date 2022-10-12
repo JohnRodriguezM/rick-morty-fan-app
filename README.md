@@ -22,3 +22,8 @@ function handleSubmit( e){
   ej: addres: data.get('addres')
 
 }
+
+atomos:
+  Button - check
+  Header 
+    withoutAuth - check

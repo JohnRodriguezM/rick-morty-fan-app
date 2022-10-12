@@ -30,7 +30,7 @@ input[type="radio"] {
 
 .cards {
   position: relative;
-  width: 100%;
+  width: 87%;
   height: 100%;
   margin-bottom: 20px;
 }
@@ -47,12 +47,6 @@ input[type="radio"] {
     margin: 0 auto;
   }
 }
-/*@media (min-width: 1200px) {
-  .img {
-    margin: 0 auto;
-    width: 80%;
-  }
-}*/
 
 #item-1:checked ~ .cards #song-3,
 #item-2:checked ~ .cards #song-1,

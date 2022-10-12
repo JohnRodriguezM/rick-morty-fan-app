@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-/*import CardHeader from "@mui/material/CardHeader";*/
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-/*import Avatar from "@mui/material/Avatar";*/
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-/*import { red } from "@mui/material/colors";*/
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-/*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
 
 import { ModalShare } from "../ShareView/ShareView";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { keyframes } from "@emotion/react";
-/*
-type AnimationProps = {
-  animation: any;
-};*/
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
   animation: any;
@@ -33,10 +25,11 @@ const animationValue = {
   animation: keyframes`
   0% {
     color: red;
-    font-size: 1.5rem;
+    background-color:#D2CFCE  ;
   }
   100% {
     color: none;
+    background-color:none;
     /*transform: scale(1);*/
   }
 `,
@@ -55,7 +48,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand, animation }) => ({
-  animation: `${animation} 1.1s infinite`,
+  animation: expand ? "" : `${animation} 1.1s infinite`,
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
@@ -73,8 +66,6 @@ export const CardCharacter = ({
   url,
   tammanio,
   handleLikeCharacter,
-  liked,
-  setLiked,
 }: any) => {
   const navigate = useNavigate();
   const [share, setShare] = useState(false);
@@ -90,7 +81,9 @@ export const CardCharacter = ({
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
+      <Link to="/liked-characters">see characters with likes</Link>
+
       <Card
         sx={{ maxWidth: tammanio }}
         style={{ margin: "6vh auto 15px auto" }}
@@ -108,7 +101,6 @@ export const CardCharacter = ({
             Name: {name}
           </Typography>
           <Typography paragraph>Status: {status} </Typography>
-          {/*<Typography paragraph></Typography>*/}
           <Typography paragraph>Specie : {species}</Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -138,7 +130,12 @@ export const CardCharacter = ({
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography>
-              <div>
+              <div
+                style={{
+                  overflowY: "scroll",
+                  maxHeight: "300px",
+                }}
+              >
                 {cap &&
                   cap.map((el: any) => {
                     return (
@@ -147,12 +144,6 @@ export const CardCharacter = ({
                     m-2
                     place-items-center
                     "
-                        style={
-                          {
-                            /* border: "1px solid #ccc",
-                      placeItems: "center",*/
-                          }
-                        }
                       >
                         <button
                           className="bg-[#111138] 
@@ -172,8 +163,6 @@ export const CardCharacter = ({
           </CardContent>
         </Collapse>
       </Card>
-
-      <Link to="/liked-characters">see characters with likes</Link>
     </div>
   );
 };

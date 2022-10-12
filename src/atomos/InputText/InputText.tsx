@@ -10,12 +10,10 @@ export const InputText = (props: any) => {
       
      
       >
-        <TextField {...field} {...props} style = {{width: "100%", borderColor : "#fff", color : "#fff"}}/>
-           
-        
-        
-       <br />
-        {meta.touched && meta.error && <div>{meta.error}</div>}
+        <TextField {...field} {...props}
+          className= "w-full text-white"
+        style = {{borderColor : "#fff"}}/>
+        {meta.touched && meta.error && <p className = "text-xs">{meta.error}</p>}
       </section>
     </>
   );

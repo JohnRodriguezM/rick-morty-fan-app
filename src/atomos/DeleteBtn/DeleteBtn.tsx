@@ -1,21 +1,19 @@
-import React from "react";
+import React,{FC} from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-//*css
-import '../../css/defaultCss/DeleteBtn.css'
+import {DeleteButtonInterface} from './type'
 
-export const DeleteBtn = () => {
+export const DeleteBtn: FC<DeleteButtonInterface> = ({
+  className,
+  ...props
+}) => {
   return (
-    <>
-    {/*tener en cuenta que se pueden agregar difrentes propiedades  al componete y además de esto es posible agregar un class name, por ende se procede a agregar un efecto hover y click usando tailwind css*/}
-      <FontAwesomeIcon icon={faTrashCan} size="lg"
-      
-      
-      className = "hover:shadow-lg"
+      <FontAwesomeIcon
+        icon={faTrashCan}
+        size="lg"
+        className={className}
       />
-      {/*no se ha aplicado por el stop propagation*/}
-    </>
   );
 };
