@@ -24,9 +24,9 @@ export const WithOutAuth = (props: any) => {
   };
 
   return (
-    <section style={{ maxHeight: "200vh" }}>
+    <section>
       <HeaderWithOutAuth />
-      <div
+      <section
         className=" flex flex-col items-center justify-center bg-white
         w-11/12 max-w-sm mx-auto my-10 p-2
          rounded-3xl shadow-lg
@@ -71,7 +71,7 @@ export const WithOutAuth = (props: any) => {
         </button>{" "}
         <br />
         <SignInEmailPassword />
-      </div>
+      </section>
       <p
         style={{
           height: "150px",

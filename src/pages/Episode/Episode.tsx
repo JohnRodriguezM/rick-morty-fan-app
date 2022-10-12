@@ -87,12 +87,12 @@ export const Episode = () => {
         }}
       >
         {/*mapeo de los characters que se trane luego del fetch interno que se realiza por el string de cada episodio*/}
-        {characters.map((el: any, index: number) => (
+        {characters.map((el: Character, index: number) => (
           <Link to={`/home/character/${el.id}`}>
             <Card
               sx={{ maxWidth: 200 }}
               key={el.id}
-              className="flex flex-col justify-center my-6 ml-auto mr-auto items-center"
+              className="flex flex-col justify-center my-6 ml-auto mr-auto items-center hover:transform hover:scale-110"
             >
               <CardMedia component="img" image={el.image} alt={el.name} />
               <Typography>{el.name}</Typography>
