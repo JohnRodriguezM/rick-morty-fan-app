@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense,FC } from "react";
 
 //!css
 import "./css/defaultCss/App.css";
@@ -32,7 +32,7 @@ import { Character } from "./types/GetCharacterAll.services";
 //!react router dom
 import { Link } from "react-router-dom";
 
-const App = () => {
+const App: FC =  () => {
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 

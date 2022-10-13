@@ -151,16 +151,17 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                     }`}
                   >
                     {character.map((el: any) => {
+                      const {id, name} = el;
                       return (
                         <Link
-                          key={el.id}
+                          key={id}
                           onClick={() => setSeeSolution(false)}
                           className="
                           text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
-                          to={`/home/character/${el.id}`}
-                          id={el.id}
+                          to={`/home/character/${id}`}
+                          id={id}
                         >
-                          see {el.name}
+                          see {name}
                         </Link>
                       );
                     })}
@@ -256,18 +257,19 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                       }`}
                     >
                       {character.map((el: any) => {
+                        const {id,name } = el;
                         return (
                           <Link
-                            key={el.id}
+                            key={id}
                             onClick={() => {
                               setSeeCharacterMobile(false);
                               setHamburgerView(false);
                             }}
                             className="text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
-                            to={`/home/character/${el.id}`}
-                            id={el.id}
+                            to={`/home/character/${id}`}
+                            id={id}
                           >
-                            see {el.name}
+                            see {name}
                           </Link>
                         );
                       })}
