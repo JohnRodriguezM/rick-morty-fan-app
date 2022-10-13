@@ -1,24 +1,40 @@
+//!librerias
+
 import { FC } from "react";
+import { Link } from "react-router-dom";
+
+//!componentes
+
+import { Button } from "../Button/ButtonTypeOne/Button";
+import { buttonTypeOneType } from "../Button/ButtonTypeOne/type";
+//? import svg component
+import { SvgComponent } from "../Svg/SvgComponent";
+
+//!hooks
 
 //? hook use view para modales
 import { useView } from "../../hooks/useView";
 
-import { Link } from "react-router-dom";
-
-//*importo button para diseño
-import { Button } from "../Button/ButtonTypeOne/Button";
+//! archivos css
 
 //? css
 import "./Header.css";
 
-//? import svg component
-import { SvgComponent } from "../Svg/SvgComponent";
+//!firebase
+//!funciones
+//! variables u otros
 
-//!variables de imgs, entre otras
 export let imageHeaderWithOutAuth =
   "https://assets.bigcartel.com/product_images/208865842/MortyPin.jpg?auto=format&fit=max&w=2000";
 
-export const HeaderWithOutAuth: FC = (props: any) => {
+//! types importados o internos
+interface WithOutAuthProps {
+  data?: () => void;
+}
+
+export const HeaderWithOutAuth: FC<WithOutAuthProps> = ({
+  ...props
+}) => {
   //? el estado inicial por defecto está en false
   const [viewHamburger, setViewHamburger] = useView();
 
@@ -38,7 +54,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
             <Button
               className="bg-white p-2 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               onClick={setViewHamburger}
-              type="button"
+              type={buttonTypeOneType.primary}
             >
               <SvgComponent d="M4 6h16M4 12h16M4 18h16" />
             </Button>
@@ -79,7 +95,7 @@ export const HeaderWithOutAuth: FC = (props: any) => {
                 <Button
                   className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   onClick={setViewHamburger}
-                  type="button"
+                  type={buttonTypeOneType.primary}
                 >
                   <SvgComponent d="M6 18L18 6M6 6l12 12" />
                 </Button>

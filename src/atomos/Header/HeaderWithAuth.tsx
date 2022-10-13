@@ -1,37 +1,41 @@
+//!librerias
+
 import React, { useState, useEffect, FC } from "react";
-
-//*hooks
-
-import { useView } from "../../hooks/useView";
-
+//*axios getAllCharacter
+import axios from "axios";
+//*react-router-dom
 import { Link, useNavigate } from "react-router-dom";
 
-//* css files
-import "./Header.css";
+//!components
 
-//*sign up
+//*componente para reutilizar la svg ypath
+import { SvgComponent } from "../Svg/SvgComponent";
 
+//!hooks
+import { useView } from "../../hooks/useView";
+
+//!firebase
+
+//*get out app
 import { getOutApp } from "../../firebase/main";
+
+//!funciones
+//!variables u otros
+
 
 //*url getAllCharacter
 import { getAllCharacter } from "../../helpers/urls";
-
-import { Character } from "../../types/GetCharacterAll.services";
-
-import { SvgComponent } from "../Svg/SvgComponent";
-
-//*axios getAllCharacter
-import axios from "axios";
-
 //*imagen
 import { imageHeaderWithOutAuth } from "./HeaderWithOutAuth";
 
+//! archivos css
+//!types importados o en el archivo
 interface HeaderWithAuthh {
-  dataCharacter: Character[];
+  data?: any;
 }
 
 export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
-  dataCharacter,
+  data,
   ...props
 }) => {
   const [character, setCharacter] = useState([]);

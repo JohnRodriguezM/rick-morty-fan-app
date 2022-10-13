@@ -1,7 +1,16 @@
+//!librerias
 import React,{FC} from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+
+//!componentes
+//!hooks
+//!firebase
+//!funciones
+//! variables u otros
+//! archivos css
+
+//! types importados o internos
 
 import {DeleteButtonInterface} from './type'
 

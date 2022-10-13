@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense,FC } from "react";
+import React, { useState, useEffect, Suspense, FC } from "react";
 
 //!css
 import "./css/defaultCss/App.css";
@@ -32,7 +32,10 @@ import { Character } from "./types/GetCharacterAll.services";
 //!react router dom
 import { Link } from "react-router-dom";
 
-const App: FC =  () => {
+//*page 404
+import { Page404 } from "./pages/404/404";
+
+const App: FC = () => {
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
@@ -69,7 +72,7 @@ const App: FC =  () => {
               path={`/home/character/:Id`}
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <ViewSpecificCharacter {...{ liked, setLiked }} />
                 </>
               }
@@ -78,12 +81,11 @@ const App: FC =  () => {
               path="/home/all-characters"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <GetCharacters
                     {...{
                       dataCharacter,
                       setDataCharacter,
-                      dataBackUpCharacter,
                       setDataBackUpCharacter,
                       deleteCharacter,
                       findCharacter,
@@ -97,7 +99,7 @@ const App: FC =  () => {
               path={`/home/episode/:Id`}
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <Episode />
                 </>
               }
@@ -108,7 +110,7 @@ const App: FC =  () => {
               path="/contributions"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <Contributions />
                 </>
               }
@@ -118,8 +120,8 @@ const App: FC =  () => {
               path="/liked-characters"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
-                  <LikedCharacters liked={liked} setLiked={setLiked} />
+                  <HeaderWithAuth />
+                  <LikedCharacters {...{ liked, setLiked }} />
                 </>
               }
             />
@@ -128,9 +130,8 @@ const App: FC =  () => {
               path="/home"
               element={
                 <Home>
-                  <HeaderWithAuth dataCharacter={dataCharacter} />
+                  <HeaderWithAuth />
                   <AuthView {...{ getOutApp }} />
-
                   <ViewEpisodes />
                 </Home>
               }
@@ -140,23 +141,12 @@ const App: FC =  () => {
 
             <Route path={`/signup`} element={<SignUpEmailPassword />} />
 
-            <Route
-              path="/"
-              element={
-                <WithOutAuth
-                  {...{
-                    getOutApp,
-                  }}
-                />
-              }
-            />
-
+            <Route path="/" element={<WithOutAuth />} />
             <Route
               path={`*`}
               element={
                 <>
-                  <h1>Página no encontrada</h1>
-                  <Link to="/home">Redireccionando...</Link>
+                  <Page404 />
                 </>
               }
             />

@@ -51,10 +51,11 @@ export const Episode = () => {
     const getData = async (url: string) => {
       try {
         axios.get(url).then(({ data }: any) => {
+          const { characters } = data;
           //! datos del episode como tal
           setEpisodeData(data);
           //!datos de los characters del episodio de la petición anterior
-          filterRepeatEpisode(data.characters);
+          filterRepeatEpisode(characters);
         });
       } catch (err: unknown) {
         console.log(err);

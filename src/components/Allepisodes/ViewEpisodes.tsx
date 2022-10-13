@@ -1,10 +1,22 @@
-import React, { useState, useEffect, Suspense } from "react";
+//!librerias
 
+import React, { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+//!components
+//!hooks
+//!styles
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
+
+import { EpisodeInterface } from "../../types/GetCharacterAll.services";
 
 const clasesStore = {
   number1:
-    "flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6",
+    "flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 rounded-3xl bg-white",
   number2: "flex flex-1 justify-between sm:hidden",
   number3:
     "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50",
@@ -21,23 +33,25 @@ const clasesStore = {
 };
 
 export const ViewEpisodes = () => {
-  const [data, setData] = useState<any>(null);
-
+  const [dataEpisode, setDataEpisode] = useState<EpisodeInterface[]>([]);
   const [pagination, setPagination] = useState(1);
 
   useEffect(() => {
     if (pagination === 0 || pagination > 3) return setPagination(1);
 
-    fetch(`https://rickandmortyapi.com/api/episode?page=${pagination}`)
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then(({ results }) => {
-        console.log(results);
-
-        setData(results);
-      });
+    const getEpisodes = async () => {
+      try {
+        axios
+          .get(`https://rickandmortyapi.com/api/episode?page=${pagination}`)
+          .then(({ data }: any) => {
+            const { results } = data;
+            setDataEpisode(results);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getEpisodes();
   }, [pagination]);
 
   const style = {
@@ -52,21 +66,8 @@ export const ViewEpisodes = () => {
 
   return (
     <>
-      {/*<h2 className="text-sm m-7">Actual page: {pagination}</h2>*/}
-      <div
-        style={{
-          width: '97%',
-          maxWidth: " 1150px ",
-          margin: "45px auto",
-          color: "#000",
-          backgroundColor: " white",
-          borderRadius: "25px",
-        }}
-      >
-        <div
-          className={clasesStore.number1}
-          style={{ backgroundColor: " white", borderRadius: "25px" }}
-        >
+      <section className="w-11/12 max-w-6xl my-12 mx-auto text-gray-900 bg-white rounded-3xl shadow-xl">
+        <div className={clasesStore.number1}>
           <div className={clasesStore.number2}>
             <a
               href={`#${pagination}`}
@@ -75,7 +76,7 @@ export const ViewEpisodes = () => {
             >
               Previous
             </a>
-            <p style={{ marginTop: "5px" }}>
+            <p className="mt-1">
               Actual page: <b>{pagination}</b>
             </p>
             <a
@@ -111,15 +112,15 @@ export const ViewEpisodes = () => {
                 >
                   3
                 </a>
-                <p style={{ marginLeft: "15px", marginTop: "5px" }}>
+                <p className="mt-1 ml-4">
                   Actual page: <b>{pagination}</b>
                 </p>
               </nav>
             </div>
           </div>
         </div>
-        {data &&
-          data.map((el: any) => {
+        {dataEpisode &&
+          dataEpisode.map((el: any) => {
             const { id, name, air_date, episode } = el;
             return (
               <div key={id} style={style} className="p-2">
@@ -134,8 +135,8 @@ export const ViewEpisodes = () => {
               </div>
             );
           })}
-      </div>
-        <br />
+      </section>
+      <br />
     </>
   );
 };
