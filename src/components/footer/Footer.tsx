@@ -1,12 +1,8 @@
-
 //!librerias
 
-import React from "react";
-
+import React,{FC} from "react";
 
 //!components
-
-
 
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
@@ -21,19 +17,18 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 //!styles
 //!css
 
-import './Footer.css';
+import "./Footer.css";
 
 //!firebase-
 //!funciones
 
-import {useStyles} from './Footer.services'
+import { useStyles } from "./Footer.services";
 
 //!variables u otros
 //!types
 
-
-export function Footer(props: any) {
-  const classes = useStyles();
+export const Footer: FC = ({ ...props }) => {
+  const { rootBox, footerNav, footerLink } = useStyles();
 
   const content = {
     copy: "© 2022 rick-morty all rights reserved.",
@@ -41,7 +36,7 @@ export function Footer(props: any) {
     link2: <GitHubIcon />,
     link3: <InstagramIcon />,
     link4: <LinkedInIcon />,
-    ...props.content,
+    ...props,
   };
 
   return (
@@ -52,13 +47,13 @@ export function Footer(props: any) {
           display="flex"
           flexWrap="wrap"
           alignItems="center"
-          className={classes.rootBox}
+          className={rootBox}
         >
-          <Box component="nav" className={classes.footerNav}>
+          <Box component="nav" className={footerNav}>
             <Link
               href="https://es.wikipedia.org/wiki/Rick_y_Morty"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link1"]}
@@ -66,7 +61,7 @@ export function Footer(props: any) {
             <Link
               href="https://github.com/JohnRodriguezM"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link2"]}
@@ -74,7 +69,7 @@ export function Footer(props: any) {
             <Link
               href="https://www.instagram.com/john_rodriguez73/"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link3"]}
@@ -82,7 +77,7 @@ export function Footer(props: any) {
             <Link
               href="https://www.linkedin.com/in/johnjrm/"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link4"]}
@@ -103,4 +98,4 @@ export function Footer(props: any) {
       </Container>
     </footer>
   );
-}
+};

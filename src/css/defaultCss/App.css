@@ -3,15 +3,11 @@
 @tailwind utilities;
 
 .App {
-  /*max-width: 1200px;*/
   height: 100%;
-  /*max-height: 250vh;*/
   margin: 0 auto;
-  /*#111138    #030328*/
-  background-color: #111138 ;
+  background-color: #111138;
   color: #fff;
   max-width: 100%;
-  /*padding: 4px;*/
   text-align: center;
 }
 
@@ -25,21 +21,3 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
-/*.App-header {
-
-}*/
-
-/*.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-*/

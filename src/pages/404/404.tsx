@@ -1,12 +1,25 @@
-import React from "react";
+//!librerias
+
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+
+//!components
+
 import { Box, Button, Typography } from "@mui/material";
 import { purple } from "@mui/material/colors";
 
-import { Link } from "react-router-dom";
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
 
 const primary = purple[500]; // #f44336
 
-export const Page404 = () => {
+//!types
+
+export const Page404: FC = ({ ...props }) => {
   return (
     <Box
       sx={{
@@ -24,7 +37,7 @@ export const Page404 = () => {
       <Typography variant="h6" style={{ color: "white" }}>
         The page you’re looking for doesn’t exist.
       </Typography>
-      <Link to="/home" className = "my-4">
+      <Link to="/home" className="my-4">
         <Button variant="contained">Back Home</Button>
       </Link>
     </Box>

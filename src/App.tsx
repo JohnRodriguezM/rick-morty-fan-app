@@ -143,7 +143,7 @@ const App: FC = () => {
 
             <Route path="/" element={<WithOutAuth />} />
             <Route
-              path={`*`}
+              path= {`*`}
               element={
                 <>
                   <Page404 />
