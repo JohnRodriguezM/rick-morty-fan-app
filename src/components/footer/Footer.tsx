@@ -1,47 +1,36 @@
+
+//!librerias
+
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+
+
+//!components
+
+
+
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-
 import GoogleIcon from "@mui/icons-material/Google";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
+//!hooks
+//!styles
+//!css
 
 import './Footer.css';
 
-const useStyles = makeStyles((theme: any) => ({
-  rootBox: {
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  footerNav: {
-    color: "#fff",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginRight: "auto",
-    marginLeft: theme.spacing(3),
-    marginBottom: theme.spacing(0),
+//!firebase-
+//!funciones
 
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      marginLeft: "auto",
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(2),
-    },
-  },
-  footerLink: {
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.down("md")]: {
-      marginBottom: theme.spacing(2),
-    },
-  },
-}));
+import {useStyles} from './Footer.services'
+
+//!variables u otros
+//!types
+
 
 export function Footer(props: any) {
   const classes = useStyles();

@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+//!librerias
+
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+//!components
+
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,12 +16,17 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import { ModalShare } from "../ShareView/ShareView";
-
-import { Link, useNavigate, useParams } from "react-router-dom";
-
 import { keyframes } from "@emotion/react";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
+
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
   animation: any;
@@ -30,7 +41,6 @@ const animationValue = {
   100% {
     color: none;
     background-color:none;
-    /*transform: scale(1);*/
   }
 `,
   button: keyframes`
@@ -38,7 +48,6 @@ const animationValue = {
     transform: scale(1.1);
   }
   100% {
-    
     transform: scale(1);
   }
 `,
@@ -61,20 +70,20 @@ export const CardCharacter = ({
   image,
   species,
   status,
+  url,
   id,
   cap,
-  url,
   tammanio,
   handleLikeCharacter,
+  ...props
 }: any) => {
   const navigate = useNavigate();
-  const [share, setShare] = useState(false);
+  const [share, setShare] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const handleShare = () => {
     setShare(!share);
   };
-
-  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -84,10 +93,7 @@ export const CardCharacter = ({
     <div style={{ textAlign: "center" }}>
       <Link to="/liked-characters">see characters with likes</Link>
 
-      <Card
-        sx={{ maxWidth: tammanio }}
-        style={{ margin: "6vh auto 15px auto" }}
-      >
+      <Card sx={{ maxWidth: tammanio }} className="mt-10 mx-auto mb-4">
         <CardContent>
           <CardMedia
             component="img"
@@ -95,8 +101,8 @@ export const CardCharacter = ({
             image={image}
             alt={name}
             title={name}
+            className = "mb-3"
           />
-
           <Typography variant="subtitle1" color="text.primary">
             Name: {name}
           </Typography>
@@ -130,14 +136,10 @@ export const CardCharacter = ({
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography>
-              <div
-                style={{
-                  overflowY: "scroll",
-                  maxHeight: "300px",
-                }}
-              >
+              <div className="overflow-y-scroll max-h-80">
                 {cap &&
                   cap.map((el: any) => {
+                    const {name, episode,id} = el;
                     return (
                       <section
                         className="grid grid-cols-2 gap-4 text-xs p-2 border-2 border-gray-300 rounded-md shadow-md hover:shadow-lg
@@ -150,11 +152,11 @@ export const CardCharacter = ({
                     text-white p-1 rounded-md
                     hover:scale-110 active:scale-110 "
                         >
-                          <Link to={`/home/episode/${el.id}`}>
-                            {el.episode}
+                          <Link to={`/home/episode/${id}`}>
+                            {episode}
                           </Link>
                         </button>
-                        <p>{el.name}</p>
+                        <p>{name}</p>
                       </section>
                     );
                   })}

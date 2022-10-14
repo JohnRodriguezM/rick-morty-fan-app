@@ -1,5 +1,5 @@
 //!librerias
-import React, { useState, useEffect, Suspense, FC } from "react";
+import React, { useEffect, FC } from "react";
 //* axios
 import axios from "axios";
 //!components
@@ -14,7 +14,6 @@ import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 
 //!hooks
 //!styles
-
 //!css
 //!firebase-
 //!funciones
@@ -25,7 +24,6 @@ import { getAllCharacter } from "../../helpers/urls";
 //!types
 
 import {
-  EpisodeInterface,
   GetMainCharacter,
 } from "../../types/GetCharacterAll.services";
 
@@ -58,7 +56,7 @@ export const GetCharacters: FC<GetMainCharacter> = ({
         color="info"
         className="mx-auto bg-white"
         placeholder="Find character"
-        onChange={(e) => findCharacter(e.target.value)}
+        onChange={({target: {value}}) => findCharacter(value)}
       />
       <div className="flex my-6 mx-auto max-w-screen-lg justify-around flex-wrap gap-3">
         {dataCharacter.length > 0 ? (
@@ -80,7 +78,7 @@ export const GetCharacters: FC<GetMainCharacter> = ({
                       {name}
                     </Typography>
                     <Typography>Status: {status} </Typography>
-                    <Typography>Specie : {species}</Typography>
+                    <Typography>Specie: {species}</Typography>
                     <Typography
                       className="hover:shadow-sm hover:text-red-900 hover:cursor-pointer active:text-red-900
                       mt-5 mr-auto ml-auto mb-auto"

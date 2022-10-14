@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { CardCharacter } from "../CardCharacter/CardCharacter";
 
-import { Character } from "../../types/GetCharacterAll.services";
+import { Character, EpisodeInterface } from "../../types/GetCharacterAll.services";
 
 import axios from "axios";
 interface ViewSpecificCharacterInterface {
@@ -18,8 +18,8 @@ export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
 }: any) => {
   const { Id } = useParams();
 
-  const [infoCharacter, setInfoCharacter] = useState<Character>();
-  const [cap, setCap] = useState<any>([]);
+  const [infoCharacter, setInfoCharacter] = useState<Character[]>([]);
+  const [cap, setCap] = useState<EpisodeInterface[]>([]);
 
   const handleLikeCharacter = (id: string | number) => {
     const dataFilter = liked.filter((el: any) => el.id !== id);
@@ -36,7 +36,7 @@ export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
   const filterRepeatEpisode = async (array: string[]) => {
     return array.map((el: string) => {
       axios.get(el).then(({ data }: any) => {
-        setCap((characters: Character[]) => {
+        setCap((characters: any) => {
           const unicos = characters.filter((el: any) => el.id !== data.id);
           return [...unicos, data];
         });
