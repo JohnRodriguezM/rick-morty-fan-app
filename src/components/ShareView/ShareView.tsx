@@ -29,7 +29,7 @@ interface ShareViewInterface {
 
 export const ModalShare: FC<ShareViewInterface> = ({ url, ...props }) => {
   return (
-    <div className="flex flex-col justify-center items-center bg-white rounded-lg p-4 absolute top-0 left-11 right-4 bottom-0 m-auto w-36 h-full z-50 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="flex flex-col justify-center items-center bg-white rounded-lg p-1 absolute top-0 left-8 right-3 bottom-0 m-auto w-40 h-full z-50 ">
       <div className="">
         <FacebookShareButton url={url} quote="Facebook" className="m-1">
           <FacebookRoundedIcon color="primary" />

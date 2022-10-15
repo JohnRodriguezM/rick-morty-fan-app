@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from "react";
+//!librerias
 
-import { useParams } from "react-router-dom";
-
+import React, { useEffect, useState, FC } from "react";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+
+//!components
 
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { Link } from "react-router-dom";
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
 
 import {
   Character,
   EpisodeInterface,
 } from "../../types/GetCharacterAll.services";
 
-export const Episode = () => {
+export const Episode: FC = ({ ...props }) => {
   //? se obtiene id como parámetro para guiar la ruta
   const { Id } = useParams();
 
@@ -33,7 +41,7 @@ export const Episode = () => {
   };
 
   const [episodeData, setEpisodeData] = useState(dbEpisode);
-  const [characters, setCharacters] = useState(dbCharacters);
+  const [characters, setCharacters] = useState<Character[]>(dbCharacters);
 
   //? función que elimina elementos repetidos en la petición de los personajes del epidosodio
   const filterRepeatEpisode = async (array: string[]) => {
@@ -64,18 +72,19 @@ export const Episode = () => {
     getData(`https://rickandmortyapi.com/api/episode/${Id}`);
   }, [Id]);
 
+  const { air_date, episode, name } = episodeData;
   return (
     <section className="max-w-screen-lg my-6 ml-auto mr-auto">
       {/*información del capítulo como tal*/}
       <section className="my-6">
         <Typography>
-          Episode: <b>{episodeData.name}</b>
+          Episode: <b>{name}</b>
         </Typography>
         <Typography>
-          Air date: <b>{episodeData.air_date}</b>
+          Air date: <b>{air_date}</b>
         </Typography>
         <Typography>
-          Season: <b>{episodeData.episode}</b>
+          Season and episode number: <b>{episode}</b>
         </Typography>
       </section>
       <ul

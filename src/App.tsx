@@ -35,12 +35,15 @@ import { Link } from "react-router-dom";
 //*page 404
 import { Page404 } from "./pages/404/404";
 
+import {useLocalStorage} from './hooks/useLocalStorage'
+
+
 const App: FC = () => {
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
   //!  Apara almacenar los personajes favoritos
-  const [liked, setLiked] = useState(likedCharactersInitialValue);
+  const [liked, setLiked] = useLocalStorage("likedCharacters", likedCharactersInitialValue);
 
   //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
   const [dataCharacter, setDataCharacter] = useState(mainDb);
@@ -129,11 +132,15 @@ const App: FC = () => {
             <Route
               path="/home"
               element={
-                <Home>
-                  <HeaderWithAuth />
-                  <AuthView {...{ getOutApp }} />
-                  <ViewEpisodes />
-                </Home>
+                <Home
+                  children={
+                    <>
+                      <HeaderWithAuth />
+                      <AuthView {...{ getOutApp }} />
+                      <ViewEpisodes />
+                    </>
+                  }
+                />
               }
             />
 
@@ -143,7 +150,7 @@ const App: FC = () => {
 
             <Route path="/" element={<WithOutAuth />} />
             <Route
-              path= {`*`}
+              path={`*`}
               element={
                 <>
                   <Page404 />

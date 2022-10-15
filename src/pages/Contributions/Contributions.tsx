@@ -1,30 +1,36 @@
-import React, { useState } from "react";
+//!librerias
 
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import detectEthereumProvider from "@metamask/detect-provider";
+import React, { useState, FC } from "react";
 import { ethers } from "ethers";
+import detectEthereumProvider from "@metamask/detect-provider";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
+//!components
 
 import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
 
-export const Contributions = (props: any): any => {
+export const Contributions: FC = ({ ...props }) => {
   //*definir luego el prodiucto por parte de las props
-  /*const { product } = props;*/
+
   const [error, setError] = useState<any>();
   const [transaction, setTransaction] = useState<any>([]);
 
-  /*useEffect(() => {
-    setError("");
-    setTransaction("");
-  }, []);*/
-
   const [paid, setPaid] = useState("");
 
-  const [myAccount, setMyAccount] = useState('0x5A813e8C551377d1487a0EaA2544642f6f56120e')
+  const myAccount = "0x5A813e8C551377d1487a0EaA2544642f6f56120e";
 
-
-  const handleChangePaid = (e: any) => {
-    setPaid(e.target.value);
+  const handleChangePaid = ({ target }: any) => {
+    setPaid(target.value);
   };
+
   const id =
     "AT8kKgHXlwfsgcV_c9XtYaT901EKeajjlyrlUp-kmzfwcQ-JZA7Y09d2y8mX2uLpUix-HO0qrvK6S01U";
   const product = {
@@ -48,16 +54,15 @@ export const Contributions = (props: any): any => {
 
       setTransaction([tx]);
     } catch (err: any) {
-      let errr = err.message.substring(0, 25);
-
-      setError(errr);
+      let mistake = err.message.substring(0, 25);
+      setError(mistake);
     }
   };
 
   const handleSubmitSendEth = (e: any) => {
+    const { target } = e;
     e.preventDefault();
-    const data = new FormData(e.target);
-
+    const data = new FormData(target);
     startPayment({
       address: data.get("address"),
       amount: data.get("amount"),
@@ -69,59 +74,59 @@ export const Contributions = (props: any): any => {
   return (
     <>
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div>
-        <div style={{ margin: " 0 auto", textAlign: "center" }}>
-          <h2>donations on ethereum network</h2> <br />
-          <section style={{ margin: "0 auto" }}>
+        <div className="my-0 mx-auto text-center">
+          <Typography>Donations on ethereum network</Typography> <br />
+          <section className="my-0 mx-auto">
             <form
-              className=""
               onSubmit={handleSubmitSendEth}
-              style={{ color: "#000", margin: "0 auto" }}
+              className="my-0 mx-auto text-black"
             >
-              <div style={{ margin: "0 auto" }}>
+              <div className="my-0 mx-auto">
                 <input
-                  className="input input-bordered w-96 focus:ring  focus:outline-none p-1"
+                  className="input input-bordered w-full max-w-md focus:ring  focus:outline-none p-1"
                   type="text"
                   name="address"
                   id="address"
                   placeholder="address"
-                  value = {myAccount}
+                  value={myAccount}
                 />
               </div>{" "}
               <br />
               <div>
                 <input
-                  className="input input-bordered w-96 focus:ring  focus:outline-none p-1"
+                  className="input input-bordered w-full max-w-md focus:ring  focus:outline-none p-1"
                   type="text"
                   name="amount"
                   id="amout"
                   placeholder="amount"
                 />
-              </div>{" "}
+              </div>
               <br />
               <div>
-                <Button type="submit" variant="contained" color = "secondary">
+                <Button type="submit" variant="contained" color="secondary">
                   Send donation
                 </Button>
               </div>
             </form>
 
             {error && (
-              <div className="bg-white text-black">
+              <div className="bg-white text-black p-4 flex flex-col  rounded-2xl my-7 max-w-md mx-auto">
                 <p>{error}</p>
               </div>
             )}
             {transaction &&
               transaction.map((el: any) => {
                 return (
-                  <div style={{ color: "#000", backgroundColor: " white" }}>
-                    <h6>succesful transaction</h6>
-                    <p>To: {el.to}</p>
-                    <p>From: {el.from}</p>
+                  <div
+                    key={el.to}
+                    className="bg-white text-black p-4 flex flex-col  rounded-2xl my-7 max-w-md mx-auto"
+                  >
+                    <h6 className="font-medium">succesful transaction</h6>
+                    To:
+                    <p className="break-words font-semibold"> {el.to}</p>
+                    From:
+                    <p className="break-words font-semibold">{el.from}</p>
                   </div>
                 );
               })}
@@ -129,13 +134,11 @@ export const Contributions = (props: any): any => {
         </div>
 
         <br />
+        <hr />
         <br />
-        <br />
-        <br />
-        <br />
-
-        {/*<input
-          style={{ color: "red" }}
+        <Typography>Donations on Paypal </Typography>
+        <input
+          className="input input-bordered w-full max-w-md focus:ring  focus:outline-none p-1 my-5 text-black"
           type="number"
           name=""
           id=""
@@ -143,9 +146,8 @@ export const Contributions = (props: any): any => {
           max="9"
           onChange={handleChangePaid}
           value={paid}
-        />*/}
-
-       {/* <p>El aporte que estás dando es de {paid || 0.001} USD</p>
+        />
+        <p>El aporte que estás dando es de {paid || 0.001} USD</p>
 
         {paid && (
           <PayPalScriptProvider options={{ "client-id": id }}>
@@ -190,10 +192,14 @@ export const Contributions = (props: any): any => {
               }}
             />
           </PayPalScriptProvider>
-        )}*/}
+        )}
       </div>
-
       <br />
+      <hr />
+      <br />
+      <div>
+        <Typography>Donations on Stripe</Typography>
+      </div>
     </>
   );
 };

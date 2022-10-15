@@ -18,6 +18,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ModalShare } from "../ShareView/ShareView";
 import { keyframes } from "@emotion/react";
+import { Button } from "@mui/material";
 
 //!hooks
 //!styles
@@ -91,8 +92,18 @@ export const CardCharacter = ({
 
   return (
     <div style={{ textAlign: "center" }}>
-      <Link to="/liked-characters">see characters with likes</Link>
-
+      <Link
+        to="/liked-characters"
+        className="text-indigo-800 font-semibold my-4"
+      >
+        <Button
+          className="btn btn-primary hover:shadow-sm"
+          style={{ backgroundColor: "#5a67d8" }}
+          variant="contained"
+        >
+          see characters with likes
+        </Button>
+      </Link>
       <Card sx={{ maxWidth: tammanio }} className="mt-10 mx-auto mb-4">
         <CardContent>
           <CardMedia
@@ -101,7 +112,7 @@ export const CardCharacter = ({
             image={image}
             alt={name}
             title={name}
-            className = "mb-3"
+            className="mb-3"
           />
           <Typography variant="subtitle1" color="text.primary">
             Name: {name}
@@ -139,7 +150,7 @@ export const CardCharacter = ({
               <div className="overflow-y-scroll max-h-80">
                 {cap &&
                   cap.map((el: any) => {
-                    const {name, episode,id} = el;
+                    const { name, episode, id } = el;
                     return (
                       <section
                         className="grid grid-cols-2 gap-4 text-xs p-2 border-2 border-gray-300 rounded-md shadow-md hover:shadow-lg
@@ -152,9 +163,7 @@ export const CardCharacter = ({
                     text-white p-1 rounded-md
                     hover:scale-110 active:scale-110 "
                         >
-                          <Link to={`/home/episode/${id}`}>
-                            {episode}
-                          </Link>
+                          <Link to={`/home/episode/${id}`}>{episode}</Link>
                         </button>
                         <p>{name}</p>
                       </section>

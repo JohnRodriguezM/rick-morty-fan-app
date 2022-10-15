@@ -1,17 +1,21 @@
 import { useState } from "react";
 
-
 //*realizar esta función para almacenar los elemntos en el local storage, se deja esta de manera provisional
-export const useLocalStorage = (  ) => {
-  const [value, setValue] = useState(() => {
-    const item = window.localStorage.getItem("todos");
-    return item ? JSON.parse(item) : [];
+export const useLocalStorage = (key: string, initialValue: any) => {
+  const [storedValue, setStoredValue] = useState((data: any) => {
+    try {
+      console.log(data)
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
   });
-
-  const setLocalStorage = (value: any) => {
-    setValue(value);
-    window.localStorage.setItem("todos", JSON.stringify(value));
+  const setValue = (value: any) => {
+    setStoredValue(value);
+    window.localStorage.setItem(key, JSON.stringify(value));
   };
 
-  return [value, setLocalStorage];
+  return [storedValue, setValue];
 };

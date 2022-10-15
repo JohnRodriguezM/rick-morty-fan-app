@@ -1,5 +1,5 @@
 //!librerias
-import React,{FC} from "react";
+import React, { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,17 +12,20 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 //! types importados o internos
 
-import {DeleteButtonInterface} from './type'
+import { DeleteButtonInterface } from "./type";
 
 export const DeleteBtn: FC<DeleteButtonInterface> = ({
   className,
+  onClick,
   ...props
 }) => {
   return (
-      <FontAwesomeIcon
-        icon={faTrashCan}
-        size="lg"
-        className={className}
-      />
+    <FontAwesomeIcon
+      style={{ cursor: "pointer" }}
+      onClick={onClick}
+      icon={faTrashCan}
+      size="lg"
+      className={className}
+    />
   );
 };

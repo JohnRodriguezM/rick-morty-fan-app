@@ -1,8 +1,22 @@
+//!librerias
+
 import React, { FC, useEffect, useState, memo } from "react";
+import { useNavigate } from "react-router-dom";
+
+//!components
+
+import { Typography } from "@mui/material";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
 
 import { getAuth } from "firebase/auth";
 
-import { useNavigate } from "react-router-dom";
+//!funciones
+//!variables u otros
+//!types
 
 import { AuthUserInterface } from "../types/GetCharacterAll.services";
 
@@ -12,9 +26,9 @@ interface AUTHVIEW {
 
 const AuthView: FC<AUTHVIEW> = ({
   getOutApp,
-
   ...props
 }): any => {
+
   const initialValueAuthUser: AuthUserInterface = {
     accessToken: "",
     auth: " ",
@@ -53,7 +67,7 @@ const AuthView: FC<AUTHVIEW> = ({
   });
 
   return (
-    <div
+    <section
       className={`my-10
         mx-auto
         ${
@@ -73,11 +87,11 @@ const AuthView: FC<AUTHVIEW> = ({
           />
         </>
       ) : (
-        <h1>
+        <Typography>
           Bienvenido, <b>{persistence.email}</b>
-        </h1>
+        </Typography>
       )}
-    </div>
+    </section>
   );
 };
 

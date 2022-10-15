@@ -15,5 +15,4 @@ interface likedCharacters{
   status: string;
   type: string;
   url: string;
-
 }

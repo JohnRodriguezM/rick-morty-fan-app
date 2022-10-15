@@ -1,19 +1,27 @@
-import * as React from "react";
-import { useState, useEffect, FC } from "react";
+//!librerias
 
+import React, { useState, useEffect, FC } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
+
+//!components
+
+import { InputText } from "../../../atomos/InputText/InputText";
+import Button from "@mui/material/Button";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
 
 import { allowAccessToUserEmailPassword, auth } from "../../../firebase/main";
 
-import { useNavigate } from "react-router-dom";
-import { InputText } from "../../../atomos/InputText/InputText";
+//!funciones
+//!variables u otros
+//!types
 
-import Button from "@mui/material/Button";
-
-
-import {SignValidation} from '../../../types/GetCharacterAll.services'
-
+import { SignValidation } from "../../../types/GetCharacterAll.services";
 
 const initialState: SignValidation = {
   email: "",
@@ -29,18 +37,18 @@ const validationSchema = Yup.object().shape({
 
 export const SignInEmailPassword: FC = (props: any): any => {
   const navigate = useNavigate();
-  const [form, setForm] = useState(initialState);
+  const [form, setForm] = useState<SignValidation>(initialState);
 
-  const handleSubmit = async (values: any): Promise<any> => {
-    setForm(values);
-
-    await allowAccessToUserEmailPassword(
-      auth,
-      values.email,
-      values.password
-    ).then((user: any) => {
-      user ? navigate("/home") : alert("Verifica tu correo y contraseña");
+  const handleSubmit = async ({ email, password }: any): Promise<any> => {
+    setForm({
+      email,
+      password,
     });
+    await allowAccessToUserEmailPassword(auth, email, password).then(
+      (user: any) => {
+        user ? navigate("/home") : alert("Verifica tu correo y contraseña");
+      }
+    );
   };
   return (
     <Formik
@@ -48,12 +56,12 @@ export const SignInEmailPassword: FC = (props: any): any => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      
       {({ errors, values, handleBlur, touched }) => (
-        
         <Form noValidate>
-         <p style = {{color: '#000'}}> --------------  o   --------------</p>
-
+          <p className="text-black my-1">
+            {" "}
+            <b> -------------- o -------------- </b>
+          </p>
           <InputText
             name="email"
             label="Email"
@@ -69,18 +77,16 @@ export const SignInEmailPassword: FC = (props: any): any => {
             placeholder="Password"
             onBlur={handleBlur}
           />
-          <div
-            style={{ display: "flex", justifyContent: "center", gap: "15px" }}
-          >
+          <section className="flex justify-center items-center gap-4">
             <Button
               variant="contained"
               type="submit"
-              /*endIcon={<SendIcon />}*/
-              style={{ marginTop: "10px", backgroundColor: "#b535f6" }}
+              color="primary"
+              style={{ marginTop: "12px", backgroundColor: "#b535f6" }}
             >
               Sign In
             </Button>
-          </div>
+          </section>
         </Form>
       )}
     </Formik>

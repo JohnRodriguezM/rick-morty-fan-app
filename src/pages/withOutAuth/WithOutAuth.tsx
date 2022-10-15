@@ -1,25 +1,39 @@
-import React from "react";
-import { HeaderWithOutAuth } from "../../atomos/Header/HeaderWithOutAuth";
+//!librerias
 
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+
+//!components
+
+import { HeaderWithOutAuth } from "../../atomos/Header/HeaderWithOutAuth";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { SignInEmailPassword } from "./SignInEmailPassword/SignInEmailPassword";
+import { Footer } from "../../components/footer/Footer";
+import { Carousel } from "../../components/carousel/Carousel";
+import { Typography } from "@mui/material";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
 
 import { login, loginGitHub } from "../../firebase/main";
 
-import { useNavigate } from "react-router-dom";
-import { SignInEmailPassword } from "./SignInEmailPassword/SignInEmailPassword";
+//!funciones
+//!variables u otros
+//!types
 
-import { Footer } from "../../components/footer/Footer";
-import { Carousel } from "../../components/carousel/Carousel";
-
-export const WithOutAuth = (props: any) => {
+export const WithOutAuth: FC = ({ ...props }) => {
   const navigate = useNavigate();
 
   const setLocalStorageGoogle = (value: any) => {
+    /* el value recibo no tiene una influencia en el localstorage de manera momentanea - console.log(value);*/
     navigate("/home");
   };
 
   const setLocalStorageGitHub = (value: any) => {
+    /* el value recibo no tiene una influencia en el localstorage de manera momentanea - console.log(value);*/
     navigate("/home");
   };
 
@@ -38,18 +52,13 @@ export const WithOutAuth = (props: any) => {
           onClick={() => {
             login(setLocalStorageGoogle);
           }}
+          className="w-10/12 p-3 rounded-lg bg-white border-opacity-60"
           style={{
-            width: "88%",
-
             background:
               "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-
-            padding: "10px",
-            borderRadius: "10px",
-            color: "white",
-            border: "none",
           }}
         >
+          {" "}
           Login with google <GoogleIcon />
         </button>{" "}
         <br />
@@ -57,14 +66,10 @@ export const WithOutAuth = (props: any) => {
           onClick={() => {
             loginGitHub(setLocalStorageGitHub);
           }}
+          className="w-10/12 p-3 rounded-lg bg-white border-opacity-60"
           style={{
-            width: "88%",
             background:
               "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-            padding: "10px",
-            borderRadius: "10px",
-            color: "white",
-            border: "none",
           }}
         >
           Login with Github <GitHubIcon />
@@ -72,7 +77,7 @@ export const WithOutAuth = (props: any) => {
         <br />
         <SignInEmailPassword />
       </section>
-      <p
+      <Typography
         style={{
           height: "150px",
           width: "0",
@@ -83,15 +88,15 @@ export const WithOutAuth = (props: any) => {
           borderImage:
             "linear-gradient( 1turn, rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1) ) 1 / 3px",
         }}
-      ></p>
-      <h1
+      ></Typography>
+      <Typography
+        variant="h6"
         style={{
-          fontSize: "1.2rem",
           fontWeight: "bold",
         }}
       >
         Photos of some realities
-      </h1>
+      </Typography>
       <Carousel />
       <Footer />
       {/*aqui se va a renderizar el componente de incio de sesión con email y password*/}
