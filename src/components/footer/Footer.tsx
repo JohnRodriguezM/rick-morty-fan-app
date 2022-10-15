@@ -1,50 +1,34 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+//!librerias
+
+import React,{FC} from "react";
+
+//!components
+
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-
 import GoogleIcon from "@mui/icons-material/Google";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
+//!hooks
+//!styles
+//!css
 
-import './Footer.css';
+import "./Footer.css";
 
-const useStyles = makeStyles((theme: any) => ({
-  rootBox: {
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  footerNav: {
-    color: "#fff",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginRight: "auto",
-    marginLeft: theme.spacing(3),
-    marginBottom: theme.spacing(0),
+//!firebase-
+//!funciones
 
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      marginLeft: "auto",
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(2),
-    },
-  },
-  footerLink: {
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.down("md")]: {
-      marginBottom: theme.spacing(2),
-    },
-  },
-}));
+import { useStyles } from "./Footer.services";
 
-export function Footer(props: any) {
-  const classes = useStyles();
+//!variables u otros
+//!types
+
+export const Footer: FC = ({ ...props }) => {
+  const { rootBox, footerNav, footerLink } = useStyles();
 
   const content = {
     copy: "© 2022 rick-morty all rights reserved.",
@@ -52,7 +36,7 @@ export function Footer(props: any) {
     link2: <GitHubIcon />,
     link3: <InstagramIcon />,
     link4: <LinkedInIcon />,
-    ...props.content,
+    ...props,
   };
 
   return (
@@ -63,13 +47,13 @@ export function Footer(props: any) {
           display="flex"
           flexWrap="wrap"
           alignItems="center"
-          className={classes.rootBox}
+          className={rootBox}
         >
-          <Box component="nav" className={classes.footerNav}>
+          <Box component="nav" className={footerNav}>
             <Link
               href="https://es.wikipedia.org/wiki/Rick_y_Morty"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link1"]}
@@ -77,7 +61,7 @@ export function Footer(props: any) {
             <Link
               href="https://github.com/JohnRodriguezM"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link2"]}
@@ -85,7 +69,7 @@ export function Footer(props: any) {
             <Link
               href="https://www.instagram.com/john_rodriguez73/"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link3"]}
@@ -93,7 +77,7 @@ export function Footer(props: any) {
             <Link
               href="https://www.linkedin.com/in/johnjrm/"
               variant="body1"
-              className={classes.footerLink}
+              className={footerLink}
               target="_blank"
             >
               {content["link4"]}
@@ -114,4 +98,4 @@ export function Footer(props: any) {
       </Container>
     </footer>
   );
-}
+};

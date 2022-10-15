@@ -1,4 +1,14 @@
+//!librerias
+
 import React, { FC } from "react";
+
+//!components
+//!hooks
+//!styles
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
 
 interface SVGInterface {
   className: string;

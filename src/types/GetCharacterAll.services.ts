@@ -2,10 +2,8 @@
 
 //!tipado de components
 export interface GetMainCharacter {
-  /*setLocalStorage: any;*/
-  dataCharacter: any[];
+  dataCharacter: Character[];
   setDataCharacter: Function;
-  dataBackUpCharacter: any[];
   setDataBackUpCharacter: Function;
   deleteCharacter: Function;
   findCharacter: Function;

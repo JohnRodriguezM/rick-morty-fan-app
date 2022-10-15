@@ -1,48 +1,55 @@
-import React, { useState, useEffect, Suspense } from "react";
+//!librerias
 
-//!css
-import "./css/defaultCss/App.css";
-
-import { GetCharacters } from "./components/Characters/GetCharacters";
-
-//!react router DOM
+import React, { useState, useEffect, Suspense, FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
-
-import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
-
-//*import page de la vista de autenticación
+//!components
 
 import AuthView from "./pages/AuthView";
-
-import { getOutApp } from "./firebase/main";
+import { Home } from "./pages/home/Home";
+import { Page404 } from "./pages/404/404";
+import { Episode } from "./pages/Episode/Episode";
+import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
+import { HeaderWithAuth } from "./atomos/Header/HeaderWithAuth";
+import { LikedCharacters } from "./pages/Liked/LikedCharacters";
+import { Contributions } from "./pages/Contributions/Contributions";
+import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
+import { GetCharacters } from "./components/Characters/GetCharacters";
+import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
 import { SignUpEmailPassword } from "./pages/withOutAuth/SignUpEmailPassword/SignUpEmailPassword";
 
-import { WithOutAuth } from "./pages/withOutAuth/WithOutAuth";
-import { Home } from "./pages/home/Home";
-import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
-import { Episode } from "./pages/Episode/Episode";
-import { Contributions } from "./pages/Contributions/Contributions";
-import { LikedCharacters } from "./pages/Liked/LikedCharacters";
+//!hooks
 
-//? importe de los tipados
+import { useLocalStorage } from "./hooks/useLocalStorage";
+
+//!styles
+//!css
+
+import "./css/defaultCss/App.css";
+
+//!firebase-
+
+import { getOutApp } from "./firebase/main";
+
+//!funciones
+//!variables u otros
+//!types
+
 import { Character } from "./types/GetCharacterAll.services";
 
-//!react router dom
-import { Link } from "react-router-dom";
-
-const App = () => {
+const App: FC = () => {
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
-  //!  Apara almacenar los personajes favoritos
-  const [liked, setLiked] = useState(likedCharactersInitialValue);
+  const [liked, setLiked] = useLocalStorage(
+    "likedCharacters",
+    likedCharactersInitialValue
+  );
 
   //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
-  const [dataCharacter, setDataCharacter] = useState(mainDb);
-
-  const [dataBackUpCharacter, setDataBackUpCharacter] = useState(mainDb);
+  const [dataCharacter, setDataCharacter] = useState<Character[]>(mainDb);
+  const [dataBackUpCharacter, setDataBackUpCharacter] =
+    useState<Character[]>(mainDb);
 
   //! función para borrar personajes de los main Characters
   const deleteCharacter = (id: string | number) => {
@@ -69,7 +76,7 @@ const App = () => {
               path={`/home/character/:Id`}
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <ViewSpecificCharacter {...{ liked, setLiked }} />
                 </>
               }
@@ -78,12 +85,11 @@ const App = () => {
               path="/home/all-characters"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <GetCharacters
                     {...{
                       dataCharacter,
                       setDataCharacter,
-                      dataBackUpCharacter,
                       setDataBackUpCharacter,
                       deleteCharacter,
                       findCharacter,
@@ -97,7 +103,7 @@ const App = () => {
               path={`/home/episode/:Id`}
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <Episode />
                 </>
               }
@@ -108,7 +114,7 @@ const App = () => {
               path="/contributions"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
+                  <HeaderWithAuth />
                   <Contributions />
                 </>
               }
@@ -118,8 +124,8 @@ const App = () => {
               path="/liked-characters"
               element={
                 <>
-                  <HeaderWithAuth {...{ dataCharacter }} />
-                  <LikedCharacters liked={liked} setLiked={setLiked} />
+                  <HeaderWithAuth />
+                  <LikedCharacters {...{ liked, setLiked }} />
                 </>
               }
             />
@@ -127,12 +133,15 @@ const App = () => {
             <Route
               path="/home"
               element={
-                <Home>
-                  <HeaderWithAuth dataCharacter={dataCharacter} />
-                  <AuthView {...{ getOutApp }} />
-
-                  <ViewEpisodes />
-                </Home>
+                <Home
+                  children={
+                    <>
+                      <HeaderWithAuth />
+                      <AuthView {...{ getOutApp }} />
+                      <ViewEpisodes />
+                    </>
+                  }
+                />
               }
             />
 
@@ -140,23 +149,12 @@ const App = () => {
 
             <Route path={`/signup`} element={<SignUpEmailPassword />} />
 
-            <Route
-              path="/"
-              element={
-                <WithOutAuth
-                  {...{
-                    getOutApp,
-                  }}
-                />
-              }
-            />
-
+            <Route path="/" element={<WithOutAuth />} />
             <Route
               path={`*`}
               element={
                 <>
-                  <h1>Página no encontrada</h1>
-                  <Link to="/home">Redireccionando...</Link>
+                  <Page404 />
                 </>
               }
             />

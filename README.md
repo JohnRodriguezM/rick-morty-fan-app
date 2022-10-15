@@ -27,3 +27,14 @@ atomos:
   Button - check
   Header 
     withoutAuth - check
+
+
+//!librerias
+//!components
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
+//!types

@@ -1,28 +1,34 @@
+//!librerias
+
 import React, { useEffect } from "react";
-
-import Card from "@mui/material/Card";
-/*import CardHeader from "@mui/material/CardHeader";*/
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-
-import Typography from "@mui/material/Typography";
-
 import { Link } from "react-router-dom";
 
+//!components
 
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
 
-//*se importa el tipado para el componente
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Button } from "@mui/material";
+import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
+//!funciones
+//!variables u otros
+//!types
+
 export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
-
-
-
   const deleteLiked = (id: string | number) => {
     const dataFilter = liked.filter((el: any) => el.id !== id);
 
     let confirm: any = window.confirm(
       "Are you sure you want to delete this character?"
     );
-
     if (confirm) {
       setLiked(dataFilter);
       window.localStorage.setItem(
@@ -32,55 +38,68 @@ export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
     }
   };
 
-  useEffect(() => {
-    const data = JSON.parse(window.localStorage.getItem("likedCharacters")!);
-    console.log(data);
-    setLiked(data);
-  }, []);
   return (
-    <div
-      style={{
-        margin: "5vh auto",
-        display: "flex",
-        maxWidth: "900px",
-        justifyContent: "space-around",
-        flexWrap: "wrap",
-        gap: " 15px"
-      }}
+    <section
+      className="my-12 mx-auto flex max-w-4xl flex-wrap justify-center
+        gap-4"
     >
       {liked.length > 0 ? (
         liked.map((el: any) => {
+          const { id, name, image, status, species } = el;
           return (
             <>
-              <Card sx={{ maxWidth: 190 }} style={{ margin: "2vh auto" }}>
+              <Card
+                sx={{ maxWidth: 195 }}
+                key={id}
+                className="my-2 mx-auto p-2"
+              >
+                <Link to={`/home/character/${id}`} className="mr-40">
+                  <ArrowBackIcon />
+                </Link>
                 <CardContent>
                   <CardMedia
+                    className="rounded-2xl mb-1"
                     component="img"
                     height="800000"
-                    image={el.image}
-                    alt={el.name}
-                    title={el.name}
+                    image={image}
+                    alt={name}
+                    title={name}
                   />
-                  <Link to={`/home/character/${el.id}`}>
-                    Back to the character
-                  </Link>
-                  <Typography variant="subtitle1" color="text.primary">
-                    Name: {el.name}
+
+                  <Typography variant="subtitle2" color="text.primary">
+                    Name: {name}
                   </Typography>
-                  <Typography paragraph>Status: {el.status} </Typography>
-                  <Typography paragraph>Specie : {el.species}</Typography>
-                  <Typography paragraph onClick={() => deleteLiked(el.id)}>
-                    X
+                  <Typography variant="subtitle2">Status: {status} </Typography>
+                  <Typography paragraph variant="subtitle2" className="mb-2">
+                    Specie : {species}
                   </Typography>
+
+                  <DeleteBtn
+                    className="hover:shadow-sm"
+                    onClick={() => deleteLiked(id)}
+                  />
                 </CardContent>
               </Card>
             </>
           );
         })
       ) : (
-        <div>
-          <h1>No hay personajes marcados como favorites</h1>
-          <Link to="/home/character/1">Ver el personaje #1</Link>
+        <div className="flex flex-col items-center justify-center bg-white text-indigo-800 font-semibold p-4 rounded-lg shadow-md my-8">
+          <Typography>
+            There aren't favorite characters, do you want to select one?
+          </Typography>
+          <Link
+            to="/home/character/1 "
+            className="text-indigo-800 font-semibold my-4"
+          >
+            <Button
+              className="btn btn-primary hover:shadow-sm"
+              style={{ backgroundColor: "#5a67d8" }}
+              variant="contained"
+            >
+              see main character
+            </Button>
+          </Link>
         </div>
       )}
 
@@ -88,6 +107,6 @@ export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
       <br />
       <br />
       <br />
-    </div>
+    </section>
   );
 };

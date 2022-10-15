@@ -1,23 +1,28 @@
-import React, { useState, FC } from "react";
+//!librerias
 
-//*importa la funcion de autenticación con email y password
+import React, { useState, FC } from "react";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+
+//!components
+
+import { InputText } from "../../../atomos/InputText/InputText";
+import Button from "@mui/material/Button";
+
+//!hooks
+//!styles
+//!css
+//!firebase-
 
 import { createUserFirebaseEmail, auth } from "../../../firebase/main";
 
-//*se importan elementos para los formularios
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-
-//*se importan elemntos de react-router-dom
-import { Link, useNavigate } from "react-router-dom";
-
-//*se importa componente de imput con useField para que funcione con formik
-import { InputText } from "../../../atomos/InputText/InputText";
-
-//*se importa button de material ui
-import Button from "@mui/material/Button";
+//!funciones
+//!variables u otros
+//!types
 
 import { SignValidation } from "../../../types/GetCharacterAll.services";
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -28,9 +33,8 @@ const validationSchema = Yup.object().shape({
     .min(5, ` ⚠️ pretty sure this will be hacked`),
 });
 
-export const SignUpEmailPassword = (props: any) => {
+export const SignUpEmailPassword: FC = ({ ...props }) => {
   const navigate = useNavigate();
-
   const initialState: SignValidation = {
     email: "",
     password: "",
@@ -38,16 +42,17 @@ export const SignUpEmailPassword = (props: any) => {
 
   const [form, setForm] = useState(initialState);
 
-  const handleSubmit = async (values: any): Promise<any> => {
-    setForm(values);
-    await createUserFirebaseEmail(auth, values.email, values.password).then(
-      (res) => {
-        if (res?.user.email) {
-          alert(`bienvendio ${res?.user.email}`);
-          navigate("/");
-        }
+  const handleSubmit = async ({ email, password }: any): Promise<any> => {
+    setForm({
+      email,
+      password,
+    });
+    await createUserFirebaseEmail(auth, email, password).then((res) => {
+      if (res?.user.email) {
+        alert(`bienvendio ${res?.user.email}`);
+        navigate("/");
       }
-    );
+    });
   };
 
   return (

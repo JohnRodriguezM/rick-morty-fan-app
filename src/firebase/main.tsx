@@ -9,18 +9,19 @@ import {
   GithubAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-
-//*para firebase messaging
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
+import env from "react-dotenv";
+
 export const firebaseConfig = {
-  apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
-  authDomain: "rick-morty-app-c905f.firebaseapp.com",
-  projectId: "rick-morty-app-c905f",
-  storageBucket: "rick-morty-app-c905f.appspot.com",
-  messagingSenderId: "630850839621",
-  appId: "1:630850839621:web:7c393ecc73fec763216f2c",
-  measurementId: "G-Y7EWQDWL6N",
+  apiKey: env.API_KEY,
+  authDomain: env.AUTH_DOMAIN,
+  projectId: env.PROJECT_ID,
+  storageBucket: env.STORAGE_BUCKET,
+  messagingSenderId: env.MESSAGING_SENDER_ID,
+  appId: env.APP_ID,
+  measurementId: env.MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
@@ -36,8 +37,7 @@ export const auth = getAuth();
 export const login = async (actualizador: Function) => {
   try {
     const sign = await signInWithPopup(auth, provider);
-    if(sign) return actualizador(sign)
-    /*actualizador();*/
+    if (sign) return actualizador(sign);
   } catch (err) {
     alert("error en la autenticación");
     console.log(err);
@@ -61,24 +61,19 @@ export const loginGitHub = async (actualizador: Function) => {
     /*console.log(result);*/
     const credential = GithubAuthProvider.credentialFromResult(result);
     const token = credential?.accessToken;
-
-    if(result) return actualizador(result)
-    /*actualizador();*/
+    if (result) return actualizador(result);
   } catch (error: any) {
     alert("error en la autenticación");
     const errorCode = error?.code;
     const errorMessage = error?.message;
   }
-  /*signInWithPopup(auth,provider).then((result:any) => {
-
-  })*/
 };
 
 //* crear un nuevo usuario para autenticación con correo y contraseña
 export const createUserFirebaseEmail = async (
   auth: any,
   email: string,
-  password: any
+  password: string,
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -87,7 +82,6 @@ export const createUserFirebaseEmail = async (
     const errorCode = err.code;
     const errorMessage = err.message;
     alert(errorCode);
-    /*alert(errorMessage);*/
     console.log(errorCode);
   }
 };

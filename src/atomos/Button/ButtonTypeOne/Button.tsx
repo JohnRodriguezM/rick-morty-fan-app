@@ -1,4 +1,16 @@
+//!librerias
+
+
 import { FC } from "react";
+
+//!componentes
+//!hooks
+//!firebase
+//!funciones
+//! variables u otros
+//! archivos css
+
+//! types importados o internos
 
 import { ButtonProps } from "./type";
 
@@ -16,7 +28,7 @@ export const Button: FC<ButtonProps> = ({
       type={type}
       aria-expanded="false"
     >
-      {text || props.children}
+      {text ?? props.children}
     </button>
   );
 };
