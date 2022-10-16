@@ -72,14 +72,14 @@ const App: FC = () => {
       <Router>
         <>
           <Routes>
-            <Route path="/home/" element={<HeaderWithAuth />}>
+            {/*<Route path="/home/" element={<HeaderWithAuth />}>
               <Route
                 path={`character/:Id`}
                 element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
               />
-            </Route>
+            </Route>*/}
 
-            {/*<Route
+            <Route
               path={`/home/character/:Id`}
               element={
                 <>
@@ -87,7 +87,7 @@ const App: FC = () => {
                   <ViewSpecificCharacter {...{ liked, setLiked }} />
                 </>
               }
-            />*/}
+            />
             <Route
               path="/home/all-characters"
               element={
