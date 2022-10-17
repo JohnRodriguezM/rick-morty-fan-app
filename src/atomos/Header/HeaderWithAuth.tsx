@@ -4,7 +4,7 @@ import React, { useState, useEffect, FC } from "react";
 //*axios getAllCharacter
 import axios from "axios";
 //*react-router-dom
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 //!components
 
@@ -22,7 +22,6 @@ import { getOutApp } from "../../firebase/main";
 //!funciones
 //!variables u otros
 
-
 //*url getAllCharacter
 import { getAllCharacter } from "../../helpers/urls";
 //*imagen
@@ -34,12 +33,10 @@ interface HeaderWithAuthh {
   data?: any;
 }
 
-export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
-  data,
-  ...props
-}) => {
+export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
   const [character, setCharacter] = useState([]);
-
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       try {
@@ -67,9 +64,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
   const [seeCharacterMobile, setSeeCharacterMobile] = useView();
 
   //! en la linea 440 esta oculto el div de los botones de sign in - sign up, agregar algo obligatorio o si no se desborda el boton de see more
-  const [manageInit, setManageInit] = useState(false);
-
-  const navigate = useNavigate();
+  const [manageGoHome, setManageGoHome] = useState(false);
 
   const handleGetOut = () => {
     getOutApp();
@@ -78,10 +73,11 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
 
   //? para que aparezca el go home en el header
   useEffect(() => {
-    if (window.location.pathname !== "/home") {
-      setManageInit(true);
-    }
-  }, [manageInit]);
+    pathname === "/home" ? setManageGoHome(false) : setManageGoHome(true);
+    return () => {
+      setManageGoHome(false);
+    };
+  }, [pathname]);
 
   return (
     <div className="relative bg-white  z-50">
@@ -107,7 +103,9 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
             {/*boton de hamburguesa, expand menú mobile --- */}
             <button
               type="button"
-              onClick={() => {setHamburgerView()}}
+              onClick={() => {
+                setHamburgerView();
+              }}
               className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-expanded="false"
             >
@@ -155,13 +153,13 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                     }`}
                   >
                     {character.map((el: any) => {
-                      const {id, name} = el;
+                      const { id, name } = el;
                       return (
                         <Link
                           key={id}
                           onClick={() => setSeeSolution(false)}
                           className="
-                          text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
+                          text-base font-medium text-gray-500 hover:text-gray-900 m-1 p-1 flex items-start rounded-lg"
                           to={`/home/character/${id}`}
                           id={id}
                         >
@@ -177,17 +175,17 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <Link
                 to="/home"
                 className={`${
-                  manageInit
+                  manageGoHome
                     ? "text-base font-medium text-gray-500 hover:text-gray-900"
                     : "inactive"
                 } `}
               >
-                {manageInit ? "Go home" : ""}
+                {manageGoHome ? "Go home" : ""}
               </Link>
               <button
                 type="button"
                 onClick={() => {
-                  navigate("/contributions");
+                  navigate("/home/contributions");
                 }}
                 id="btn-close-more"
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6 cursor-pointer"
@@ -198,7 +196,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
               <button
                 type="button"
                 onClick={() => {
-                  setSeeMoreOption();
+                  setSeeMoreOption(false);
                   handleGetOut();
                 }}
                 id="btn-close-more"
@@ -250,18 +248,15 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div
-                      style={{
-                        overflow: "scroll",
-                        maxHeight: "550px",
-                      }}
+                      
                       className={`${
                         seeCharacterMobile
-                          ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8"
+                          ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 overflow-scroll max-h-96"
                           : "inactive"
                       }`}
                     >
                       {character.map((el: any) => {
-                        const {id,name } = el;
+                        const { id, name } = el;
                         return (
                           <Link
                             key={id}
@@ -269,7 +264,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                               setSeeCharacterMobile(false);
                               setHamburgerView(false);
                             }}
-                            className="text-base font-medium text-gray-500 hover:text-gray-900 m-3 p-3 flex items-start rounded-lg"
+                            className="text-base font-medium text-gray-500 hover:text-gray-900 m-1 p-1 flex items-start rounded-lg"
                             to={`/home/character/${id}`}
                             id={id}
                           >
@@ -309,7 +304,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 <Link
                   onClick={setHamburgerView}
                   className="ml-3 text-base font-medium text-gray-900"
-                  to="/contributions"
+                  to="/home/contributions"
                 >
                   {" "}
                   Contribution{" "}
@@ -318,7 +313,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({
                 <span
                   className="ml-3 text-base font-medium text-gray-900"
                   onClick={() => {
-                    setSeeMoreOption();
+                    setSeeMoreOption(false);
                     handleGetOut();
                   }}
                 >

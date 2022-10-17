@@ -93,7 +93,7 @@ export const CardCharacter = ({
   return (
     <div style={{ textAlign: "center" }}>
       <Link
-        to="/liked-characters"
+        to="/home/liked-characters"
         className="text-indigo-800 font-semibold my-4"
       >
         <Button
@@ -126,7 +126,7 @@ export const CardCharacter = ({
               className="active:text-red-800 hover:text-red active:scale-150"
               onClick={() => {
                 handleLikeCharacter(id);
-                navigate("/liked-characters");
+                navigate("/home/liked-characters");
               }}
             />
           </IconButton>

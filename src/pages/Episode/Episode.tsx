@@ -1,14 +1,13 @@
 //!librerias
 
-import React, { useEffect, useState, FC } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState, FC, lazy, Suspense } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 //!components
 
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { Loader } from "../../atomos/Loader/Loader";
 
 //!hooks
 //!styles
@@ -22,6 +21,13 @@ import {
   Character,
   EpisodeInterface,
 } from "../../types/GetCharacterAll.services";
+
+//!lazy loading components
+const EpisodeCharacterDataRender = lazy(() =>
+  import("./EpisodeCharacterDataRender").then((module) => ({
+    default: module.EpisodeCharacterDataRender,
+  }))
+);
 
 export const Episode: FC = ({ ...props }) => {
   //? se obtiene id como parámetro para guiar la ruta
@@ -48,28 +54,31 @@ export const Episode: FC = ({ ...props }) => {
     return array.map((el: string) => {
       axios.get(el).then(({ data }: any) => {
         setCharacters((characters: Character[]) => {
-          const unicos = characters.filter((el: any) => el.id !== data.id);
-          return [...unicos, data];
+          const uniques = characters.filter((el: any) => el.id !== data.id);
+          return [...uniques, data];
         });
       });
     });
   };
-
+  const getData = async (url: string) => {
+    try {
+      axios.get(url).then(({ data }: any) => {
+        const { characters } = data;
+        //! datos del episode como tal
+        setEpisodeData(data);
+        //!datos de los characters del episodio de la petición anterior
+        filterRepeatEpisode(characters);
+      });
+    } catch (err: unknown) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
-    const getData = async (url: string) => {
-      try {
-        axios.get(url).then(({ data }: any) => {
-          const { characters } = data;
-          //! datos del episode como tal
-          setEpisodeData(data);
-          //!datos de los characters del episodio de la petición anterior
-          filterRepeatEpisode(characters);
-        });
-      } catch (err: unknown) {
-        console.log(err);
-      }
-    };
     getData(`https://rickandmortyapi.com/api/episode/${Id}`);
+    return () => {
+      setEpisodeData(dbEpisode);
+      setCharacters(dbCharacters);
+    };
   }, [Id]);
 
   const { air_date, episode, name } = episodeData;
@@ -96,19 +105,10 @@ export const Episode: FC = ({ ...props }) => {
           )`,
         }}
       >
-        {/*mapeo de los characters que se trane luego del fetch interno que se realiza por el string de cada episodio*/}
-        {characters.map((el: Character, index: number) => (
-          <Link to={`/home/character/${el.id}`}>
-            <Card
-              sx={{ maxWidth: 200 }}
-              key={el.id}
-              className="flex flex-col justify-center my-6 ml-auto mr-auto items-center hover:transform hover:scale-110"
-            >
-              <CardMedia component="img" image={el.image} alt={el.name} />
-              <Typography>{el.name}</Typography>
-            </Card>
-          </Link>
-        ))}
+        {/*render de los personajes del episodio*/}
+        <Suspense fallback={<Loader />}>
+          <EpisodeCharacterDataRender characters={characters} />
+        </Suspense>
       </ul>
       <br />
     </section>

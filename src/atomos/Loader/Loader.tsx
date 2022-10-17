@@ -2,26 +2,28 @@
 
 //!librerias
 
-import React from "react";
+import React,{FC} from "react";
 
 //!components
 
-import LoopIcon from "@mui/icons-material/Loop";
-
+import CircularProgress from "@mui/material/CircularProgress";
 //!hooks
 //!styles
+
+import "../../css/defaultCss/App.css";
+
 //!firebase-
 //!funciones
 //!variables u otros
 //!types
 
-export const Loader = (props: any) => {
-  return (
-    <>
-      <LoopIcon
-        className="App-logo"
-        sx={{ fontSize: props.font ? props.font : "10" }}
-      />
-    </>
-  );
-};
+interface LoaderProps{
+    size?:number
+}
+
+export const Loader:FC = ({...props}) => (
+  <CircularProgress
+    color="secondary"
+    style={{ width: "60px", margin: "45px auto" }}
+  />
+);
