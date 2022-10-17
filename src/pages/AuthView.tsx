@@ -60,11 +60,11 @@ const AuthView: FC<AUTHVIEW> = ({
     setPersistence(currentUser);
   }, [currentUser]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!currentUser) {
       navigate("/");
     }
-  });
+  });*/
 
   return (
     <section
