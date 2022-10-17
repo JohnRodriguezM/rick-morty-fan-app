@@ -12,24 +12,21 @@ import { Typography } from "@mui/material";
 //!css
 //!firebase-
 
-import { getAuth } from "firebase/auth";
-
 //!funciones
 //!variables u otros
 //!types
 
 import { AuthUserInterface } from "../types/GetCharacterAll.services";
 
-interface AUTHVIEW {
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+
+/*interface AUTHVIEW {
   getOutApp: any;
-}
+  user?: any;
+}*/
 
-const AuthView: FC<AUTHVIEW> = ({
-  getOutApp,
-  ...props
-}): any => {
-
-  const initialValueAuthUser: AuthUserInterface = {
+const AuthView = (props: any) => {
+  /*const initialValueAuthUser: AuthUserInterface = {
     accessToken: "",
     auth: " ",
     displayName: "",
@@ -47,52 +44,25 @@ const AuthView: FC<AUTHVIEW> = ({
     stsTokenManager: {},
     tenantId: "",
     uid: "",
-  };
+  };*/
 
-  const navigate = useNavigate();
-  const { currentUser } = getAuth();
+  /* const navigate = useNavigate();
 
   const [persistence, setPersistence] = useState<AuthUserInterface | any>(
     initialValueAuthUser
-  );
+  );*/
 
-  useEffect(() => {
-    setPersistence(currentUser);
-  }, [currentUser]);
-
-  /*useEffect(() => {
-    if (!currentUser) {
-      navigate("/");
-    }
-  });*/
-
-  return (
-    <section
-      className={`my-10
-        mx-auto
-        ${
-          persistence.displayName
-            ? "grid grid-cols-2 w-64 m-10 place-items-center"
-            : ""
-        }
-        `}
-    >
-      {persistence.displayName ? (
-        <>
-          <h1>Bienvenido, {persistence?.displayName || ""}</h1>
-          <img
-            src={`${persistence?.photoURL || currentUser?.photoURL}`}
-            alt=""
-            className="w-12 rounded-full my-0 mx-auto"
-          />
-        </>
-      ) : (
-        <Typography>
-          Bienvenido, <b>{persistence.email}</b>
-        </Typography>
-      )}
-    </section>
-  );
+  return <div>{props.children}</div>;
 };
 
-export default memo(AuthView);
+export default AuthView;
+
+
+
+
+
+
+
+
+
+

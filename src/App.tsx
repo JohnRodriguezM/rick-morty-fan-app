@@ -1,7 +1,7 @@
 //!librerias
 
-import React, { useState, useEffect, Suspense, FC } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, FC } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 //!components
 
@@ -37,7 +37,25 @@ import { getOutApp } from "./firebase/main";
 
 import { Character } from "./types/GetCharacterAll.services";
 
-const App: FC = () => {
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+
+export const App: FC = () => {
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("jjijiji", user);
+        setUser(user);
+      } else {
+        setUser(null);
+        navigate("/");
+      }
+    });
+  }, [navigate]);
+
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
 
@@ -69,64 +87,86 @@ const App: FC = () => {
 
   return (
     <section className="App">
-      <Router>
-        <>
-          <Routes>
-            <Route path="/" element={<WithOutAuth />} />
-            <Route path="/signup" element={<SignUpEmailPassword />} />
-            <Route
-              path="/home/*"
-              element={
-                <Home>
+      <>
+        <Routes>
+          {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
+          <Route path="/" element={<WithOutAuth />} />
+          <Route path="/signup" element={<SignUpEmailPassword />} />
+          <Route
+            path="/home/*"
+            element={
+              <Home>
+                <>
                   <HeaderWithAuth />
-                </Home>
+                  {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
+                </>
+              </Home>
+            }
+          >
+            <Route
+              path=""
+              element={
+                <>
+                  {user && (
+                    <section
+                      className={`my-10
+                   mx-auto
+                  ${
+                    user.displayName
+                      ? "grid grid-cols-2 w-64 m-10 place-items-center"
+                      : ""
+                  }
+                    `}
+                    >
+                      <>
+                        <h1>Bienvenido {user?.displayName || user.email}</h1>
+                        <img
+                          src={`${user?.photoURL}`}
+                          alt=""
+                          className="w-12 rounded-full my-0 mx-auto"
+                        />
+                      </>
+                    </section>
+                  )}
+                  <ViewEpisodes />
+                </>
               }
-            >
-              <Route
-                path=""
-                element={
-                  <>
-                    <AuthView {...{ getOutApp }} />
-                    <ViewEpisodes />
-                  </>
-                }
-              />
-              <Route path="contributions" element={<Contributions />} />
+            />
+            <Route path="contributions" element={<Contributions />} />
 
-              <Route
-                path="liked-characters"
-                element={<LikedCharacters {...{ liked, setLiked }} />}
-              />
+            <Route
+              path="liked-characters"
+              element={<LikedCharacters {...{ liked, setLiked }} />}
+            />
 
-              <Route
-                path="all-characters"
-                element={
-                  <GetCharacters
-                    {...{
-                      dataCharacter,
-                      setDataCharacter,
-                      setDataBackUpCharacter,
-                      deleteCharacter,
-                      findCharacter,
-                    }}
-                  />
-                }
-              />
+            <Route
+              path="all-characters"
+              element={
+                <GetCharacters
+                  {...{
+                    dataCharacter,
+                    setDataCharacter,
+                    setDataBackUpCharacter,
+                    deleteCharacter,
+                    findCharacter,
+                  }}
+                />
+              }
+            />
 
-              <Route path="episode/:Id" element={<Episode />} />
+            <Route path="episode/:Id" element={<Episode />} />
 
-              <Route
-                path="character/:Id"
-                element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
-              />
-
-              <Route path="*" element={<Page404 />} />
-            </Route>
+            <Route
+              path="character/:Id"
+              element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
+            />
 
             <Route path="*" element={<Page404 />} />
-          </Routes>
-        </>
-      </Router>
+          </Route>
+
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </>
     </section>
   );
 };

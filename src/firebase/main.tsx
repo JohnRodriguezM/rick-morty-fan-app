@@ -48,6 +48,7 @@ export const getOutApp = async () => {
   try {
     await signOut(auth);
     console.log("auth sign out", auth.currentUser);
+    return auth;
   } catch (err) {
     console.log(err);
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./css/defaultCss/index.css";
-import App from "./App";
+import MainApp from "./MainApp";
 
 import {} from "react-router-dom";
 
@@ -16,6 +16,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <MainApp />
   </React.StrictMode>
 );
