@@ -1,21 +1,30 @@
 //!librerias
 
-import React, { useState, useEffect, FC, Suspense } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, FC, lazy, Suspense } from "react";
 import axios from "axios";
 
 //!components
+
+import { Loader } from "../../atomos/Loader/Loader";
+
 //!hooks
 //!styles
 //!firebase-
 //!funciones
 //!variables u otros
 
-import { clasesStore, style } from "./AllEpisodes.services";
+import { clasesStore } from "./AllEpisodes.services";
 
 //!types
 
 import { EpisodeInterface } from "../../types/GetCharacterAll.services";
+
+//!lazy loading components
+const AllEpisodesRender = lazy(() =>
+  import("./AllEpisodesRender").then((module) => ({
+    default: module.AllEpisodesRender,
+  }))
+);
 
 export const ViewEpisodes: FC = ({ ...props }) => {
   const [dataEpisode, setDataEpisode] = useState<EpisodeInterface[]>([]);
@@ -23,13 +32,11 @@ export const ViewEpisodes: FC = ({ ...props }) => {
 
   useEffect(() => {
     if (pagination === 0 || pagination > 3) return setPagination(1);
-    const getEpisodes = async (url:string) => {
+    const getEpisodes = async (url: string) => {
       try {
-        axios
-          .get(url)
-          .then(({ data: { results } }: any) => {
-            setDataEpisode(results);
-          });
+        axios.get(url).then(({ data: { results } }: any) => {
+          setDataEpisode(results);
+        });
       } catch (error) {
         console.log(error);
       }
@@ -92,22 +99,9 @@ export const ViewEpisodes: FC = ({ ...props }) => {
             </div>
           </div>
         </div>
-        {dataEpisode &&
-          dataEpisode.map((el: EpisodeInterface) => {
-            const { id, name, air_date, episode } = el;
-            return (
-              <div key={id} style={style} className="p-2">
-                <Link
-                  className="bg-indigo-900 rounded-md hover:scale-105 sm:shadow-md p-1 text-white"
-                  to={`episode/${id}`}
-                >
-                  {name}
-                </Link>
-                <p>Air date: {air_date}</p>
-                <p>Season: {episode}</p>
-              </div>
-            );
-          })}
+        <Suspense fallback={<Loader />}>
+          <AllEpisodesRender dataEpisode={dataEpisode} />
+        </Suspense>
       </section>
       <br />
     </>

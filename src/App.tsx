@@ -72,27 +72,35 @@ const App: FC = () => {
       <Router>
         <>
           <Routes>
-            {/*<Route path="/home/" element={<HeaderWithAuth />}>
-              <Route
-                path={`character/:Id`}
-                element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
-              />
-            </Route>*/}
-
+            <Route path="/" element={<WithOutAuth />} />
+            <Route path="/signup" element={<SignUpEmailPassword />} />
             <Route
-              path={`/home/character/:Id`}
+              path="/home/*"
               element={
-                <>
+                <Home>
                   <HeaderWithAuth />
-                  <ViewSpecificCharacter {...{ liked, setLiked }} />
-                </>
+                </Home>
               }
-            />
-            <Route
-              path="/home/all-characters"
-              element={
-                <>
-                  <HeaderWithAuth />
+            >
+              <Route
+                path=""
+                element={
+                  <>
+                    <AuthView {...{ getOutApp }} />
+                    <ViewEpisodes />
+                  </>
+                }
+              />
+              <Route path="contributions" element={<Contributions />} />
+
+              <Route
+                path="liked-characters"
+                element={<LikedCharacters {...{ liked, setLiked }} />}
+              />
+
+              <Route
+                path="all-characters"
+                element={
                   <GetCharacters
                     {...{
                       dataCharacter,
@@ -102,69 +110,20 @@ const App: FC = () => {
                       findCharacter,
                     }}
                   />
-                </>
-              }
-            />
-            {/**/}
-            <Route
-              path={`/home/episode/:Id`}
-              element={
-                <>
-                  <HeaderWithAuth />
-                  <Episode />
-                </>
-              }
-            />
-            {/**/}
+                }
+              />
 
-            <Route
-              path="/contributions"
-              element={
-                <>
-                  <HeaderWithAuth />
-                  <Contributions />
-                </>
-              }
-            />
+              <Route path="episode/:Id" element={<Episode />} />
 
-            <Route
-              path="/liked-characters"
-              element={
-                <>
-                  <HeaderWithAuth />
-                  <LikedCharacters {...{ liked, setLiked }} />
-                </>
-              }
-            />
+              <Route
+                path="character/:Id"
+                element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
+              />
 
-            <Route
-              path="/home"
-              element={
-                <Home
-                  children={
-                    <>
-                      <HeaderWithAuth />
-                      <AuthView {...{ getOutApp }} />
-                      <ViewEpisodes />
-                    </>
-                  }
-                />
-              }
-            />
+              <Route path="*" element={<Page404 />} />
+            </Route>
 
-            {/*se empieza desde lo no autenticacado*/}
-
-            <Route path={`/signup`} element={<SignUpEmailPassword />} />
-
-            <Route path="/" element={<WithOutAuth />} />
-            <Route
-              path={`*`}
-              element={
-                <>
-                  <Page404 />
-                </>
-              }
-            />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </>
       </Router>

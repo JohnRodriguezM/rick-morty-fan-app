@@ -15,13 +15,13 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import env from "react-dotenv";
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ ",
-  authDomain: "rickandmorty-2b8e3.firebaseapp.com",
-  projectId: " rick-morty-app-c905f ",
+  apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
+  authDomain: "rick-morty-app-c905f.firebaseapp.com",
+  projectId: "rick-morty-app-c905f",
   storageBucket: "rick-morty-app-c905f.appspot.com",
-  messagingSenderId: " 630850839621 ",
-  appId: "1:630850839621:web:7c393ecc73fec763216f2c",
-  measurementId: "G-Y7EWQDWL6N",
+  messagingSenderId: "630850839621",
+  appId: "1:630850839621:web:4169b491fe3e4e65216f2c",
+  measurementId: "G-B4QKTW2VQV",
 };
 
 export const app = initializeApp(firebaseConfig);
