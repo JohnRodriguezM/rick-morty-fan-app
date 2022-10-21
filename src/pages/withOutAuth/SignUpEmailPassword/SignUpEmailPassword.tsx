@@ -23,6 +23,11 @@ import { createUserFirebaseEmail, auth } from "../../../firebase/main";
 
 import { SignValidation } from "../../../types/GetCharacterAll.services";
 
+interface SignUpValidation{
+  setViewSign?: any;
+
+}
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,7 +38,7 @@ const validationSchema = Yup.object().shape({
     .min(5, ` ⚠️ pretty sure this will be hacked`),
 });
 
-export const SignUpEmailPassword: FC = ({ ...props }) => {
+export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props }: any) => {
   const navigate = useNavigate();
   const initialState: SignValidation = {
     email: "",
@@ -130,8 +135,9 @@ export const SignUpEmailPassword: FC = ({ ...props }) => {
         </section>
       </section>
       <br />
-      <Link to="/">
+     
         <Button
+          onClick={() => setViewSign(false)}
           style={{
             background:
               "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
@@ -141,7 +147,7 @@ export const SignUpEmailPassword: FC = ({ ...props }) => {
         >
           Volver
         </Button>
-      </Link>
+     
       <br />
     </>
   );

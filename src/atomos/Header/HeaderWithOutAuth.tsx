@@ -29,10 +29,12 @@ export let imageHeaderWithOutAuth =
 
 //! types importados o internos
 interface WithOutAuthProps {
+  setViewSign: any;
   data?: () => void;
 }
 
 export const HeaderWithOutAuth: FC<WithOutAuthProps> = ({
+  setViewSign,
   ...props
 }) => {
   //? el estado inicial por defecto está en false
@@ -62,13 +64,16 @@ export const HeaderWithOutAuth: FC<WithOutAuthProps> = ({
           <nav className="hidden md:flex space-x-10">
             <div className="relative">
               {/*button de crear cuenta en desktop dentro del menor de hover (crear cuenta)*/}
-              <Link
-                to="/signup"
+              <button
+                onClick={() => {
+                  setViewSign(true);
+                }}
+                /*to="/signup"*/
                 className="text-base font-medium text-white hover:text-gray-300"
                 type="button"
               >
                 Create a new account
-              </Link>
+              </button>
             </div>
           </nav>
         </div>
@@ -111,14 +116,18 @@ export const HeaderWithOutAuth: FC<WithOutAuthProps> = ({
                   {/*
                     Button de crer cuenta en mobile, dentro del menú hamburger (crear cuenta)
                   */}
-                  <Link
-                    to="/signup"
-                    onClick={setViewHamburger}
+                  <button
+                    onClick={() => {
+                      setViewHamburger()
+                      setViewSign(true);
+                    }}
+                    /*to="/signup"*/
+                    /*onClick={setViewHamburger}*/
                     type="button"
                     className="ml-3 text-base font-medium text-gray-600 hover:text-gray-500  focus:outline-none focus:ring-2 focus:ring-offset-2"
                   >
                     Cretate a new account
-                  </Link>
+                  </button>
                 </section>
               </nav>
             </div>

@@ -91,7 +91,7 @@ export const App: FC = () => {
         <Routes>
           {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
           <Route path="/" element={<WithOutAuth />} />
-          <Route path="/signup" element={<SignUpEmailPassword />} />
+          {/*<Route path="/signup" element={<SignUpEmailPassword />} />*/}
           <Route
             path="/home/*"
             element={
