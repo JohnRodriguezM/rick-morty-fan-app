@@ -25,8 +25,8 @@ export const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
 export const analytics = getAnalytics(app);
+export const messaging = getMessaging(app);
 
 //? proveedor de google
 const provider = new GoogleAuthProvider();
