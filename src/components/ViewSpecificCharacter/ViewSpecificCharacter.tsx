@@ -1,6 +1,6 @@
 //!librerias
 
-import React, { useState, useEffect, FC, lazy, Suspense } from "react";
+import React, { useState, useEffect, FC, lazy, Suspense,useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -80,7 +80,7 @@ export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getData(`https://rickandmortyapi.com/api/character/${Id}`);
     return () => {
       setInfoCharacter([]);
