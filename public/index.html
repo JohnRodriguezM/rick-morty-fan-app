@@ -29,7 +29,22 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Rick-mory-app</title>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("%PUBLIC_URL%/firebase-messaging-sw.js")
+            .then((reg) => {
+              console.log("Success", reg.scope);
+            })
+            .catch((err) => {
+              console.log("Error", err);
+            });
+        });
+      }
+    </script>
     <script id="react-dotenv" src="./env.js"></script>
+    <!--<script type="module" src="./firebase-messaging-sw.mjs"></script>-->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

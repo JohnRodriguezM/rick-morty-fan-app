@@ -37,17 +37,52 @@ import { getOutApp } from "./firebase/main";
 
 import { Character } from "./types/GetCharacterAll.services";
 
+//!para messaging
+
+import { getToken, onMessage } from "firebase/messaging";
+import { messaging } from "./firebase/main";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+//!para messaging
+
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 export const App: FC = () => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
+  const notify = () => toast("Wow so easy !");
+
+  const activeNotifications = async () => {
+    try {
+      const token = await getToken(messaging, {
+        vapidKey:
+          `BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw`,
+      });/*console.log(token)*/
+      /*if (token) console.log(token);
+      if (!token) console.log("no hay token");*/
+      console.log("token", token);
+    } catch (err) {
+      console.log('soy soy',err);
+    }
+  };
+
+  useEffect(() => {
+    activeNotifications()
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+    
+      toast(payload?.notification?.title);
+    });
+  }, []);
+
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("jjijiji", user);
+        /*console.log("jjijiji", user);*/
         setUser(user);
       } else {
         setUser(null);
@@ -98,6 +133,14 @@ export const App: FC = () => {
               <Home>
                 <>
                   <HeaderWithAuth />
+                  <div>
+                    {/*<button
+                      onClick = {activeNotifications}
+                    >generate token</button>*/}
+
+
+                    <ToastContainer />
+                  </div>
                   {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
                 </>
               </Home>
@@ -161,10 +204,10 @@ export const App: FC = () => {
               element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
             />
 
-            <Route path="*" element={<Page404 />} />
+           {/* <Route path="*" element={<Page404 />} />*/}
           </Route>
 
-          <Route path="*" element={<Page404 />} />
+          {/*<Route path="*" element={<Page404 />} />*/}
         </Routes>
       </>
     </section>

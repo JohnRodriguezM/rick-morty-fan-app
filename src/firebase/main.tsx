@@ -12,7 +12,6 @@ import {
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-import env from "react-dotenv";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
