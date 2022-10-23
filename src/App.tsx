@@ -58,22 +58,21 @@ export const App: FC = () => {
   const activeNotifications = async () => {
     try {
       const token = await getToken(messaging, {
-        vapidKey:
-          `BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw`,
-      });/*console.log(token)*/
+        vapidKey: `BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw`,
+      }); /*console.log(token)*/
       /*if (token) console.log(token);
       if (!token) console.log("no hay token");*/
       console.log("token", token);
     } catch (err) {
-      console.log('soy soy',err);
+      console.log("soy soy", err);
     }
   };
 
   useEffect(() => {
-    activeNotifications()
+    activeNotifications();
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
-    
+
       toast(payload?.notification?.title);
     });
   }, []);
@@ -137,7 +136,6 @@ export const App: FC = () => {
                     {/*<button
                       onClick = {activeNotifications}
                     >generate token</button>*/}
-
 
                     <ToastContainer />
                   </div>
@@ -204,7 +202,7 @@ export const App: FC = () => {
               element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
             />
 
-           {/* <Route path="*" element={<Page404 />} />*/}
+            {/* <Route path="*" element={<Page404 />} />*/}
           </Route>
 
           {/*<Route path="*" element={<Page404 />} />*/}
