@@ -9,9 +9,8 @@ import {
   GithubAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
+import { getMessaging } from "firebase/messaging";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDB3huoRUDnYjOVbbnK2Ej6Y6TU_SP0_cQ",
@@ -73,7 +72,7 @@ export const loginGitHub = async (actualizador: Function) => {
 export const createUserFirebaseEmail = async (
   auth: any,
   email: string,
-  password: string,
+  password: string
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
