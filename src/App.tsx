@@ -48,20 +48,18 @@ import "react-toastify/dist/ReactToastify.css";
 //!para messaging
 
 import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
 
 export const App: FC = () => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
-  const notify = () => toast("Wow so easy !");
-
   const activeNotifications = async () => {
     try {
       const token = await getToken(messaging, {
         vapidKey: `BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw`,
-      }); /*console.log(token)*/
-      /*if (token) console.log(token);
-      if (!token) console.log("no hay token");*/
+      });
+      if (!token) console.log("no hay token");
       console.log("token", token);
     } catch (err) {
       console.log("soy soy", err);
@@ -72,21 +70,19 @@ export const App: FC = () => {
     activeNotifications();
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
-
-      toast(payload?.notification?.title);
+      toast(`
+      ${payload?.notification?.title},
+      ${payload?.notification?.body}
+      `);
     });
   }, []);
 
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        /*console.log("jjijiji", user);*/
-        setUser(user);
-      } else {
-        setUser(null);
-        navigate("/");
-      }
+      if (user) return setUser(user);
+      setUser(null);
+      navigate("/");
     });
   }, [navigate]);
 
@@ -123,9 +119,7 @@ export const App: FC = () => {
     <section className="App">
       <>
         <Routes>
-          {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
           <Route path="/" element={<WithOutAuth />} />
-          {/*<Route path="/signup" element={<SignUpEmailPassword />} />*/}
           <Route
             path="/home/*"
             element={
@@ -133,13 +127,8 @@ export const App: FC = () => {
                 <>
                   <HeaderWithAuth />
                   <div>
-                    {/*<button
-                      onClick = {activeNotifications}
-                    >generate token</button>*/}
-
                     <ToastContainer />
                   </div>
-                  {/*{user ? <h1>{user.displayName || user.email}</h1> : <h1>No user</h1>}*/}
                 </>
               </Home>
             }
@@ -174,7 +163,7 @@ export const App: FC = () => {
               }
             />
             <Route path="contributions" element={<Contributions />} />
-
+            <Route path="know-you" element={<FormKnowYou/>} />
             <Route
               path="liked-characters"
               element={<LikedCharacters {...{ liked, setLiked }} />}
@@ -202,10 +191,10 @@ export const App: FC = () => {
               element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
             />
 
-            {/* <Route path="*" element={<Page404 />} />*/}
+            <Route path="*" element={<Page404 />} />
           </Route>
 
-          {/*<Route path="*" element={<Page404 />} />*/}
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </>
     </section>

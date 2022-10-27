@@ -14,7 +14,6 @@ const firebaseConfig = {
   projectId: "rick-morty-app-c905f",
   messagingSenderId: "630850839621",
   appId: "1:630850839621:web:4169b491fe3e4e65216f2c",
-
 };
 
 
