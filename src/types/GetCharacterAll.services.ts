@@ -5,8 +5,7 @@ export interface GetMainCharacter {
   dataCharacter: Character[];
   setDataCharacter: Function;
   setDataBackUpCharacter: Function;
-  deleteCharacter: Function;
-  findCharacter: Function;
+  deleteCharacter?: Function;
 }
 
 export interface GetCharacterOut {

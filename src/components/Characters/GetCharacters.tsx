@@ -4,7 +4,6 @@ import React, { useEffect, FC, lazy, Suspense } from "react";
 import axios from "axios";
 //!components
 
-
 import { Loader } from "../../atomos/Loader/Loader";
 import TextField from "@mui/material/TextField";
 
@@ -19,7 +18,10 @@ import { getAllCharacter } from "../../helpers/urls";
 
 //!types
 
-import { GetMainCharacter } from "../../types/GetCharacterAll.services";
+import {
+  GetMainCharacter,
+  Character,
+} from "../../types/GetCharacterAll.services";
 
 //! lazy loading component
 const DataCharacterRender = lazy(() =>
@@ -31,10 +33,20 @@ const DataCharacterRender = lazy(() =>
 export const GetCharacters: FC<GetMainCharacter> = ({
   dataCharacter,
   setDataCharacter,
+  dataBackUpCharacter,
   setDataBackUpCharacter,
   deleteCharacter,
-  findCharacter,
 }: any) => {
+  //!función para buscar el personaje de los main Characters
+  const findCharacter = (searchInput: string) => {
+    const arrayResults = dataBackUpCharacter.filter((el: Character) => {
+      let text = el.name.toLowerCase();
+      let searchedValue = searchInput.toLowerCase();
+      if (text.includes(searchedValue)) return el;
+    });
+    setDataCharacter(arrayResults);
+  };
+
   const getData = async (url: string) => {
     try {
       axios.get(url).then(({ data: { results } }) => {
@@ -64,7 +76,7 @@ export const GetCharacters: FC<GetMainCharacter> = ({
       />
       <div className="flex flex-wrap gap-5 max-w-5xl mx-auto my-5">
         <Suspense fallback={<Loader />}>
-          <DataCharacterRender {...{ dataCharacter, deleteCharacter }} />
+          <DataCharacterRender {...{ dataCharacter, setDataCharacter }} />
         </Suspense>
       </div>
     </section>

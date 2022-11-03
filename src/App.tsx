@@ -46,11 +46,25 @@ import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
 
 import { SeeUser } from "./components/SeeUser/SeeUser";
 
+import { AuthContext } from "./context/AuthContext";
+
 export const App: FC = () => {
+  const navigate = useNavigate();
+  const { userState, handleSession } = useContext(AuthContext);
+
+  useEffect(() => {
+    handleSession();
+    if (!userState) {
+      navigate("/");
+    }
+  }, [handleSession,userState,navigate]);
+
+  let vapidKey =
+    "BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw";
   const activeNotifications = async () => {
     try {
       const token = await getToken(messaging, {
-        vapidKey: `BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw`,
+        vapidKey,
       });
       if (!token) console.log("no hay token");
       console.log("token", token);
@@ -83,22 +97,6 @@ export const App: FC = () => {
   const [dataBackUpCharacter, setDataBackUpCharacter] =
     useState<Character[]>(mainDb);
 
-  //! función para borrar personajes de los main Characters
-  const deleteCharacter = (id: string | number) => {
-    const dataFilter = dataCharacter.filter((el: any) => el.id !== id);
-    setDataCharacter(dataFilter);
-  };
-
-  //!función para buscar el personaje de los main Characters
-  const findCharacter = (searchInput: string) => {
-    const arrayResults = dataBackUpCharacter.filter((el: Character) => {
-      let text = el.name.toLowerCase();
-      let searchedValue = searchInput.toLowerCase();
-      if (text.includes(searchedValue)) return el;
-    });
-    setDataCharacter(arrayResults);
-  };
-
   return (
     <section className="App">
       <>
@@ -121,7 +119,7 @@ export const App: FC = () => {
               path=""
               element={
                 <>
-                  <SeeUser/>
+                  <SeeUser />
                   <ViewEpisodes />
                 </>
               }
@@ -140,9 +138,8 @@ export const App: FC = () => {
                   {...{
                     dataCharacter,
                     setDataCharacter,
+                    dataBackUpCharacter,
                     setDataBackUpCharacter,
-                    deleteCharacter,
-                    findCharacter,
                   }}
                 />
               }

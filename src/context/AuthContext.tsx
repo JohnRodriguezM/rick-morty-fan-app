@@ -14,8 +14,10 @@ export const AuthProvider = ({ children }: any) => {
 
   const handleSession = () => {
     onAuthStateChanged(getAuth(), (user: any): any => {
+      console.log("user", user);
       return setUserState(user);
     });
+    return userState;
   };
 
   const dataAuth = {

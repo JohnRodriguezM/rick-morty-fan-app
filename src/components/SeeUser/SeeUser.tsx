@@ -1,19 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext, FC } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-import { useNavigate } from "react-router-dom";
-
-export const SeeUser = () => {
-  const navigate = useNavigate();
-  const { userState, setUserState, handleSession } = useContext(AuthContext);
-
-  useEffect(() => {
-    //*deberia ejecutarse en un then
-    handleSession();
-    if (userState) return;
-    setUserState(null);
-    navigate("/");
-  }, [userState, navigate, handleSession]);
+export const SeeUser: FC = () => {
+  const { userState } = useContext(AuthContext);
 
   return (
     <div>

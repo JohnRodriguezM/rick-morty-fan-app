@@ -8,14 +8,20 @@ import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 
 interface DataCharacterRenderProps {
   dataCharacter: any;
-  deleteCharacter: any;
+  setDataCharacter: Function;
 }
 
 export const DataCharacterRender: FC<DataCharacterRenderProps> = ({
   dataCharacter,
-  deleteCharacter,
+  setDataCharacter,
   ...props
 }) => {
+   //! función para borrar personajes de los main Characters
+  const deleteCharacter = (id: string | number) => {
+    const dataFilter = dataCharacter.filter((el: any) => el.id !== id);
+    setDataCharacter(dataFilter);
+  };
+
   if (dataCharacter.length === 0) {
     return (
       <section className="flex justify-center items-center mx-auto my-6">
