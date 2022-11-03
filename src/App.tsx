@@ -1,6 +1,6 @@
 //!librerias
 
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 //!components
@@ -27,10 +27,7 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 
 import "./css/defaultCss/App.css";
 
-//!firebase-
-
-import { getOutApp } from "./firebase/main";
-
+//!firebase-hooks
 //!funciones
 //!variables u otros
 //!types
@@ -45,15 +42,11 @@ import { messaging } from "./firebase/main";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-//!para messaging
-
-import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
 
-export const App: FC = () => {
-  const [user, setUser] = useState<any>(null);
-  const navigate = useNavigate();
+import { SeeUser } from "./components/SeeUser/SeeUser";
 
+export const App: FC = () => {
   const activeNotifications = async () => {
     try {
       const token = await getToken(messaging, {
@@ -76,15 +69,6 @@ export const App: FC = () => {
       `);
     });
   }, []);
-
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) return setUser(user);
-      setUser(null);
-      navigate("/");
-    });
-  }, [navigate]);
 
   const mainDb: Character[] = [];
   const likedCharactersInitialValue: Character[] = [];
@@ -137,33 +121,13 @@ export const App: FC = () => {
               path=""
               element={
                 <>
-                  {user && (
-                    <section
-                      className={`my-10
-                   mx-auto
-                  ${
-                    user.displayName
-                      ? "grid grid-cols-2 w-64 m-10 place-items-center"
-                      : ""
-                  }
-                    `}
-                    >
-                      <>
-                        <h1>Bienvenido {user?.displayName || user.email}</h1>
-                        <img
-                          src={`${user?.photoURL}`}
-                          alt=""
-                          className="w-12 rounded-full my-0 mx-auto"
-                        />
-                      </>
-                    </section>
-                  )}
+                  <SeeUser/>
                   <ViewEpisodes />
                 </>
               }
             />
             <Route path="contributions" element={<Contributions />} />
-            <Route path="know-you" element={<FormKnowYou/>} />
+            <Route path="know-you" element={<FormKnowYou />} />
             <Route
               path="liked-characters"
               element={<LikedCharacters {...{ liked, setLiked }} />}
