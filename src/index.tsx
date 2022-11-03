@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./css/defaultCss/index.css";
 import MainApp from "./MainApp";
 
-import {} from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 import setupLocatorUI from "@locator/runtime";
 
@@ -16,6 +16,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <MainApp />
+    <AuthProvider>
+      <MainApp />
+    </AuthProvider>
   </React.StrictMode>
 );
