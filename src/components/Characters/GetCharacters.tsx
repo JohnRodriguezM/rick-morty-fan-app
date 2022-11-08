@@ -58,12 +58,16 @@ export const GetCharacters: FC<GetMainCharacter> = ({
     }
   };
 
+
+
   useEffect(() => {
     getData(getAllCharacter);
     return () => {
       setDataCharacter([]);
     };
-  }, []);
+  },[]);
+
+
 
   return (
     <section className="my-6 mx-auto">
