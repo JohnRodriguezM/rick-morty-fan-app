@@ -49,7 +49,6 @@ import { SeeUser } from "./components/SeeUser/SeeUser";
 import { AuthContext } from "./context/AuthContext";
 
 
-import { Immer } from "./components/Immer/Immer";
 
 export const App: FC = () => {
   const navigate = useNavigate();
@@ -111,7 +110,6 @@ export const App: FC = () => {
               <Home>
                 <>
                   <HeaderWithAuth />
-                  <Immer/>
                   <div>
                     <ToastContainer />
                   </div>
