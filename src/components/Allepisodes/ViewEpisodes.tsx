@@ -1,6 +1,13 @@
 //!librerias
 
-import React, { useState, useEffect, FC, lazy, Suspense } from "react";
+import React, {
+  useState,
+  useEffect,
+  FC,
+  lazy,
+  Suspense,
+  useReducer,
+} from "react";
 import axios from "axios";
 
 //!components
@@ -26,12 +33,37 @@ const AllEpisodesRender = lazy(() =>
   }))
 );
 
+//!USE REDUCER SPACE FOR WORK
+export const initialPage = { page: 1 };
+const reducer = (state: any, { type, payload }: any) => {
+  switch (type) {
+    case "NextPage":
+      return { page: state.page + payload };
+    case "PreviousPage":
+      return { page: state.page - payload };
+    case "specificPage":
+      return { page: payload };
+    case "restarPagination":
+      return { page: (state.page = 1) };
+  }
+  return state;
+};
+
+//!
+
 export const ViewEpisodes: FC = ({ ...props }) => {
   const [dataEpisode, setDataEpisode] = useState<EpisodeInterface[]>([]);
-  const [pagination, setPagination] = useState<number>(1);
+
+  //!USE REDUCER SPACE TO WORK
+  //!
+  const [{ page }, dispatch] = useReducer(reducer, initialPage);
+
+  const nextPage = () => dispatch({ type: "NextPage", payload: 1 });
+  const previousPage = () => dispatch({ type: "PreviousPage", payload: 1 });
+  const specificPage = (value: number) => dispatch({ type: "specificPage", payload: value });
 
   useEffect(() => {
-    if (pagination === 0 || pagination > 3) return setPagination(1);
+    if (page === 0 || page > 3) return dispatch({ type: "restarPagination" });
     const getEpisodes = async (url: string) => {
       try {
         axios.get(url).then(({ data: { results } }: any) => {
@@ -41,59 +73,61 @@ export const ViewEpisodes: FC = ({ ...props }) => {
         console.log(error);
       }
     };
-    getEpisodes(`https://rickandmortyapi.com/api/episode?page=${pagination}`);
-  }, [pagination]);
+    getEpisodes(`https://rickandmortyapi.com/api/episode?page=${page}`);
+  }, [page]);
 
+  //!
+  //!
   return (
     <>
       <section className="w-11/12 max-w-6xl my-12 mx-auto text-gray-900 bg-white rounded-3xl shadow-xl">
         <div className={clasesStore.number1}>
           <div className={clasesStore.number2}>
             <a
-              href={`#${pagination}`}
+              href={`#${page}`}
               className={clasesStore.number3}
-              onClick={() => setPagination(pagination - 1)}
+              onClick={previousPage}
             >
               Previous
             </a>
             <p className="mt-1 ml-1">
-              Actual page: <b>{pagination}</b>
+              Actual page: <b>{page}</b>
             </p>
             <a
-              href={`#${pagination}`}
+              href={`#${page}`}
               className={clasesStore.number4}
-              onClick={() => setPagination(pagination + 1)}
+              onClick={nextPage}
             >
-              Next
+              Nextt
             </a>
           </div>
           <div className={clasesStore.number5}>
             <div>
               <nav className={clasesStore.number6} aria-label="Pagination">
                 <a
-                  href={`#${pagination}`}
+                  href={`#${page}`}
                   aria-current="page"
                   className={clasesStore.number8}
-                  onClick={() => setPagination(1)}
+                  onClick={() => specificPage(1)}
                 >
                   1
                 </a>
                 <a
-                  href={`#${pagination}`}
+                  href={`#${page}`}
                   className={clasesStore.number8}
-                  onClick={() => setPagination(2)}
+                  onClick={() => specificPage(2)}
                 >
                   2
                 </a>
                 <a
-                  href={`#${pagination}`}
+                  href={`#${page}`}
                   className={clasesStore.number8}
-                  onClick={() => setPagination(3)}
+                  onClick={() => specificPage(3)}
                 >
                   3
                 </a>
                 <p className="mt-1 pl-4">
-                  Actual page: <b>{pagination}</b>
+                  Actual page: <b>{page}</b>
                 </p>
               </nav>
             </div>
