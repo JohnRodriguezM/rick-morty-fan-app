@@ -70,7 +70,9 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({
 
   const buttonStyle2 = {
     ...buttonStyle,
-    width:"200px"
+    padding: "0.5rem",
+    width:"150px",
+    height: "40px"
   };
 
   return (
@@ -148,9 +150,9 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({
       </section>
       <br />
 
-      <Button onClick={() => setViewSign(false)} style={buttonStyle2} shadow color = "secondary">
+      <button onClick={() => setViewSign(false)} style={buttonStyle2} >
         Volver
-      </Button>
+      </button>
 
       <br />
     </>

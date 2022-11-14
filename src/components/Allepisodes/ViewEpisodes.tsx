@@ -26,6 +26,15 @@ import { clasesStore } from "./AllEpisodes.services";
 
 import { EpisodeInterface } from "../../types/GetCharacterAll.services";
 
+//!reducers
+
+import {
+  reducerPage,
+  initialPage,
+} from "./reducerFolder/reducers/page.reducers";
+
+import { PageActions } from "./reducerFolder/actions/page.actions";
+
 //!lazy loading components
 const AllEpisodesRender = lazy(() =>
   import("./AllEpisodesRender").then((module) => ({
@@ -33,37 +42,19 @@ const AllEpisodesRender = lazy(() =>
   }))
 );
 
-//!USE REDUCER SPACE FOR WORK
-export const initialPage = { page: 1 };
-const reducer = (state: any, { type, payload }: any) => {
-  switch (type) {
-    case "NextPage":
-      return { page: state.page + payload };
-    case "PreviousPage":
-      return { page: state.page - payload };
-    case "specificPage":
-      return { page: payload };
-    case "restarPagination":
-      return { page: (state.page = 1) };
-  }
-  return state;
-};
-
-//!
-
 export const ViewEpisodes: FC = ({ ...props }) => {
   const [dataEpisode, setDataEpisode] = useState<EpisodeInterface[]>([]);
 
   //!USE REDUCER SPACE TO WORK
   //!
-  const [{ page }, dispatch] = useReducer(reducer, initialPage);
+  const [{ page }, dispatch] = useReducer(reducerPage, initialPage);
 
-  const nextPage = () => dispatch({ type: "NextPage", payload: 1 });
-  const previousPage = () => dispatch({ type: "PreviousPage", payload: 1 });
-  const specificPage = (value: number) => dispatch({ type: "specificPage", payload: value });
+  const { reset, nextPage, previousPage, specificPage } = new PageActions(
+    dispatch
+  );
 
   useEffect(() => {
-    if (page === 0 || page > 3) return dispatch({ type: "restarPagination" });
+    if (page === 0 || page > 3) return reset();
     const getEpisodes = async (url: string) => {
       try {
         axios.get(url).then(({ data: { results } }: any) => {
@@ -98,7 +89,7 @@ export const ViewEpisodes: FC = ({ ...props }) => {
               className={clasesStore.number4}
               onClick={nextPage}
             >
-              Nextt
+              Next
             </a>
           </div>
           <div className={clasesStore.number5}>

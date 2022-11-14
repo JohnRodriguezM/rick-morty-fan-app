@@ -1,13 +1,13 @@
 //!librerias
 
 import React, { useState, FC } from "react";
-
+import { Button } from "@nextui-org/react";
 //!components
 
 import { EthContributions } from "./EthContributions/EthContributions";
 import { PaypalContributions } from "./PaypalContributions/PaypalContributions";
 
-import Button from "@mui/material/Button";
+/*import Button from "@mui/material/Button";*/
 
 //!hooks
 //!styles
@@ -16,6 +16,14 @@ import Button from "@mui/material/Button";
 //!funciones
 //!variables u otros
 //!types
+
+const buttonStyle = {
+  margin: "10px auto",
+  padding: "1.6rem",
+  borderRadius: "0.5rem",
+  background:
+    "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+};
 
 export const Contributions: FC = ({ ...props }) => {
   const [donationView, setDonationView] = useState(false);
@@ -32,19 +40,21 @@ export const Contributions: FC = ({ ...props }) => {
           If you like my work and want to support me, you can make a donation
           through the following platforms:
         </p>
-        <div className="my-5 mx-auto text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 my-5 mx-auto text-center">
           <Button
-            variant="contained"
+            shadow
+            size = "md"
             color="secondary"
-            style={{ margin: "1rem" }}
+            style={buttonStyle}
             onClick={() => setDonationView(true)}
           >
             Ethereum
           </Button>
           <Button
-            variant="contained"
+            shadow
+            size = "md"
             color="secondary"
-            style={{ margin: "1rem" }}
+            style={buttonStyle}
             onClick={() => setDonationView(false)}
           >
             Paypal
