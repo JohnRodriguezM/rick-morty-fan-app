@@ -4,11 +4,10 @@ import React, { useState, FC } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Button } from "@nextui-org/react";
 //!components
 
 import { InputText } from "../../../atomos/InputText/InputText";
-import Button from "@mui/material/Button";
 
 //!hooks
 //!styles
@@ -23,11 +22,9 @@ import { createUserFirebaseEmail, auth } from "../../../firebase/main";
 
 import { SignValidation } from "../../../types/GetCharacterAll.services";
 
-interface SignUpValidation{
+interface SignUpValidation {
   setViewSign?: any;
-
 }
-
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,7 +35,10 @@ const validationSchema = Yup.object().shape({
     .min(5, ` ⚠️ pretty sure this will be hacked`),
 });
 
-export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props }: any) => {
+export const SignUpEmailPassword: FC<SignUpValidation> = ({
+  setViewSign,
+  ...props
+}: any) => {
   const navigate = useNavigate();
   const initialState: SignValidation = {
     email: "",
@@ -58,6 +58,19 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props
         navigate("/");
       }
     });
+  };
+  const buttonStyle = {
+    margin: "0px auto",
+    width: "100%",
+    padding: "1.6rem",
+    borderRadius: "0.5rem",
+    background:
+      "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+  };
+
+  const buttonStyle2 = {
+    ...buttonStyle,
+    width:"200px"
   };
 
   return (
@@ -102,11 +115,10 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props
                 />
                 <br />
                 <section>
-                  <button
-                    style={{
-                      background:
-                        "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-                    }}
+                  <Button
+                    color="secondary"
+                    shadow
+                    style={buttonStyle}
                     type="submit"
                     className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white
                     "
@@ -127,7 +139,7 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props
                       </svg>
                     </span>
                     Sign up
-                  </button>
+                  </Button>
                 </section>
               </Form>
             )}
@@ -135,19 +147,11 @@ export const SignUpEmailPassword: FC<SignUpValidation> = ({ setViewSign,...props
         </section>
       </section>
       <br />
-     
-        <Button
-          onClick={() => setViewSign(false)}
-          style={{
-            background:
-              "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-            color: "#fff",
-          }}
-          variant="text"
-        >
-          Volver
-        </Button>
-     
+
+      <Button onClick={() => setViewSign(false)} style={buttonStyle2} shadow color = "secondary">
+        Volver
+      </Button>
+
       <br />
     </>
   );

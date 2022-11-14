@@ -4,11 +4,11 @@ import React, { useState, useEffect, FC } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
-
+import { Button } from "@nextui-org/react";
 //!components
 
 import { InputText } from "../../../atomos/InputText/InputText";
-import Button from "@mui/material/Button";
+
 
 //!hooks
 //!styles
@@ -79,10 +79,10 @@ export const SignInEmailPassword: FC = (props: any): any => {
           />
           <section className="flex justify-center items-center gap-4">
             <Button
-              variant="contained"
               type="submit"
-              color="primary"
-              style={{ marginTop: "12px", backgroundColor: "#b535f6" }}
+              shadow
+              color="secondary"
+              style={{ marginTop: "12px", backgroundColor: "#b535f6", borderRadius: "0.5rem"}}
             >
               Sign In
             </Button>

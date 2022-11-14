@@ -2,6 +2,7 @@
 
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@nextui-org/react";
 
 //!components
 
@@ -39,6 +40,15 @@ export const WithOutAuth: FC = ({ ...props }) => {
     /* el value recibo no tiene una influencia en el localstorage de manera momentanea - console.log(value);*/
     navigate("/home");
   };
+  /*w-10/12 p-3 rounded-lg bg-white border-opacity-60*/
+
+  const buttonStyle = {
+    width: "83.333%",
+    padding: "1.6rem",
+    borderRadius: "0.5rem",
+    background:
+      "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
+  };
 
   return (
     <section>
@@ -55,32 +65,28 @@ export const WithOutAuth: FC = ({ ...props }) => {
             style={{ height: "420px" }}
           >
             <br />
-            <button
+            <Button
+              shadow
+              color="secondary"
               onClick={() => {
                 login(setLocalStorageGoogle);
               }}
-              className="w-10/12 p-3 rounded-lg bg-white border-opacity-60"
-              style={{
-                background:
-                  "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-              }}
+              style={buttonStyle}
             >
               {" "}
               Login with google <GoogleIcon />
-            </button>{" "}
+            </Button>{" "}
             <br />
-            <button
+            <Button
+              shadow
+              color="secondary"
               onClick={() => {
                 loginGitHub(setLocalStorageGitHub);
               }}
-              className="w-10/12 p-3 rounded-lg bg-white border-opacity-60"
-              style={{
-                background:
-                  "linear-gradient(rgba(116, 9, 121, 1), rgba(185, 8, 246, 1), rgba(91, 28, 230, 1))",
-              }}
+              style={buttonStyle}
             >
               Login with Github <GitHubIcon />
-            </button>{" "}
+            </Button>{" "}
             <br />
             <SignInEmailPassword />
           </section>
