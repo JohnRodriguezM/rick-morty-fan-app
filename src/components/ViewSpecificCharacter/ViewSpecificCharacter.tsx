@@ -1,6 +1,13 @@
 //!librerias
 
-import React, { useState, useEffect, FC, lazy, Suspense,useLayoutEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  FC,
+  lazy,
+  Suspense,
+  useLayoutEffect,
+} from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -22,10 +29,11 @@ import {
   Character,
   EpisodeInterface,
 } from "../../types/GetCharacterAll.services";
-interface ViewSpecificCharacterInterface {
+import { LikedCharactersContext } from "../../context/LikedCharacters";
+/*interface ViewSpecificCharacterInterface {
   liked: Character[];
   setLiked: React.Dispatch<React.SetStateAction<Character[]>>;
-}
+}*/
 
 //*lazy loading components
 const CardCharacter = lazy(() =>
@@ -34,10 +42,10 @@ const CardCharacter = lazy(() =>
   }))
 );
 
-export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
-  liked,
-  setLiked,
-}: any) => {
+export const ViewSpecificCharacter: FC = (props: any) => {
+  const { likedCharacters, setLikedCharacters } = useContext(
+    LikedCharactersContext
+  );
   const { Id } = useParams();
 
   const [infoCharacter, setInfoCharacter] = useState<Character[]>([]);
@@ -45,8 +53,8 @@ export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
 
   //* mark character as liked
   const handleLikeCharacter = (id: string | number) => {
-    const dataFilter = liked.filter((el: any) => el.id !== id);
-    setLiked([...dataFilter, infoCharacter]);
+    const dataFilter = likedCharacters.filter((el: any) => el.id !== id);
+    setLikedCharacters([...dataFilter, infoCharacter]);
 
     window.localStorage.setItem(
       "likedCharacters",
@@ -100,8 +108,8 @@ export const ViewSpecificCharacter: FC<ViewSpecificCharacterInterface> = ({
             cap={cap}
             handleLikeCharacter={handleLikeCharacter}
             tammanio={325}
-            liked={liked}
-            setLiked={setLiked}
+            liked={likedCharacters}
+            setLiked={setLikedCharacters}
           />
         </section>
         <VideoSectionRickAndMorty />

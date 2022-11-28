@@ -1,5 +1,5 @@
 //!librerias
-import React, { useEffect, FC, lazy, Suspense } from "react";
+import React, { useEffect, FC, lazy, Suspense, useState } from "react";
 //* axios
 import axios from "axios";
 //!components
@@ -18,10 +18,7 @@ import { getAllCharacter } from "../../helpers/urls";
 
 //!types
 
-import {
-  GetMainCharacter,
-  Character,
-} from "../../types/GetCharacterAll.services";
+import { Character } from "../../types/GetCharacterAll.services";
 
 //! lazy loading component
 const DataCharacterRender = lazy(() =>
@@ -30,13 +27,13 @@ const DataCharacterRender = lazy(() =>
   }))
 );
 
-export const GetCharacters: FC<GetMainCharacter> = ({
-  dataCharacter,
-  setDataCharacter,
-  dataBackUpCharacter,
-  setDataBackUpCharacter,
-  deleteCharacter,
-}: any) => {
+export const GetCharacters: FC = (...props: any) => {
+  const mainDb: Character[] = [];
+  //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
+  const [dataCharacter, setDataCharacter] = useState<Character[]>(mainDb);
+  const [dataBackUpCharacter, setDataBackUpCharacter] =
+    useState<Character[]>(mainDb);
+
   //!función para buscar el personaje de los main Characters
   const findCharacter = (searchInput: string) => {
     const arrayResults = dataBackUpCharacter.filter((el: Character) => {
@@ -58,16 +55,12 @@ export const GetCharacters: FC<GetMainCharacter> = ({
     }
   };
 
-
-
   useEffect(() => {
     getData(getAllCharacter);
     return () => {
       setDataCharacter([]);
     };
-  },[]);
-
-
+  }, []);
 
   return (
     <section className="my-6 mx-auto">

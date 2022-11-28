@@ -1,6 +1,5 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({
   userState: null,
@@ -9,7 +8,6 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }: any) => {
-  /*const navigate = useNavigate()*/
   const [userState, setUserState] = useState<any>(null);
 
   const handleSession = () => {

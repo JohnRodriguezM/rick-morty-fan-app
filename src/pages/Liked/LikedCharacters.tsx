@@ -1,6 +1,6 @@
 //!librerias
 
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, FC } from "react";
 import { Link } from "react-router-dom";
 
 //!components
@@ -13,6 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Button } from "@mui/material";
 import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
+import { LikedCharactersContext } from "../../context/LikedCharacters";
 
 //!hooks
 //!styles
@@ -22,15 +23,19 @@ import { DeleteBtn } from "../../atomos/DeleteBtn/DeleteBtn";
 //!variables u otros
 //!types
 
-export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
+export const LikedCharacters: FC = (...props: any) => {
+  const { likedCharacters, setLikedCharacters } = useContext(
+    LikedCharactersContext
+  );
+
   const deleteLiked = (id: string | number) => {
-    const dataFilter = liked.filter((el: any) => el.id !== id);
+    const dataFilter = likedCharacters.filter((el: any) => el.id !== id);
 
     let confirm: any = window.confirm(
       "Are you sure you want to delete this character?"
     );
     if (confirm) {
-      setLiked(dataFilter);
+      setLikedCharacters(dataFilter);
       window.localStorage.setItem(
         "likedCharacters",
         JSON.stringify(dataFilter)
@@ -43,8 +48,8 @@ export const LikedCharacters = ({ liked, setLiked, ...props }: any) => {
       className="my-12 mx-auto flex max-w-4xl flex-wrap justify-center
         gap-4"
     >
-      {liked.length > 0 ? (
-        liked.map((el: any) => {
+      {likedCharacters.length > 0 ? (
+        likedCharacters.map((el: any) => {
           const { id, name, image, status, species } = el;
           return (
             <>

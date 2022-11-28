@@ -4,8 +4,6 @@ import React, { useState, useEffect, FC, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 //!components
-
-import AuthView from "./pages/AuthView";
 import { Home } from "./pages/home/Home";
 import { Page404 } from "./pages/404/404";
 import { Episode } from "./pages/Episode/Episode";
@@ -16,7 +14,6 @@ import { Contributions } from "./pages/Contributions/Contributions";
 import { ViewEpisodes } from "./components/Allepisodes/ViewEpisodes";
 import { GetCharacters } from "./components/Characters/GetCharacters";
 import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSpecificCharacter";
-import { SignUpEmailPassword } from "./pages/withOutAuth/SignUpEmailPassword/SignUpEmailPassword";
 
 //!hooks
 
@@ -24,7 +21,6 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 
 //!styles
 //!css
-
 import "./css/defaultCss/App.css";
 
 //!firebase-hooks
@@ -38,20 +34,15 @@ import { Character } from "./types/GetCharacterAll.services";
 
 import { getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase/main";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
-
 import { SeeUser } from "./components/SeeUser/SeeUser";
-
+import { LikedCharactersProvider } from "./context/LikedCharacters";
 import { AuthContext } from "./context/AuthContext";
 
-
-
 export const App: FC = () => {
-  const navigate = useNavigate();
+   const navigate = useNavigate();
   const { userState, handleSession } = useContext(AuthContext);
 
   useEffect(() => {
@@ -86,80 +77,51 @@ export const App: FC = () => {
     });
   }, []);
 
-  const mainDb: Character[] = [];
-  const likedCharactersInitialValue: Character[] = [];
-
-  const [liked, setLiked] = useLocalStorage(
-    "likedCharacters",
-    likedCharactersInitialValue
-  );
-
-  //? se usan dos arrays como almacen de datos para el filtro de personajes a través del input de búsqueda
-  const [dataCharacter, setDataCharacter] = useState<Character[]>(mainDb);
-  const [dataBackUpCharacter, setDataBackUpCharacter] =
-    useState<Character[]>(mainDb);
-
   return (
     <section className="App">
-      <>
-        <Routes>
-          <Route path="/" element={<WithOutAuth />} />
-          <Route
-            path="/home/*"
-            element={
-              <Home>
-                <>
-                  <HeaderWithAuth />
-                  <div>
-                    <ToastContainer />
-                  </div>
-                </>
-              </Home>
-            }
-          >
+      <LikedCharactersProvider>
+        <>
+          <Routes>
+            <Route path="/" element={<WithOutAuth />} />
             <Route
-              path=""
+              path="/home/*"
               element={
-                <>
-                  <SeeUser />
-                  <ViewEpisodes />
-                </>
+                <Home>
+                  <>
+                    <HeaderWithAuth />
+                    <div>
+                      <ToastContainer />
+                    </div>
+                  </>
+                </Home>
               }
-            />
-            <Route path="contributions" element={<Contributions />} />
-            <Route path="know-you" element={<FormKnowYou />} />
-            <Route
-              path="liked-characters"
-              element={<LikedCharacters {...{ liked, setLiked }} />}
-            />
+            >
+              <Route
+                path=""
+                element={
+                  <>
+                    <SeeUser />
+                    <ViewEpisodes />
+                  </>
+                }
+              />
+              <Route path="contributions" element={<Contributions />} />
+              <Route path="know-you" element={<FormKnowYou />} />
+              <Route path="liked-characters" element={<LikedCharacters />} />
 
-            <Route
-              path="all-characters"
-              element={
-                <GetCharacters
-                  {...{
-                    dataCharacter,
-                    setDataCharacter,
-                    dataBackUpCharacter,
-                    setDataBackUpCharacter,
-                  }}
-                />
-              }
-            />
+              <Route path="all-characters" element={<GetCharacters />} />
 
-            <Route path="episode/:Id" element={<Episode />} />
+              <Route path="episode/:Id" element={<Episode />} />
 
-            <Route
-              path="character/:Id"
-              element={<ViewSpecificCharacter {...{ liked, setLiked }} />}
-            />
+              <Route path="character/:Id" element={<ViewSpecificCharacter />} />
+
+              <Route path="*" element={<Page404 />} />
+            </Route>
 
             <Route path="*" element={<Page404 />} />
-          </Route>
-
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </>
+          </Routes>
+        </>
+      </LikedCharactersProvider>
     </section>
   );
 };

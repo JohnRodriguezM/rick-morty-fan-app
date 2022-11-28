@@ -1,12 +1,12 @@
 //* definir la interface de los tipos de array que se va a definir dentro de data y dataBackUp
 
 //!tipado de components
-export interface GetMainCharacter {
+/*export interface GetMainCharacter {
   dataCharacter: Character[];
   setDataCharacter: Function;
   setDataBackUpCharacter: Function;
   deleteCharacter?: Function;
-}
+}*/
 
 export interface GetCharacterOut {
   dataCharacter: any[];
