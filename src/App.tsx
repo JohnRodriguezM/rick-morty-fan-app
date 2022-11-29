@@ -1,7 +1,7 @@
 //!librerias
 
-import React, { useState, useEffect, FC, useContext } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React, { useEffect, FC } from "react";
+import { Routes, Route } from "react-router-dom";
 
 //!components
 import { Home } from "./pages/home/Home";
@@ -17,8 +17,6 @@ import { ViewSpecificCharacter } from "./components/ViewSpecificCharacter/ViewSp
 
 //!hooks
 
-import { useLocalStorage } from "./hooks/useLocalStorage";
-
 //!styles
 //!css
 import "./css/defaultCss/App.css";
@@ -27,8 +25,6 @@ import "./css/defaultCss/App.css";
 //!funciones
 //!variables u otros
 //!types
-
-import { Character } from "./types/GetCharacterAll.services";
 
 //!para messaging
 
@@ -39,19 +35,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
 import { SeeUser } from "./components/SeeUser/SeeUser";
 import { LikedCharactersProvider } from "./context/LikedCharacters";
-import { AuthContext } from "./context/AuthContext";
 
 export const App: FC = () => {
-   const navigate = useNavigate();
-  const { userState, handleSession } = useContext(AuthContext);
-
-  useEffect(() => {
-    handleSession();
-    if (!userState) {
-      navigate("/");
-    }
-  }, [handleSession,userState,navigate]);
-
   let vapidKey =
     "BGAfGrKj33Y-MyeHFTGLQR05siGmroF0r_ojBEZwW63zZxYBl2t5wqDayZIJtCpLZZssAXoqWef0iKUfASLFUNw";
   const activeNotifications = async () => {

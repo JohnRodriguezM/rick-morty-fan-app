@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <WithOutAuth />,
   },
- /* {
+ {
     path: "/home/*",
     element: (
       <Home>
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         </>
       </Home>
     ),
-  },*/
+  },
   {
     path: "/product/:id",
     element: <span>Product</span>,
