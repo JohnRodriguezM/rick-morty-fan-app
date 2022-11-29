@@ -1,7 +1,7 @@
 //!librerias
 
-import React, { useEffect, FC } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, FC, useContext } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 //!components
 import { Home } from "./pages/home/Home";
@@ -35,6 +35,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FormKnowYou } from "./pages/FormKnowYou/FormKnowYou";
 import { SeeUser } from "./components/SeeUser/SeeUser";
 import { LikedCharactersProvider } from "./context/LikedCharacters";
+import { AppRouter } from "./routes/Router";
 
 export const App: FC = () => {
   let vapidKey =
@@ -65,47 +66,7 @@ export const App: FC = () => {
   return (
     <section className="App">
       <LikedCharactersProvider>
-        <>
-          <Routes>
-            <Route path="/" element={<WithOutAuth />} />
-            <Route
-              path="/home/*"
-              element={
-                <Home>
-                  <>
-                    <HeaderWithAuth />
-                    <div>
-                      <ToastContainer />
-                    </div>
-                  </>
-                </Home>
-              }
-            >
-              <Route
-                path=""
-                element={
-                  <>
-                    <SeeUser />
-                    <ViewEpisodes />
-                  </>
-                }
-              />
-              <Route path="contributions" element={<Contributions />} />
-              <Route path="know-you" element={<FormKnowYou />} />
-              <Route path="liked-characters" element={<LikedCharacters />} />
-
-              <Route path="all-characters" element={<GetCharacters />} />
-
-              <Route path="episode/:Id" element={<Episode />} />
-
-              <Route path="character/:Id" element={<ViewSpecificCharacter />} />
-
-              <Route path="*" element={<Page404 />} />
-            </Route>
-
-            <Route path="*" element={<Page404 />} />
-          </Routes>
-        </>
+        <AppRouter />
       </LikedCharactersProvider>
     </section>
   );

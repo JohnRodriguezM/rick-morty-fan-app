@@ -1,18 +1,20 @@
-import { FC, useState, lazy, useEffect, useContext } from "react";
+import { FC, lazy, useEffect, useContext } from "react";
 
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
-  useNavigate,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { AuthContext } from "../context/AuthContext";
 
-
 //!pasar a lazy loading
 import { Home } from "../pages/home/Home";
 import { HeaderWithAuth } from "../atomos/Header/HeaderWithAuth";
+import { SeeUser } from "../components/SeeUser/SeeUser";
+import { ViewEpisodes } from "../components/Allepisodes/ViewEpisodes";
+import { Contributions } from "../pages/Contributions/Contributions";
 
 //*import de component para el router con lazy loading
 const WithOutAuth = lazy(() =>
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <WithOutAuth />,
   },
- {
+  {
     path: "/home/*",
     element: (
       <Home>
@@ -34,28 +36,41 @@ const router = createBrowserRouter([
           <HeaderWithAuth />
           <div>
             <ToastContainer />
+            <SeeUser />
+            <ViewEpisodes />
           </div>
         </>
       </Home>
     ),
+    children: [
+      {
+        path: "contributions",
+        element:  <Contributions/>,
+      },
+    ],
   },
-  {
-    path: "/product/:id",
-    element: <span>Product</span>,
-  },
+  /*{
+    path: "home/contributions",
+    element: <Contributions />,
+    children: [
+      {
+        path: "/",
+        element: <Navigate to="/home/contributions/characters" />,
+      },
+    ],
+  },*/
 ]);
 
 export const AppRouter = () => {
-  const navigate = useNavigate();
+  /*const navigate = useNavigate();*/
   const { userState, handleSession } = useContext(AuthContext);
 
   useEffect(() => {
     handleSession();
     if (!userState) {
-      navigate("/");
+      <Navigate replace to="/" />;
     }
-  }, [handleSession, userState, navigate]);
-
+  }, [handleSession, userState]);
   return (
     <>
       <RouterProvider router={router} />
