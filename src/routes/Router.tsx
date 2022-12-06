@@ -4,6 +4,8 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
+  useParams,
+  useSearchParams,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -15,8 +17,12 @@ import { HeaderWithAuth } from "../atomos/Header/HeaderWithAuth";
 import { SeeUser } from "../components/SeeUser/SeeUser";
 import { ViewEpisodes } from "../components/Allepisodes/ViewEpisodes";
 import { Contributions } from "../pages/Contributions/Contributions";
+import { FooterGeneral } from "../components/footer/FooterGeneral";
+import { GetCharacters } from "../components/Characters/GetCharacters";
 
 //*import de component para el router con lazy loading
+
+
 const WithOutAuth = lazy(() =>
   import("../pages/withOutAuth/WithOutAuth").then((module) => ({
     default: module.WithOutAuth,
@@ -24,6 +30,7 @@ const WithOutAuth = lazy(() =>
 );
 
 const router = createBrowserRouter([
+  
   {
     path: "/",
     element: <WithOutAuth />,
@@ -34,34 +41,40 @@ const router = createBrowserRouter([
       <Home>
         <>
           <HeaderWithAuth />
+            <SeeUser />
           <div>
             <ToastContainer />
-            <SeeUser />
             <ViewEpisodes />
           </div>
         </>
       </Home>
     ),
-    children: [
-      {
-        path: "contributions",
-        element:  <Contributions/>,
-      },
-    ],
   },
-  /*{
-    path: "home/contributions",
-    element: <Contributions />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/home/contributions/characters" />,
-      },
-    ],
-  },*/
+
+  {
+    path: "/contributions",
+    element: (
+      <>
+        <HeaderWithAuth />
+        <Contributions />
+        <FooterGeneral/>
+      </>
+    ),
+  },
+  {
+    path: "all-characters",
+    element: (
+      <>
+        <HeaderWithAuth />
+        <GetCharacters/>
+        <FooterGeneral/>
+      </>
+    ),
+  }
 ]);
 
 export const AppRouter = () => {
+  const {id} = useParams();
   /*const navigate = useNavigate();*/
   const { userState, handleSession } = useContext(AuthContext);
 

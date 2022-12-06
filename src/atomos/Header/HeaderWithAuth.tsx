@@ -119,7 +119,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
             <div className="relative">
               {/* <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" --> */}
               <Link
-                to="/home/all-characters"
+                to="/all-characters"
                 type="button"
                 id="btn-close-solutions"
                 className="ml-3text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium text-gray-500 mr-2 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -185,7 +185,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
               <button
                 type="button"
                 onClick={() => {
-                  navigate("/home/contributions");
+                  navigate("/contributions");
                 }}
                 id="btn-close-more"
                 className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6 cursor-pointer"
@@ -248,7 +248,6 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
                 <div className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div
-                      
                       className={`${
                         seeCharacterMobile
                           ? "active relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 overflow-scroll max-h-96"
@@ -286,7 +285,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
 
                 <Link
                   className="ml-3 text-base font-medium text-gray-900"
-                  to={`/home/all-characters`}
+                  to={`/all-characters`}
                   onClick={() => {
                     setHamburgerView();
                     setSeeMoreOption(false);
@@ -304,7 +303,7 @@ export const HeaderWithAuth: FC<HeaderWithAuthh> = ({ data, ...props }) => {
                 <Link
                   onClick={setHamburgerView}
                   className="ml-3 text-base font-medium text-gray-900"
-                  to="/home/contributions"
+                  to="/contributions"
                 >
                   {" "}
                   Contribution{" "}
